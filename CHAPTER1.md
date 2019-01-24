@@ -58,7 +58,7 @@ ASxxxx assembles one or more source files into a single relocatable ascii object
 
 ASxxxx可以将一个或多个源文件汇编成一个单独的、基于ASCII的可重定位目标文件。ASxxxx汇编器的输出由一个基于ASCII的可重定位目标文件（\*.rel）、一个汇编列表文件（\*.lst）和一个符号文件（\*.sym）组成，均由汇编器选项控制。如果同时指定了目标文件和列表文件，则会同时创建一个重定位列表提示文件（/*.hlr），用于协助连接器正确地创建可重定位列表文件。
 
-### <a id="1.1.1"></a>1.1.1  Assembly Pass 1 | 第一遍汇编
+### <a id="1.1.1"></a>1.1.1 Assembly Pass 1 | 第一遍汇编
 
 During pass 1, ASxxxx opens all source files and performs a rudimentary assembly of each source statement. During this process all symbol tables are built, program sections defined, and number of bytes for each assembled source line is estimated.
 
@@ -68,38 +68,21 @@ At the end of pass 1 all undefined symbols may be made global (external) using t
 
 在第一遍的结束，如果使用了ASxxxx的`-g`开关，则所有未定义符号将被作为全局（外部）符号，否则会被接下来的几遍标记为错误。
 
-        1.1.2  Assembly Pass 2 
+### <a id="1.1.2"></a>1.1.2 Assembly Pass 2 | 第二遍汇编
 
+During pass 2 the ASxxxx assembler resolves forward references and determines the number of bytes for each assembled line. The number of bytes used by a particular assembler instruction may depend upon the addressing mode, whether the instruction allows multiple forms based upon the relative distance to the addressed location, or other factors. Pass 2 resolves these cases and determines the address of all symbols.
 
-           During  pass  2  the ASxxxx assembler resolves forward refer-
-        ences and determines the number  of  bytes  for  each  assembled
-        line.   The  number  of bytes used by a particular assembler in-
-        struction may depend upon the addressing mode, whether  the  in-
-        struction allows multiple forms based upon the relative distance
-        to the addressed location, or other factors.   Pass  2  resolves
-        these cases and determines the address of all symbols.  
-
-
+在第二遍中，ASxxxx汇编器解决向前引用并确定每行汇编的字节数。某个汇编指令所使用的字节数取决于地址模式，指令是否允许多种格式取决于它与寻址位置的相对距离或其他因素。第二遍解决这些情形并确定所有符号的地址。
 
+### <a id="1.1.3"></a>1.1.3  Assembly Pass 3 | 第三遍汇编
 
-        THE ASSEMBLER                                           PAGE 1-3
-        THE ASXXXX ASSEMBLERS
+Pass 3 by the assembler generates the listing file, the relocatable output file, the listing to relocated listing hint file, and the symbol tables. Also during pass 3 the errors will be reported. 
 
+在第三遍中，汇编器生成列表文件、可重定位输出文件、重定位列表提示文件以及符号表。同时在第三遍中，错误将被报告出来。
 
-        1.1.3  Assembly Pass 3 
+ The relocatable object file is an ascii file containing sym- bol references and definitions, program area definitions, and the relocatable assembled code, the linker ASLINK will use this information to generate an absolute load file (Intel, Motorola or Tandy CoCo Disk Basic formats).
 
-
-           Pass 3 by the assembler generates the listing file, the relo-
-        catable output file, the listing to relocated listing hint file,
-        and  the  symbol  tables.  Also during pass 3 the errors will be
-        reported.  
-
-           The  relocatable object file is an ascii file containing sym-
-        bol references and definitions, program  area  definitions,  and
-        the  relocatable assembled code, the linker ASLINK will use this
-        information to generate an absolute load file  (Intel,  Motorola
-        or Tandy CoCo Disk Basic formats).  
-
+可重定位目标文件是一个ASCII文件，包含了符号引用和定义、程序区域定义和可重定位的汇编代码，连接器ALINK将会使用这些信息生成绝对加载文件（Intel、Motorola或Tandy CoCo Disk Basic格式）。
 
         1.2  SOURCE PROGRAM FORMAT 
 
