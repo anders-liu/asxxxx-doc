@@ -5,8 +5,7 @@
 
 
 
-
-        2.1  DEFINING MACROS 
+## 2.1  DEFINING MACROS 
 
 
            By  using macros a programmer can use a single line to insert
@@ -41,8 +40,7 @@
         THE MACRO PROCESSOR                                     PAGE 2-2
         DEFINING MACROS
 
-
-        2.1.1  .macro Directive 
+### 2.1.1  .macro Directive 
 
 
         Format:
@@ -1187,7 +1185,7 @@
         EXAMPLE MACRO CROSS ASSEMBLERS
 
 
-        2.11  EXAMPLE MACRO CROSS ASSEMBLERS 
+## 2.11  EXAMPLE MACRO CROSS ASSEMBLERS 
 
 
            The  'ascheck'  subdirectory 'macroasm' contains 7 assemblers
