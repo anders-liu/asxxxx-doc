@@ -84,51 +84,37 @@ Pass 3 by the assembler generates the listing file, the relocatable output file,
 
 可重定位目标文件是一个ASCII文件，包含了符号引用和定义、程序区域定义和可重定位的汇编代码，连接器ALINK将会使用这些信息生成绝对加载文件（Intel、Motorola或Tandy CoCo Disk Basic格式）。
 
-        1.2  SOURCE PROGRAM FORMAT 
+## <a id="1.2"></a>1.2 SOURCE PROGRAM FORMAT | 源程序格式
 
+### <a id="1.2.1"></a>1.2.1 Statement Format | 语句格式
 
+A source program is composed of assembly-language statements. Each statement must be completed on one line. A line may contain a maximum of 128 characters, longer lines are truncated and lost. 
 
-        1.2.1  Statement Format 
+一个源程序由汇编语言语句构成。每条语句必须在一行内结束。一行最多128字符，超过部分将被截断并丢弃。
 
+An ASxxxx assembler statement may have as many as four fields. These fields are identified by their order within the statement and/or by separating characters between fields. The general format of the ASxxxx statement is: 
 
-           A source program is composed of assembly-language statements.
-        Each statement must be completed on one line.  A line  may  con-
-        tain a maximum of 128 characters, longer lines are truncated and
-        lost.  
+一条ASxxxx汇编语句做多具有四个字段。这些字段通过其在语句中的位置和/或字段间的分隔字符进行识别。ASxxxx语句的一般形式为：
 
-           An  ASxxxx  assembler  statement  may  have  as  many as four
-        fields.  These fields are identified by their order  within  the
-        statement  and/or  by separating characters between fields.  The
-        general format of the ASxxxx statement is:  
+```
+        [label:]  Operator        Operand         [;Comment(s)]
 
-              [label:]  Operator        Operand         [;Comment(s)] 
+        [标号:]    操作符          操作数           [;注释]
+```
 
-           The  label and comment fields are optional.  The operator and
-        operand fields are interdependent.  The operator field may be an
-        assembler  directive or an assembly mnemonic.  The operand field
-        may be optional or required as defined in  the  context  of  the
-        operator.  
+The label and comment fields are optional. The operator and operand fields are interdependent. The operator field may be an assembler directive or an assembly mnemonic. The operand field may be optional or required as defined in the context of the operator.
 
-           ASxxxx  interprets  and  processes source statements one at a
-        time.  Each statement causes a particular operation to  be  per-
-        formed.  
+标号和注释字段是可选的。操作符和操作数互相依赖。操作符字段可以是一个汇编器指示符或一个汇编助记符。操作数字段可能是可选的也可能是必须的，由操作符的上下文进行定义。
 
+ ASxxxx interprets and processes source statements one at a time. Each statement causes a particular operation to be performed. 
 
+ASxxxx一次解释和处理一条源语句。每条语句都导致特定的操作被执行。
 
+#### <a id="1.2.1.1"></a>1.2.1.1  Label Field | 标号字段
 
-        THE ASSEMBLER                                           PAGE 1-4
-        SOURCE PROGRAM FORMAT
+A label is a user-defined symbol which is assigned the value of the current location counter and entered into the user de- fined symbol table. The current location counter is used by ASxxxx to assign memory addresses to the source program state- ments as they are encountered during the assembly process. Thus a label is a means of symbolically referring to a specific statement. 
 
-
-        1.2.1.1  Label Field  - 
-
-           A  label is a user-defined symbol which is assigned the value
-        of the current location counter and entered into  the  user  de-
-        fined  symbol  table.   The  current location counter is used by
-        ASxxxx to assign memory addresses to the source  program  state-
-        ments as they are encountered during the assembly process.  Thus
-        a label is a means  of  symbolically  referring  to  a  specific
-        statement.  
+标号是一个用户定义的符号，具有当前位置计数器的值，并会被放置到用户定义符号表中。当ASxxxx在汇编过程中遇到原程序语句，它会使用当前位置计数器为该语句赋予内存地址。所以标号的意思就是对一条特定语句的符号化引用。
 
            When  a program section is absolute, the value of the current
         location counter is absolute;  its value references an  absolute
