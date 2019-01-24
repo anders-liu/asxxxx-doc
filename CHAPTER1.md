@@ -1,5 +1,5 @@
 # CHAPTER 1 THE ASSEMBLER | 第一章 汇编器
-## 1.1  THE ASXXXX ASSEMBLERS | ASXXXX汇编器
+## <a id="1.1"></a>1.1  THE ASXXXX ASSEMBLERS | ASXXXX汇编器
 
 The ASxxxx assemblers are a series of microprocessor assemblers written in the C programming language. Each assembler has a device specific section which includes:
 
@@ -53,29 +53,20 @@ The assemblers provide the following features:
 
     程序节指示符
 
+ASxxxx assembles one or more source files into a single relocatable ascii object file. The output of the ASxxxx assemblers consists of an ascii relocatable object file(\*.rel), an assembly listing file(\*.lst), and a symbol file(\*.sym) each controlled by an assembler option. If both the object and listing files are
+ specified then a listing to relocated listing hint file  (*.hlr) is created as a helper for the linker to properly create the relocated listing file.
 
-           ASxxxx assembles one or more source files into a single relo-
-        catable ascii object file.  The output of the ASxxxx  assemblers
-        consists of an ascii relocatable object file(*.rel), an assembly
-        listing file(*.lst), and a symbol file(*.sym) each controlled by
-        an  assembler  option.  If both the object and listing files are
-        specified then a listing to relocated listing hint file  (*.hlr)
-        is  created  as  a  helper for the linker to properly create the
-        relocated listing file.  
+ASxxxx可以将一个或多个源文件汇编成一个单独的、基于ASCII的可重定位目标文件。ASxxxx汇编器的输出由一个基于ASCII的可重定位目标文件（\*.rel）、一个汇编列表文件（\*.lst）和一个符号文件（\*.sym）组成，均由汇编器选项控制。如果同时指定了目标文件和列表文件，则会同时创建一个重定位列表提示文件（/*.hlr），用于协助连接器正确地创建可重定位列表文件。
 
+### <a id="1.1.1"></a>1.1.1  Assembly Pass 1 | 第一遍汇编
 
-        1.1.1  Assembly Pass 1 
+During pass 1, ASxxxx opens all source files and performs a rudimentary assembly of each source statement. During this process all symbol tables are built, program sections defined, and number of bytes for each assembled source line is estimated.
 
+在第一遍中，ASxxxx打开所有源文件，并对每条源语句进行初步汇编。在这个过程中，会建立所有符号表、定义程序节，并估算每行汇编代码的字节数量。
 
-           During  pass  1, ASxxxx opens all source files and performs a
-        rudimentary assembly of each source statement.  During this pro-
-        cess  all symbol tables are built, program sections defined, and
-        number of bytes for each assembled source line is estimated.  
+At the end of pass 1 all undefined symbols may be made global (external) using the ASxxxx switch `-g`, otherwise undefined symbols will be flagged as errors during succeeding passes.
 
-           At the end of pass 1 all undefined symbols may be made global
-        (external) using the ASxxxx switch -g, otherwise undefined  sym-
-        bols will be flagged as errors during succeeding passes.  
-
+在第一遍的结束，如果使用了ASxxxx的`-g`开关，则所有未定义符号将被作为全局（外部）符号，否则会被接下来的几遍标记为错误。
 
         1.1.2  Assembly Pass 2 
 
