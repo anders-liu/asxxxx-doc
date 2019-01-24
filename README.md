@@ -1,5 +1,7 @@
 # asxxxx-doc
 
+>翻译工作正在进行中，最新进展请参见[[working](https://github.com/anders-liu/asxxxx-doc/tree/working)]分支。
+
 ASxxxx是Alan R. Baldwin主持开发的一款跨平台交叉汇编器，该汇编器本身可运行于Linux、
 Windows以及MS-DOS操作系统，并可针对包括8051在内的超过40种微处理器进行汇编开发。
 
