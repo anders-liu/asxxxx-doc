@@ -19,13 +19,13 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
 
 **目录**
 
-- CHAPTER 1 THE ASSEMBLER
+- [CHAPTER 1 THE ASSEMBLER | 第一章 汇编器](CHAPTER1.md)
 
-  - 1.1 THE ASXXXX ASSEMBLERS
+  - 1.1 [THE ASXXXX ASSEMBLERS | ASXXXX汇编器](CHAPTER1.md#user-content-1.1)
 
-    - 1.1.1 Assembly Pass 1
-    - 1.1.2 Assembly Pass 2
-    - 1.1.3 Assembly Pass 3
+    - [1.1.1 Assembly Pass 1 | 第一遍汇编](CHAPTER1.md#user-content-1.1.1)
+    - [1.1.2 Assembly Pass 2 | 第二遍汇编](CHAPTER1.md#user-content-1.1.2)
+    - [1.1.3 Assembly Pass 3 | 第三遍汇编](CHAPTER1.md#user-content-1.1.3)
 
   - 1.2 SOURCE PROGRAM FORMAT
 
