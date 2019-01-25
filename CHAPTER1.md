@@ -457,200 +457,198 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
 
         ---------------------------------------------------------------- 
 
-#### <a id="1.3.2"></a>1.3.2  User-Defined Symbols 
+#### <a id="1.3.2"></a>1.3.2  User-Defined Symbols | 用户定义的符号
 
+User-defined symbols are those symbols that are equated to a specific value through a direct assignment statement or appear as labels. These symbols are added to the User Symbol Table as they are encountered during assembly. 
 
-           User-defined  symbols are those symbols that are equated to a
-        specific value through a direct assignment statement  or  appear
-        as  labels.  These symbols are added to the User Symbol Table as
-        they are encountered during assembly.  
+用户定义的符号包括通过直接赋值语句产生的符号以及作为标号出现的符号。在汇编过程中遇到这些符号，会将其添加到用户符号表中。
 
-        The following rules govern the creation of user-defined symbols: 
+The following rules govern the creation of user-defined symbols: 
 
-             1.  Symbols  can  be  composed  of alphanumeric characters,
-                 dollar signs ($),  periods  (.),  and  underscores  (_)
-                 only.  
+创建用户定义的符号时，有下列规则：
 
-             2.  The  first  character  of a symbol must not be a number
-                 (except in the case of reusable symbols).  
+1. Symbols can be composed of alphanumeric characters, dollar signs (`$`), periods (`.`), and underscores (`_`) only.
 
-             3.  The  first 79 characters of a symbol must be unique.  A
-                 symbol  can  be  written  with  more  than   79   legal
-                 characters,  but the 80th and subsequent characters are
-                 ignored.  
+    符号只能由字母数字、美元符（`$`）、句点（`.`）和下划线（`_`）组成。
 
+2. The first character of a symbol must not be a number (except in the case of reusable symbols).
+
+    符号的第一个字符不能是数字（可重用符号除外）。
+
+3. The first 79 characters of a symbol must be unique. A symbol can be written with more than 79 legal characters, but the 80th and subsequent characters are ignored. 
+
+    一个符号的前79个字符必须唯一。一个符号可以写进多于79个合法字符，但第80个及以后的字符将被忽略。
+
+4. Spaces and Tabs must not be embedded within a symbol. 
+
+    符号中不能嵌入空格和制表符。
+
+#### <a id="1.3.3"></a>1.3.3 Reusable Symbols | 可重用符号
+
+Reusable symbols are specially formatted symbols used as labels within a block of coding that has been delimited as a reusable symbol block. Reusable symbols are of the form `n$`, where `n` is a decimal integer from `0` to `65535`, inclusive. Examples of reusable symbols are: 
+
+可重用符号是特殊格式的符号，用在被限定为可重用符号块的代码块中。可重用符号的形式为`n$`，其中`n`是一个从`0`到`65535`（含）的十进制整数。可重用符号的例子有：
+
+```
+        1$ 
+        27$ 
+        138$ 
+        244$ 
+```
+
+The range of a reusable symbol block consists of those statements between two normally constructed symbolic labels. Note that a statement of the form: 
+
+可重用符号块的范围是两个常规的符号化标号之间的部分。注意对于这种形式的语句：
+
+```
+        ALPHA = EXPRESSION 
+```
+
+is a direct assignment statement but does not create a label and thus does not delimit the range of a reusable symbol block. 
+
+这是一个直接赋值语句，但是没有创建标号，所以不用于界定可重用符号块的范围。
+
+Note that the range of a reusable symbol block may extend across program areas. 
+
+注意可重用符号块的范围可能会跨程序区域。
+
+Reusable symbols provide a convenient means of generating labels for branch instructions and other such references within reusable symbol blocks. Using reusable symbols reduces the possibility of symbols with multiple definitions appearing within a user program. In addition, the use of reusable symbols differentiates entry-point labels from other labels, since reusable labels cannot be referenced from outside their respective symbol blocks. Thus, reusable symbols of the same name can appear in other symbol blocks without conflict. Reusable symbols require less symbol table space than normal symbols. Their use is recommended. 
+
+在分支指令和其他类似的可重用符号块中，可重用符号提供了一种方便的标号创建方式。使用可重用符号可以降低用户程序中出现多重复号定义的可能性。另外，使用可重用符号还能突出入口点标号，因为可重用符号不能在与其相关的可重用符号块之外引用。因此，在不同的可重用符号块中，可重用符号可以有相同的名字，不会冲突。可重用符号需要的符号表空间比普通符号要小。推荐使用。
+
+The use of the same reusable symbol within a symbol block will generate one or both of the `<m>` or `<p>` errors. 
 
+在同一个可重用符号块中定义相同的可重用符号，会产生`<m>`或`<p>`两种错误之一，或都产生。
 
-        THE ASSEMBLER                                          PAGE 1-12
-        SYMBOLS AND EXPRESSIONS
+Example of reusable symbols:  
 
+可重用符号的示例：
 
-             4.  Spaces and Tabs must not be embedded within a symbol.  
+```
+        a:      ldx     #atable ;get table address   表的地址
+                lda     #0d48   ;table length        表的长度
+        1$:     clr     ,x+     ;clear               清空
+                deca
+                bne     1$
+                
+        b:      ldx     #btable ;get table address   表的地址
+                lda     #0d48   ;table length        表的长度
+        1$:     clr     ,x+     ;clear               清空
+                deca
+                bne     1$
+```
 
+#### <a id="1.3.4"></a>1.3.4 Current Location Counter | 当前位置计数器
 
+The period (`.`) is the symbol for the current location counter. When used in the operand field of an instruction, the period represents the address of the first byte of the instruction: 
 
-        1.3.3  Reusable Symbols 
+句点（`.`）时表示当前位置计数器的符号。在一条指令的操作数字段中使用句点时，该句点表示这条指令第一个字节的地址。
 
+```
+        AS:     ldx     #.      ;The period (.) refers to    句点（.）表示
+                                ;the address of the ldx      ldx指令
+                                ;instruction.                的地址
+```
 
-           Reusable  symbols are specially formatted symbols used as la-
-        bels within a block of coding that has been delimited as a reus-
-        able symbol block.  Reusable symbols are of the form n$, where n
-        is a decimal integer from 0 to 65535,  inclusive.   Examples  of
-        reusable symbols are:  
+When used in the operand field of an ASxxxx directive, it represents the address of the current byte or word: 
 
-              1$ 
-              27$ 
-              138$ 
-              244$ 
+在ASxxxx指示符的操作数字段中使用句点时，该句点表示当前字节或字的地址。
 
-           The range of a reusable symbol block consists of those state-
-        ments between two normally constructed  symbolic  labels.   Note
-        that a statement of the form:  
-
-              ALPHA = EXPRESSION 
-
-        is a direct assignment statement but does not create a label and
-        thus does not delimit the range of a reusable symbol block.  
-
-           Note  that  the  range  of a reusable symbol block may extend
-        across program areas.  
-
-           Reusable symbols provide a convenient means of generating la-
-        bels for branch instructions and other  such  references  within
-        reusable symbol blocks.  Using reusable symbols reduces the pos-
-        sibility of symbols with multiple definitions appearing within a
-        user  program.   In  addition,  the use of reusable symbols dif-
-        ferentiates entry-point labels from other labels, since reusable
-        labels cannot be referenced from outside their respective symbol
-        blocks.  Thus, reusable symbols of the same name can  appear  in
-        other  symbol blocks without conflict.  Reusable symbols require
-        less symbol table space  than  normal  symbols.   Their  use  is
-        recommended.  
-
-           The  use  of  the  same reusable symbol within a symbol block
-        will generate one or both of the <m> or <p> errors.  
-
-
-        THE ASSEMBLER                                          PAGE 1-13
-        SYMBOLS AND EXPRESSIONS
-
-
-        Example of reusable symbols:  
-
-                a:      ldx     #atable ;get table address
-                        lda     #0d48   ;table length
-                1$:     clr     ,x+     ;clear
-                        deca
-                        bne     1$
-                        
-                b:      ldx     #btable ;get table address
-                        lda     #0d48   ;table length
-                1$:     clr     ,x+     ;clear
-                        deca
-                        bne     1$
-
-
-        1.3.4  Current Location Counter 
-
-
-           The  period  (.) is the symbol for the current location coun-
-        ter.  When used in the operand  field  of  an  instruction,  the
-        period   represents  the  address  of  the  first  byte  of  the
-        instruction:  
-
-                AS:     ldx     #.      ;The period (.) refers to
-                                        ;the address of the ldx
-                                        ;instruction.
-
-           When  used  in  the  operand field of an ASxxxx directive, it
-        represents the address of the current byte or word:  
-
-                QK = 0
+```
+        QK = 0
         
-                .word   0xFFFE,.+4,QK   ;The operand .+4 in the .word
-                                        ;directive represents a value
-                                        ;stored in the second of the
-                                        ;three words during assembly.
+        .word   0xFFFE,.+4,QK   ;The operand .+4 in the .word
+                                ;directive represents a value
+                                ;stored in the second of the
+                                ;three words during assembly.
 
-           If  we  assume  the  current  value of the program counter is
-        0H0200, then during assembly, ASxxxx  reserves  three  words  of
-        storage  starting  at  location 0H0200.  The first value, a hex-
-        idecimal constant FFFE, will be stored at location 0H0200.   The
-        second  value  represented  by  .+4  will  be stored at location
-        0H0202, its value will be 0H0206 ( = 0H0202  +  4).   The  third
-        value  defined  by  the  symbol  QK  will  be placed at location
-        0H0204.  
+                                ;.word指示符中的操作数.+4
+                                ;表示汇编时遇到的三个字中
+                                ;第二个字的位置
+```
 
-           At the beginning of each assembly pass, ASxxxx resets the lo-
-        cation counter.   Normally,  consecutive  memory  locations  are
-        assigned  to  each  byte of object code generated.  However, the
-
+If we assume the current value of the program counter is `0H0200`, then during assembly, ASxxxx reserves three words of storage starting at location `0H0200`. The first value, a hexidecimal constant `FFFE`, will be stored at location `0H0200`. The second value represented by `.+4` will be stored at location `0H0202`, its value will be `0H0206` (` = 0H0202 + 4`). The third value defined by the symbol `QK` will be placed at location `0H0204`. 
 
-        THE ASSEMBLER                                          PAGE 1-14
-        SYMBOLS AND EXPRESSIONS
+如果我们假设在汇编过程中，程序计数器的当前值是`0H0200`，ASxxxx会保留从位置`0H0200`开始的三个字大小的存储空间。其中第一个值是十六进制常量`FFFE`，会被存储到位置`0H0200`。第二个由`.+4`表示的值将会被存储到位置`0H0202`，其值将会是`0H0206`（`= 0H0202 + 4`）。第三个由符号`QK`定义的值将会被放置到位置`0H0204`。
 
+At the beginning of each assembly pass, ASxxxx resets the location counter. Normally, consecutive memory locations are assigned to each byte of object code generated. However, the value of the location counter can be changed through a direct assignment statement of the following form: 
 
-        value of the location counter can be changed  through  a  direct
-        assignment statement of the following form:  
+在每一遍汇编的开始，ASxxxx会重置位置计数器。一般来说，生成的目标代码中的每个字节会被分配连续的内存位置。不过，位置计数器的值可以通过下面这种形式的直接赋值语句改变：
 
-              . = . + expression 
+```
+        . = . + expression 
+```
 
+The new location counter can only be specified relative to the current location counter. Neglecting to specify the current program counter along with the expression on the right side of the assignment operator will generate the `<.>` error. (Absolute program areas may use the `.org` directive to specify the absolute location of the current program counter.) 
 
-           The  new  location  counter can only be specified relative to
-        the current location counter.  Neglecting to specify the current
-        program  counter  along with the expression on the right side of
-        the assignment operator will generate the <.> error.   (Absolute
-        program areas may use the .org directive to specify the absolute
-        location of the current program counter.) 
+位置计数器的新值只能通过其当前值进行计算。在赋值运算符的右侧漏掉位置计数器的当前值，会导致`<.>`错误。（绝对定位的程序区域可以使用`.org`指示符指定当前程序计数器的绝对位置。）
 
-        The following coding illustrates the use of the current location
-        counter:  
+The following coding illustrates the use of the current location counter: 
 
+下面的代码展示了当前位置计数器的使用：
+
+```
                 .area   CODE1   (ABS)   ;program area CODE1
                                         ;is ABSOLUTE
+
+                                        ;程序区域CODE1是绝对定位的
         
                 .org    0H100           ;set location to
                                         ;0H100 absolute
+
+                                        ;设置绝对位置为0H100
         
         num1:   ldx     #.+0H10         ;The label num1 has
                                         ;the value 0H100.
                                         ;X is loaded with
                                         ;0H100 + 0H10
+
+                                        ;标号num1的值为0H100。
+                                        ;X载入值0H100 + 0H10
         
                 .org    0H130           ;location counter
                                         ;set to 0H130
+
+                                        ;位置计数器被设置为0H130
         
         num2:   ldy     #.              ;The label num2 has
                                         ;the value 0H130.
                                         ;Y is loaded with
                                         ;value 0H130.
-        
+
+                                        ;标号num2的值为0H130
+                                        ;Y载入值0H130
         
                 .area   CODE2   (REL)   ;program area CODE2
                                         ;is RELOCATABLE
+
+                                        ;程序区域CODE2是可重定位的
         
                 . = . + 0H20            ;Set location counter
                                         ;to relocatable 0H20 of
                                         ;the program section.
+
+                                        ;将位置计数器设置为
+                                        ;程序节偏移0H20的位置
         
         num3:   .word   0               ;The label num3 has
                                         ;the value
                                         ;of relocatable 0H20.
+
+                                        ;标号num3的值是偏移0H20之后的值
         
                 . = . + 0H40            ;will reserve 0H40
                                         ;bytes of storage as will
+
+                                        ;将会保留0H40个存储字节
 
-
-        THE ASSEMBLER                                          PAGE 1-15
-        SYMBOLS AND EXPRESSIONS
-
-
-                .blkb   0H40            ;or
+                .blkb   0H40            ;or  或这样
                 .blkw   0H20
+```
 
-           The  .blkb  and .blkw directives are the preferred methods of
-        allocating space.  
+The `.blkb` and `.blkw` directives are the preferred methods of allocating space. 
 
+`.blkb`和`.blkw`指示符才是用于分配空间的推荐方式。
 
         1.3.5  Numbers 
 
