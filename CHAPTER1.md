@@ -110,7 +110,7 @@ The label and comment fields are optional. The operator and operand fields are i
 
 ASxxxx一次解释和处理一条源语句。每条语句都导致特定的操作被执行。
 
-#### <a id="1.2.1.1"></a>1.2.1.1  Label Field | 标号字段
+#### <a id="1.2.1.1"></a>1.2.1.1 Label Field | 标号字段
 
 A label is a user-defined symbol which is assigned the value of the current location counter and entered into the user defined symbol table. The current location counter is used by ASxxxx to assign memory addresses to the source program statements as they are encountered during the assembly process. Thus a label is a means of symbolically referring to a specific statement. 
 
@@ -191,7 +191,7 @@ The label must not start with the characters `0-9`, as this designates a reusabl
 
 标号不能以序列`$$`开头，这种格式表示临时的16进制常量。
 
-#### <a id="1.2.1.2"></a>1.2.1.2  Operator Field | 操作符字段
+#### <a id="1.2.1.2"></a>1.2.1.2 Operator Field | 操作符字段
 
 The operator field specifies the action to be performed. It may consist of an instruction mnemonic (op code) or an assembler directive. 
 
@@ -209,7 +209,7 @@ An operator is terminated by a space, tab or end of line.
 
 操作符由空格、制表符或行尾终结。
 
-#### <a id="1.2.1.3"></a>1.2.1.3  Operand Field | 操作数字段
+#### <a id="1.2.1.3"></a>1.2.1.3 Operand Field | 操作数字段
 
 When the operator is an instruction mnemonic (op code), the operand field contains program variables that are to be evaluated/manipulated by the operator. 
 
@@ -457,7 +457,7 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
 
         ---------------------------------------------------------------- 
 
-#### <a id="1.3.2"></a>1.3.2  User-Defined Symbols | 用户定义的符号
+#### <a id="1.3.2"></a>1.3.2 User-Defined Symbols | 用户定义的符号
 
 User-defined symbols are those symbols that are equated to a specific value through a direct assignment statement or appear as labels. These symbols are added to the User Symbol Table as they are encountered during assembly. 
 
@@ -650,142 +650,126 @@ The `.blkb` and `.blkw` directives are the preferred methods of allocating space
 
 `.blkb`和`.blkw`指示符才是用于分配空间的推荐方式。
 
-        1.3.5  Numbers 
+### <a id="1.3.5"></a>1.3.5 Numbers | 数字
 
+ASxxxx assumes that all numbers in the source program are to be interpreted in decimal radix unless otherwise specified. The `.radix` directive may be used to specify the default as octal, decimal, or hexidecimal. Individual numbers can be designated as binary, octal, decimal, or hexidecimal through the temporary radix prefixes shown in table 6. 
 
-           ASxxxx  assumes that all numbers in the source program are to
-        be interpreted in decimal radix unless otherwise specified.  The
-        .radix  directive  may  be used to specify the default as octal,
-        decimal, or hexidecimal.  Individual numbers can  be  designated
-        as  binary, octal, decimal, or hexidecimal through the temporary
-        radix prefixes shown in table 6.  
+ASxxxx假设源程序中的所有数字都是十进制，除非特别指明。`.radix`指示符可以用于指定默认值为八进制、十进制或十六进制。用表6中列出的临时进制前缀，可以将单独的数字指定为二进制、八进制、十进制或十六进制。
 
-           Negative  numbers  must be preceeded by a minus sign;  ASxxxx
-        translates such numbers into two's  complement  form.   Positive
-        numbers may (but need not) be preceeded by a plus sign.  
+Negative numbers must be preceeded by a minus sign; ASxxxx translates such numbers into two's complement form. Positive numbers may (but need not) be preceeded by a plus sign. 
 
-           Numbers are always considered to be absolute values, therefor
-        they are never relocatable.  
+负数前面必须出现一个减号；ASxxxx将这样的数字解释为2的补码形式。整数前面可以（但不是必须）出现一个加号。
 
+Numbers are always considered to be absolute values, therefor they are never relocatable. 
 
-        1.3.6  Terms 
+数字总是被当作绝对值，因此永远不能是可重定位的。
 
+### <a id="1.3.6"></a>1.3.6 Terms | 项
 
-           A  term is a component of an expression and may be one of the
-        following:  
+A term is a component of an expression and may be one of the following: 
 
+项是表达式中的一种组成部分，可以是下列之一：
 
-             1.  A number.  
+1. A number.  
 
-             2.  A symbol:  
-                 1.  A  period (.) specified in an expression causes the
-                     current location counter to be used.  
-                 2.  A User-defined symbol.  
-                 3.  An undefined symbol is assigned a value of zero and
-                     inserted in the User-Defined symbol table as an un-
-                     defined symbol.  
+    数字。
 
-             3.  A single quote followed by a single ascii character, or
-                 a double quote followed by two ascii characters.  
+2. A symbol:  
 
-             4.  An  expression enclosed in parenthesis.  Any expression
-                 so enclosed is evaluated and reduced to a  single  term
-                 before  the  remainder  of  the  expression in which it
-                 appears is evaluated.  Parenthesis, for example, may be
-
+    符号：
 
-        THE ASSEMBLER                                          PAGE 1-16
-        SYMBOLS AND EXPRESSIONS
+    1. A period (`.`) specified in an expression causes the current location counter to be used.  
 
+        在表达式中是定的句点（`.`）导致使用了当前位置计数器。
 
-                 used  to  alter the left-to-right evaluation of expres-
-                 sions, (as in A*B+C versus A*(B+C)), or to apply a  un-
-                 ary operator to an entire expression (as in -(A+B)).  
+    2. A User-defined symbol.  
 
-             5.  A unary operator followed by a symbol or number.  
+        用户定义的符号。
 
+    3. An undefined symbol is assigned a value of zero and inserted in the User-Defined symbol table as an undefined symbol.  
 
+        未定义的符号被赋以零值并作为未定义符号插入用户符号表中。
 
-        1.3.7  Expressions 
+3. A single quote followed by a single ascii character, or a double quote followed by two ascii characters.  
 
+    单引号后跟一个ASCII字符，或双引号后跟两个ASCII字符。
 
-           Expressions  are  combinations  of  terms  joined together by
-        binary operators.  Expressions reduce to a value.   The  evalua-
-        tion  of  an expression includes the determination of its attri-
-        butes.  A resultant expression value may be one of  three  types
-        (as  described  later  in this section):  relocatable, absolute,
-        and external.  
+4. An expression enclosed in parenthesis. Any expression so enclosed is evaluated and reduced to a single term before the remainder of the expression in which it appears is evaluated. Parenthesis, for example, may be used to alter the left-to-right evaluation of expressions, (as in `A*B+C` versus `A*(B+C)`), or to apply a unary operator to an entire expression (as in `-(A+B)`). 
 
-        Expressions are evaluate with an operand hierarchy as follows:  
+    包围在括号中的表达式。在对其出现的表达式的其余部分进行求值时，括号包围的表达式会被求值并简化为一个单独项。括号可以用于改变自左至右的求值顺序（如`A*B+C`相对于`A*(B+C)`），或对整个表达式应用一元运算符（如`-(A+B)`）。
 
-                *       /       %       multiplication,
-                                        division, and
-                                        modulus first.
+5. A unary operator followed by a symbol or number.  
+
+    一元运算符后跟符号或数字。
+
+### <a id="1.3.7"></a>1.3.7 Expressions | 表达式
+
+Expressions are combinations of terms joined together by binary operators. Expressions reduce to a value. The evaluation of an expression includes the determination of its attributes. A resultant expression value may be one of three types (as described later in this section): relocatable, absolute, and external. 
+
+表达式是通过二元运算符将项连接起来构成的组合。表达式会化简为一个值。对表达式的求值包括了确定其属性。作为结果的表达式值可以是三种类型（本小节稍后介绍）之一——可重定位的、绝对的和外部的。
+
+Expressions are evaluate with an operand hierarchy as follows:  
+
+表达式按照下面的操作数层级进行求值：
+
+```
+        *       /       %       multiplication,  
+                                division, and    
+                                modulus first.
+
+                                先做乘、除和取模运算.
         
-                +       -               addition and
-                                        subtraction second.
+        +       -               addition and
+                                subtraction second.
+
+                                然后是加法和减法。
         
-                <<      >>              left shift and
-                                        right shift third.
+        <<      >>              left shift and
+                                right shift third.
+
+                                左移和右移。
         
-                ^                       exclusive or fourth.
+        ^                       exclusive or fourth.
+
+                                异或排第四。
         
-                &                       logical and fifth.
+        &                       logical and fifth.
+
+                                逻辑“与”第五。
         
-                |                       logical or last
+        |                       logical or last
+
+                                最后是逻辑“或”。
         
-                except that unary operators take precedence over binary
-                operators.
+        except that unary operators take precedence over binary
+        operators.
 
+        一元运算符除外，它们比二元运算符优先。
+```
 
-           A  missing  or  illegal  operator  terminates  the expression
-        analysis, causing error codes <o> and/or  <q>  to  be  generated
-        depending upon the context of the expression itself.  
+A missing or illegal operator terminates the expression analysis, causing error codes `<o>` and/or `<q>` to be generated depending upon the context of the expression itself. 
 
-           At assembly time the value of an external (global) expression
-        is equal to the value of the absolute part of  that  expression.
-        For  example,  the expression external+4, where 'external' is an
-        external symbol, has the value of 4.  This expression,  however,
-
+缺失运算符或有非法运算符会终止对表达式的分析，导致生成错误码`<o>`和/或`<q>`，取决于表达式自身的上下文。
 
-        THE ASSEMBLER                                          PAGE 1-17
-        SYMBOLS AND EXPRESSIONS
+At assembly time the value of an external (global) expression is equal to the value of the absolute part of that expression. For example, the expression `external+4`, where '`external`' is an external symbol, has the value of `4`. This expression, however, when evaluated at link time takes on the resolved value of the symbol '`external`', plus `4`. 
 
+汇编时，一个外部（全局）表达式的值等于该表达式绝对部分的值。例如，在表达式`external+4`中，`external`时一个外部符号，其值为`4`。而这个表达式在连接求值时，会取符号`external`解决之后的值，再加`4`。
 
-        when  evaluated  at link time takes on the resolved value of the
-        symbol 'external', plus 4.  
+Expressions, when evaluated by ASxxxx, are one of three types: relocatable, absolute, or external. The following distinctions are important: 
 
-           Expressions,  when  evaluated  by  ASxxxx,  are  one of three
-        types:  relocatable, absolute, or external.  The following  dis-
-        tinctions are important:  
+ASxxxx中的表达式有三种类型——可重定位的、绝对定位的和外部的。下面的区别非常重要：
 
-             1.  An  expression is relocatable if its value is fixed re-
-                 lative to the base address of the program area in which
-                 it appears;  it will have an offset value added at link
-                 time.  Terms that contain labels defined in relocatable
-                 program  areas  will  have  a relocatable value;  simi-
-                 larly, a period (.)  in  a  relocatable  program  area,
-                 representing  the value of the current program location
-                 counter, will also have a relocatable value.  
+1. An expression is relocatable if its value is fixed relative to the base address of the program area in which it appears; it will have an offset value added at link time. Terms that contain labels defined in relocatable program areas will have a relocatable value; similarly, a period (`.`) in a relocatable program area, representing the value of the current program location counter, will also have a relocatable value. 
 
-             2.  An  expression  is  absolute if its value is fixed.  An
-                 expression whose terms are numbers and ascii characters
-                 will  reduce  to  an absolute value.  A relocatable ex-
-                 pression or term minus a relocatable term,  where  both
-                 elements  being  evaluated  belong  to the same program
-                 area, is an absolute expression.  This is because every
-                 term  in  a  program area has the same relocation bias.
-                 When one term is subtracted from the other the  reloca-
-                 tion bias is zero.  
+    如果一个表达式的值与其出现的程序区域的基地址是固定相对的，则该表达式是可重定位的；在连接时将会为其加一个偏移量。包含标号的项，如果该标号定义在可重定位的程序区域，则该项具有可重定位值；类似的，可重定位程序区域中的句点（`.`）表示了当前程序位置计数器的值，也具有可重定位值。
 
-             3.  An  expression is external (or global) if it contains a
-                 single global reference (plus or minus an absolute  ex-
-                 pression  value) that is not defined within the current
-                 program.  Thus, an external  expression  is  only  par-
-                 tially  defined following assembly and must be resolved
-                 at link time.  
+2. An expression is absolute if its value is fixed. An expression whose terms are numbers and ascii characters will reduce to an absolute value. A relocatable expression or term minus a relocatable term, where both elements being evaluated belong to the same program area, is an absolute expression. This is because every term in a program area has the same relocation bias. When one term is subtracted from the other the relocation bias is zero. 
 
+    如果一个表达式的值是固定的，则该表达式是绝对的。如果表达式中的项是数字或ASCII字符，则它会被化简为绝对值。一个可重定位表达式或项，减去另一个可重定位项，如果两个元素经过求值都属于同一个程序区域，则它是一个绝对表达式。这是因为一个程序区域里的每个项都具有相同的重定位偏移。当一个项减去另一个时，最终的重定位偏移为零。
 
+3. An expression is external (or global) if it contains a single global reference (plus or minus an absolute expression value) that is not defined within the current program. Thus, an external expression is only partially defined following assembly and must be resolved at link time. 
+
+    如果一个表达式包含了一个未在当前程序中定义的全局引用（加上或减去一个绝对表达式值），则该表达式时外部的（或全局的）。因此，外部表达式在汇编过程中只是部分定义的，必须在连接时进行解决。
 
         1.4  GENERAL ASSEMBLER DIRECTIVES 
 

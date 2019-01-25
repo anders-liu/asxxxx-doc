@@ -27,23 +27,23 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
     - [1.1.2 Assembly Pass 2 | 第二遍汇编](CHAPTER1.md#user-content-1.1.2)
     - [1.1.3 Assembly Pass 3 | 第三遍汇编](CHAPTER1.md#user-content-1.1.3)
 
-  - 1.2 SOURCE PROGRAM FORMAT
+  - [1.2 SOURCE PROGRAM FORMAT | 源程序格式](CHAPTER1.md#user-content-1.2)
 
-    - 1.2.1 Statement Format
-      - 1.2.1.1 Label Field
-      - 1.2.1.2 Operator Field
-      - 1.2.1.3 Operand Field
-      - 1.2.1.4 Comment Field
+    - [1.2.1 Statement Format | 语句格式](CHAPTER1.md#user-content-1.2.1)
+      - [1.2.1.1 Label Field | 标号字段](CHAPTER1.md#user-content-1.2.1.1)
+      - [1.2.1.2 Operator Field | 操作符字段](CHAPTER1.md#user-content-1.2.1.2)
+      - [1.2.1.3 Operand Field | 操作数字段](CHAPTER1.md#user-content-1.2.1.3)
+      - [1.2.1.4 Comment Field | 注释字段](CHAPTER1.md#user-content-1.2.1.4)
 
-  - 1.3 SYMBOLS AND EXPRESSIONS
+  - [1.3 SYMBOLS AND EXPRESSIONS | 符号和表达式](CHAPTER1.md#user-content-1.3)
 
-    - 1.3.1 Character Set
-    - 1.3.2 User-Defined Symbols
-    - 1.3.3 Reusable Symbols
-    - 1.3.4 Current Location Counter
-    - 1.3.5 Numbers
-    - 1.3.6 Terms
-    - 1.3.7 Expressions
+    - [1.3.1 Character Set | 字符集](CHAPTER1.md#user-content-1.3.1)
+    - [1.3.2 User-Defined Symbols | 用户定义的符号](CHAPTER1.md#user-content-1.3.2)
+    - [1.3.3 Reusable Symbols | 可重用符号](CHAPTER1.md#user-content-1.3.3)
+    - [1.3.4 Current Location Counter | 当前位置计数器](CHAPTER1.md#user-content-1.3.4)
+    - [1.3.5 Numbers | 数字](CHAPTER1.md#user-content-1.3.5)
+    - [1.3.6 Terms | 项](CHAPTER1.md#user-content-1.3.6)
+    - [1.3.7 Expressions | 表达式](CHAPTER1.md#user-content-1.3.7)
 
   - 1.4 GENERAL ASSEMBLER DIRECTIVES
 
