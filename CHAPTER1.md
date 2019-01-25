@@ -80,7 +80,7 @@ Pass 3 by the assembler generates the listing file, the relocatable output file,
 
 在第三遍中，汇编器生成列表文件、可重定位输出文件、重定位列表提示文件以及符号表。同时在第三遍中，错误将被报告出来。
 
- The relocatable object file is an ascii file containing sym- bol references and definitions, program area definitions, and the relocatable assembled code, the linker ASLINK will use this information to generate an absolute load file (Intel, Motorola or Tandy CoCo Disk Basic formats).
+ The relocatable object file is an ascii file containing symbol references and definitions, program area definitions, and the relocatable assembled code, the linker ASLINK will use this information to generate an absolute load file (Intel, Motorola or Tandy CoCo Disk Basic formats).
 
 可重定位目标文件是一个ASCII文件，包含了符号引用和定义、程序区域定义和可重定位的汇编代码，连接器ALINK将会使用这些信息生成绝对加载文件（Intel、Motorola或Tandy CoCo Disk Basic格式）。
 
@@ -112,376 +112,352 @@ ASxxxx一次解释和处理一条源语句。每条语句都导致特定的操�
 
 #### <a id="1.2.1.1"></a>1.2.1.1  Label Field | 标号字段
 
-A label is a user-defined symbol which is assigned the value of the current location counter and entered into the user de- fined symbol table. The current location counter is used by ASxxxx to assign memory addresses to the source program state- ments as they are encountered during the assembly process. Thus a label is a means of symbolically referring to a specific statement. 
+A label is a user-defined symbol which is assigned the value of the current location counter and entered into the user defined symbol table. The current location counter is used by ASxxxx to assign memory addresses to the source program statements as they are encountered during the assembly process. Thus a label is a means of symbolically referring to a specific statement. 
 
 标号是一个用户定义的符号，具有当前位置计数器的值，并会被放置到用户定义符号表中。当ASxxxx在汇编过程中遇到原程序语句，它会使用当前位置计数器为该语句赋予内存地址。所以标号的意思就是对一条特定语句的符号化引用。
 
-           When  a program section is absolute, the value of the current
-        location counter is absolute;  its value references an  absolute
-        memory  address.   Similarly, when a program section is relocat-
-        able, the value of the current location counter is  relocatable.
-        A  relocation  bias  calculated at link time is added to the ap-
-        parent value of the current location counter  to  establish  its
-        effective  absolute  address  at  execution time.  (The user can
-        also force the linker to relocate sections defined as  absolute.
-        This may be required under special circumstances.) 
+When a program section is absolute, the value of the current location counter is absolute; its value references an absolute memory address. Similarly, when a program section is relocatable, the value of the current location counter is relocatable. A relocation bias calculated at link time is added to the apparent value of the current location counter to establish its effective absolute address at execution time. (The user can also force the linker to relocate sections defined as absolute. This may be required under special circumstances.) 
 
-           If  present,  a  label  must  be  the first field in a source
-        statement and must be terminated by a colon (:).   For  example,
-        if  the  value  of  the  current  location  counter  is absolute
-        01F0(H), the statement:  
+当一个程序节是绝对定位的，当前位置计数器的值也是绝对的；其值引用一个绝对内存地址。类似的，当一个程序节是可重定位的，当前位置计数器的值也是可重定位的。连接时计算的重定位偏移量将会被加到当前位置计数器的值上，形成运行时所需的有效绝对地址。（用户也可以强制连接器重定位一个被定义为绝对定位的节。这在某些特殊情形下是必须的。）
 
-              abcd:     nop 
+If present, a label must be the first field in a source statement and must be terminated by a colon (`:`). For example, if the value of the current location counter is absolute `01F0(H)`, the statement: 
 
-        assigns  the  value  01F0(H) to the label abcd.  If the location
-        counter value were relocatable, the final value of abcd would be
-        01F0(H)+K, where K represents the relocation bias of the program
-        section, as calculated by the linker at link time.  
+如果出现了标号，则它必须是源语句中的第一个字段，并且必须以冒号（`:`）结束。例如，如果当前位置计数器的值是绝对值`01F0(H)`，该语句：
 
-           More  than  one label may appear within a single label field.
-        Each label so specified is assigned the same address value.  For
-        example,  if  the  value  of  the  current  location  counter is
-        1FF0(H), the multiple labels in the following statement are each
-        assigned the value 1FF0(H):  
+```
+        abcd:     nop 
+```
 
-              abcd:     aq:     $abc:   nop 
+assigns the value `01F0(H)` to the label `abcd`. If the location counter value were relocatable, the final value of `abcd` would be `01F0(H)+K`, where `K` represents the relocation bias of the program section, as calculated by the linker at link time. 
 
-           Multiple labels may also appear on successive lines.  For ex-
-        ample, the statements 
+将值`01F0(H)`赋给标号`abcd`。如果位置计数器的值是可重定位的，`abcd`的最终值将为`01F0(H)+K`，其中`K`表示程序节的重定位偏移量，由连接器在连接时计算。
 
-              abcd:  
-              aq:  
-              $abc:     nop 
+More than one label may appear within a single label field. Each label so specified is assigned the same address value. For example, if the value of the current location counter is `1FF0(H)`, the multiple labels in the following statement are each assigned the value `1FF0(H)`: 
 
-        likewise  cause  the  same value to be assigned to all three la-
-        bels.  
+一个单独的标号字段中可以出现多于一个标号。其中指定的每一个标号都具有相同的地址值。例如，如果当前位置计数器的值是`1FF0(H)`，下面语句中的每一个标号都将被赋值`1FF0(H)`：
+
+```
+        abcd:     aq:     $abc:   nop 
+```
+
+ Multiple labels may also appear on successive lines. For example, the statements 
+
+多个标号也可以出现在连续的行上。例如，该语句：
+
+```
+        abcd:  
+        aq:  
+        $abc:     nop 
+```
+
+likewise cause the same value to be assigned to all three labels. 
+
+同样导致相同的值被赋给所有三个标号。
+
+A double colon (`::`) defines the label as a global symbol. For example, the statement 
+
+双冒号（`::`）将标号定义为全局符号。例如，该语句：
+
+```
+        abcd::    nop 
+```
+
+establishes the label `abcd` as a global symbol. The distinguishing attribute of a global symbol is that it can be referenced from within an object module other than the module in which the symbol is defined. References to this label in other modules are resolved when the modules are linked as a composite executable image. 
+
+将标号`abcd`设立为全局符号。全局符号的明显特性是，它可以被定义它的目标模块之外的其他模块引用。在其他模块中对该标号的引用将在模块被连接并构成可执行镜像的时候进行解决。
+
+The legal characters for defining labels are:  
+
+可用于定义标号的合法字符有：
+
+```
+        A through Z              A 到 Z
+        a through z              a 到 z
+        0 through 9              0 到 9
+        . (Period)               . （点）
+        $ (Dollar sign)          $ （美元符）
+        _ (underscore)           _ （下划线）
+```
+
+Alabel may be any length, however only the first 79 characters are significant and, therefore must be unique among all labels in the source program (not necessarily among separately compiled modules). An error code(s) (`<m>` or `<p>`) will be generated in the assembly listing if the first 79 characters in two or more labels are the same. The `<m>` code is caused by the redeclaration of the symbol or its reference by another statement. The `<p>` code is generated because the symbols location is changing on each pass through the source file. 
+
+标号可以具有任意长度，但只有前79个字符有用，因此前面这些字符在源程序的所有标号中必须唯一（对于不同的编译模块则无此必要）。如果两个或更多个标号的前79个字符一样，则会在汇编列表中生成一个错误码（`<m>`或`<p>`）。符号被重声明或被其他语句使用会导致`<m>`错误码。在每一遍遍历源文件的过程中，符号位置发生变化会导致`<p>`错误码。
+
+The label must not start with the characters `0-9`, as this designates a reusable symbol with special attributes described in a later section. 
+
+标号不能以字符`0-9`开头，这种格式专用于具有特殊属性的可重用符号，这将在后面的小节中介绍。
+
+ The label must not start with the sequence `$$`, as this represents the temporary radix 16 for constants. 
+
+标号不能以序列`$$`开头，这种格式表示临时的16进制常量。
 
+#### <a id="1.2.1.2"></a>1.2.1.2  Operator Field | 操作符字段
 
-        THE ASSEMBLER                                           PAGE 1-5
-        SOURCE PROGRAM FORMAT
+The operator field specifies the action to be performed. It may consist of an instruction mnemonic (op code) or an assembler directive. 
 
+操作符字段制定了要执行的动作。它由指令助记符（操作码）或汇编器指示符构成。
 
-           A  double  colon  (::)  defines the label as a global symbol.
-        For example, the statement 
+When the operator is an instruction mnemonic, a machine instruction is generated and the assembler evaluates the addresses of the operands which follow. When the operator is a directive ASxxxx performs certain control actions or processing operations during assembly of the source program. 
 
-              abcd::    nop 
+如果操作符是一个指令助记符，汇编器会生成一条机器指令，并对后续操作数的地址进行求值。如果操作符是一个指示符，ASxxxx会执行特定的控制动作或完成汇编源程序过程中的处理操作。
 
-        establishes the label abcd as a global symbol.  The distinguish-
-        ing attribute of a global symbol is that it  can  be  referenced
-        from  within an object module other than the module in which the
-        symbol is defined.  References to this label  in  other  modules
-        are  resolved when the modules are linked as a composite execut-
-        able image.  
+Leading and trailing spaces or tabs in the operator field have no significance; such characters serve only to separate the operator field from the preceeding and following fields. 
 
-        The legal characters for defining labels are:  
+操作符前后的空格和制表符是没用的；这些字符只用于将操作符字段和前后的其他字段分开。
 
-                A through Z 
-                a through z 
-                0 through 9 
-                . (Period) 
-                $ (Dollar sign) 
-                _ (underscore) 
+An operator is terminated by a space, tab or end of line.  
 
-           A  label  may  be  any  length,  however  only  the  first 79
-        characters are significant and, therefore must be  unique  among
-        all  labels in the source program (not necessarily among separa-
-        tely compiled modules).  An error code(s) (<m> or <p>)  will  be
-        generated  in the assembly listing if the first 79 characters in
-        two or more labels are the same.  The <m> code is caused by  the
-        redeclaration  of  the symbol or its reference by another state-
-        ment.  The <p> code is generated because the symbols location is
-        changing on each pass through the source file.  
+操作符由空格、制表符或行尾终结。
 
-           The  label  must  not  start with the characters 0-9, as this
-        designates a reusable symbol with special  attributes  described
-        in a later section.  
+#### <a id="1.2.1.3"></a>1.2.1.3  Operand Field | 操作数字段
 
-           The  label  must  not  start  with  the  sequence $$, as this
-        represents the temporary radix 16 for constants.  
+When the operator is an instruction mnemonic (op code), the operand field contains program variables that are to be evaluated/manipulated by the operator. 
 
+如果操作符是一个指令助记符（操作码），则操作数字段包含程序变量，会被操作符进行求值/操作。
 
-
+Operands may be expressions or symbols, depending on the operator. Multiple expressions used in the operand fields may be separated by a comma. An operand should be preceeded by an operator field; if it is not, the statement will give an error (`<q>` or `<o>`). All operands following instruction mnemonics are treated as expressions. 
 
-        THE ASSEMBLER                                           PAGE 1-6
-        SOURCE PROGRAM FORMAT
+操作数可以使表达式或符号，取决于操作符。操作数字段中使用的多个表达式，可以用逗号进行分隔。操作数前必须有操作符字段；如果没有的话，该语句会产生错误（`<p>`或`<o>`）。指令助记符后跟的所有操作数都会被视为表达式。
 
+The operand field is terminated by a semicolon when the field is followed by a comment. For example, in the following statement: 
 
-        1.2.1.2  Operator Field  - 
+如果操作数字段后根由注释，则操作数字段被分号终结。例如，在下面的语句中：
 
-           The  operator field specifies the action to be performed.  It
-        may consist of an instruction mnemonic (op code) or an assembler
-        directive.  
+```
+        label:    lda     abcd,x          ;Comment field 
+```
 
-           When  the  operator is an instruction mnemonic, a machine in-
-        struction is generated and the assembler evaluates the addresses
-        of  the operands which follow.  When the operator is a directive
-        ASxxxx performs certain control actions or processing operations
-        during assembly of the source program.  
+the tab between `lda` and `abcd` terminates the operator field and defines the beginning of the operand field; a comma separates the operands `abcd` and `x`; and a semicolon terminates the operand field and defines the beginning of the comment field. When no comment field follows, the operand field is terminated by the end of the source line. 
 
-           Leading  and  trailing  spaces  or tabs in the operator field
-        have no significance;  such characters serve  only  to  separate
-        the operator field from the preceeding and following fields.  
+`lda`和`abcd`之间的制表符终结了操作符字段并定义了操作数字段的起始；逗号分隔了操作数`abcd`和`x`；分号终结了操作数字段并定义了注释字段的起始。如果没有后跟注释字段，则操作数字段被源代码行的结束所终结。
 
-           An operator is terminated by a space, tab or end of line.  
+#### <a id="1.2.1.4"></a>1.2.1.4 Comment Field | 注释字段
 
+The comment field begins with a semicolon and extends through the end of the line. This field is optional and may contain any 7-bit ascii character except `null`. 
 
-        1.2.1.3  Operand Field  - 
+注释字段由分号开始，一直扩展到行尾。该字段是可选的，并可以包含除了`null`以外的任意7位ASCII字符。
 
-           When  the  operator is an instruction mnemonic (op code), the
-        operand  field  contains  program  variables  that  are  to   be
-        evaluated/manipulated by the operator.  
+Comments do not affect assembly processing or program execu- tion. 
 
-           Operands  may  be  expressions  or  symbols, depending on the
-        operator.  Multiple expressions used in the operand  fields  may
-        be  separated  by a comma.  An operand should be preceeded by an
-        operator field;  if it is not, the statement will give an  error
-        (<q> or <o>).   All operands following instruction mnemonics are
-        treated as expressions.  
+注释不影响会变过程或程序执行。
 
-           The operand field is terminated by a semicolon when the field
-        is followed  by  a  comment.   For  example,  in  the  following
-        statement:  
+#### <a id="1.3"></a>1.3 SYMBOLS AND EXPRESSIONS | 符号和表达式
 
-              label:    lda     abcd,x          ;Comment field 
+This section describes the generic components of the ASxxxx assemblers: the character set, the conventions observed in constructing symbols, and the use of numbers, operators, and expressions. 
 
-        the  tab  between lda and abcd terminates the operator field and
-        defines the beginning of the operand field;  a  comma  separates
-        the operands abcd and x;  and a semicolon terminates the operand
-        field and defines the beginning of the comment field.   When  no
-        comment  field  follows,  the operand field is terminated by the
-        end of the source line.  
+这一小节介绍ASxxxx的通用组件——字符集、构造符号时需要遵守的约定以及数字、操作符和表达式的使用。
 
+#### <a id="1.3.1"></a>1.3.1 Character Set | 字符集
 
-
+The following characters are legal in ASxxxx source programs: 
 
-        THE ASSEMBLER                                           PAGE 1-7
-        SOURCE PROGRAM FORMAT
+下面的字符在ASxxxx源程序中是合法的：
 
+1. The letters `A` through `Z`. Both upper- and lower-case letters are acceptable. The assemblers, by default, are case sensitive, i.e. `ABCD` and `abcd` are not the same symbols. (The assemblers can be made case insensitive by using the `-z` command line option.)
 
-        1.2.1.4  Comment Field  - 
+    字母`A`到`Z`。大小写字母均可接受。汇编器默认是大小写敏感的，即`ABCD`和`abcd`是不同的符号。（汇编器也可以通过`-z`命令行选项编程大小写不敏感的。）
 
-           The comment field begins with a semicolon and extends through
-        the end of the line.  This field is optional and may contain any
-        7-bit ascii character except null.  
+2. The digits `0` through `9`
 
-           Comments  do not affect assembly processing or program execu-
-        tion.  
+    数字`0`到`9`
 
+3. The characters `.` (period), `$` (dollar sign), and `_` (un- derscore).
 
-        1.3  SYMBOLS AND EXPRESSIONS 
+    字符`.`（点）、`$`（美元符）和`_`（下划线）。
 
+4. The special characters listed in Tables 1 through 6. 
 
-           This  section  describes the generic components of the ASxxxx
-        assemblers:  the character set, the conventions observed in con-
-        structing  symbols,  and  the use of numbers, operators, and ex-
-        pressions.  
+    表1到6种列出的特殊字符。
 
+Tables 1 through 6 describe the various ASxxxx label and field terminators, assignment operators, operand separators, assembly, unary, binary, and radix operators. 
 
-        1.3.1  Character Set 
-
-
-           The following characters are legal in ASxxxx source programs: 
-
-             1.  The  letters  A  through Z.  Both upper- and lower-case
-                 letters are acceptable.  The  assemblers,  by  default,
-                 are  case  sensitive,  i.e.   ABCD and abcd are not the
-                 same symbols.  (The assemblers can be made case  insen-
-                 sitive by using the -z command line option.) 
-
-             2.  The digits 0 through 9 
-
-             3.  The  characters . (period), $ (dollar sign), and _ (un-
-                 derscore).  
-
-             4.  The special characters listed in Tables 1 through 6.  
-
-
-           Tables  1  through  6  describe  the various ASxxxx label and
-        field terminators, assignment operators, operand separators, as-
-        sembly, unary, binary, and radix operators.  
-
-
-        THE ASSEMBLER                                           PAGE 1-8
-        SYMBOLS AND EXPRESSIONS
-
+表1到6介绍了各种ASxxxx标号和字段分隔符、赋值操作符、操作数分隔符、汇编、一元、二元和进制运算符。
 
         Table 1         Label Terminators and Assignment Operators 
+           表 1         标号终结符和赋值运算符
         ---------------------------------------------------------------- 
 
                 :   Colon               Label terminator.  
+                    冒号                标号终结符
 
                 ::  Double colon        Label  Terminator;   defines the
                                         label as a global label.  
+                    双冒号              标号终结符；
+                                        将标号定义为全局标号。
 
                 =   Equal sign          Direct assignment operator.  
+                    等号                直接赋值运算符。
 
                 ==  Global equal        Direct assignment operator;  de-
                                         fines the  symbol  as  a  global
                                         symbol.  
+                    全局等号             直接赋值运算符；
+                                        将符号定义为全局符号。
 
                 =:  Local equal         Direct assignment operator;  de-
                                         fines the symbol as a local sym-
                                         bol.  
+                    局部等号             直接赋值运算符；
+                                        将符号定义为局部符号。
 
         ---------------------------------------------------------------- 
 
-
-
-
-
         Table 2         Field Terminators and Operand Separators 
+           表 2         字段终结符和操作数分隔符
         ---------------------------------------------------------------- 
 
                     Tab                 Item or field terminator.  
+                    制表符               项或字段终结符。
 
                     Space               Item or field terminator.  
+                    空格                 项或字段终结符。
 
                 ,   Comma               Operand field separator.  
+                    逗号                操作数字段分隔符。
 
                 ;   Semicolon           Comment field indicator.  
+                    分号                 注释字段指示符。
 
         ---------------------------------------------------------------- 
 
-
-
-
-
-
-
-        THE ASSEMBLER                                           PAGE 1-9
-        SYMBOLS AND EXPRESSIONS
-
-
         Table 3         Assembler Operators 
+           表 3         汇编器运算符
         ---------------------------------------------------------------- 
 
                 #   Number sign         Immediate expression indicator. 
+                    数字符               立即（数）表达式指示符。
 
                 .   Period              Current location counter.  
+                    句点                 当前位置计数器。
 
                 (   Left parenthesis    Expression delimiter.  
+                    左括号               表达式分界符。
 
                 )   Right parenthesis   Expression delimeter.  
+                    右括号               表达式分界符。
 
         ---------------------------------------------------------------- 
 
-
-
-
-
         Table 4         Unary Operators 
+           表 4         一元运算符
         ---------------------------------------------------------------- 
 
                 <   Left bracket        <FEDC   Produces  the lower byte
                                                 value of the expression.
                                                 (DC) 
+                    左尖括号                     生成表达式的低字节值（DC）
 
                 >   Right bracket       >FEDC   Produces  the upper byte
                                                 value of the expression.
                                                 (FE) 
+                    右尖括号                     生成表达式的高字节值（FE）
 
                 +   Plus sign           +A      Positive value of A 
+                    加号                         A的正值
 
                 -   Minus sign          -A      Produces   the  negative
                                                 (2's complement) of A.  
+                    减号                         产生A的负值（2的补码）
 
                 ~   Tilde               ~A      Produces the 1's comple-
                                                 ment of A.  
+                    波浪号                       产生A的1的补码
 
                 '   Single quote        'D      Produces  the  value  of
                                                 the character D.  
+                    单引号                       产生字符D的值
 
                 "   Double quote        "AB     Produces the double byte
-                                                value for AB.  
+                                                value for AB. 
+                    双引号                      产生AB的双字节值 
 
                 \   Backslash           '\n     Unix style characters 
                                                 \b, \f, \n, \r, \t 
                                      or '\001   or octal byte values.  
+                    反斜线                       Unix风格（转义）字符
+                                                或八进制字节值
 
         ---------------------------------------------------------------- 
 
-
-        THE ASSEMBLER                                          PAGE 1-10
-        SYMBOLS AND EXPRESSIONS
-
-
-
-
-
-
-
         Table 5         Binary Operators 
+           表 5         二元运算符
         ---------------------------------------------------------------- 
 
                 <<  Double          0800 << 4   Produces the 4 bit 
                     Left bracket                left-shifted   value  of
                                                 0800.  (8000) 
+                    双左尖括号                   产生0800左移4位的值（8000）
 
                 >>  Double          0800 >> 4   Produces the 4 bit 
                     Right bracket               right-shifted  value  of
                                                 0800.  (0080) 
+                    双右尖括号                   产生0800右移4位的值（0080）
 
                 +   Plus sign       A + B       Arithmetic      Addition
                                                 operator.  
+                    加号                         算术加法运算
 
                 -   Minus sign      A - B       Arithmetic   Subtraction
                                                 operator.  
+                    减号                         算数减法运算
 
                 *   Asterisk        A * B       Arithmetic   Multiplica-
                                                 tion operator.  
+                    星号                         算术乘法运算
 
                 /   Slash           A / B       Arithmetic      Division
                                                 operator.  
+                    斜线                        算数除法运算
 
                 &   Ampersand       A & B       Logical AND operator.  
+                    “和”字符                    逻辑“与”运算
 
                 |   Bar             A | B       Logical OR operator.  
+                    竖线                        逻辑“或”运算
 
                 %   Percent sign    A % B       Modulus operator.  
+                    百分号                       取模运算
 
                 ^   Up arrow or     A ^ B       EXCLUSIVE OR operator.  
                     circumflex 
+                    上箭头或声调符号              异或运算
 
         ---------------------------------------------------------------- 
 
-
-
-
-
-
-
-        THE ASSEMBLER                                          PAGE 1-11
-        SYMBOLS AND EXPRESSIONS
-
-
         Table 6         Temporary Radix Operators 
+           表 6         临时进制运算符
         ---------------------------------------------------------------- 
 
                 $%,   0b, 0B            Binary radix operator.  
+                                        二进制运算符
 
                 $&,   0o, 0O, 0q, 0Q    Octal radix operator.  
+                                        八进制运算符
 
                 $#,   0d, 0D            Decimal radix operator.  
+                                        十进制运算符
 
                 $$,   0h, 0H, 0x, 0X    Hexidecimal radix operator.  
+                                        十六进制运算符
 
 
-                Potential  ambiguities arising from the use of 0b and 0d
+                Potential ambiguities arising from the use of 0b and 0d
                 as temporary radix operators may be circumvented by pre-
-                ceding  all  non-prefixed  hexidecimal  numbers with 00.
-                Leading 0's are required in any  case  where  the  first
-                hexidecimal  digit is abcdef as the assembler will treat
+                ceding all non-prefixed hexidecimal numbers with 00.
+
+                Leading 0's are required in any case where the first
+                hexidecimal digit is abcdef as the assembler will treat
                 the letter sequence as a label.  
+
+                使用0b或0d做临时进制运算符可能会产生歧义，这可以通过在所有
+                无前缀的十六进制数前添加00进行避免。
+
+                任何时候，如果十六进制数的第一个数字是abcdef，
+                则前导0是必须的，否则汇编器将会将其视为一个标号的字母序列。
 
         ---------------------------------------------------------------- 
 
-
-
-
-
-
-
-        1.3.2  User-Defined Symbols 
+#### <a id="1.3.2"></a>1.3.2  User-Defined Symbols 
 
 
            User-defined  symbols are those symbols that are equated to a
