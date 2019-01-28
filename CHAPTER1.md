@@ -1234,553 +1234,693 @@ The `.blkw` directive reserves word blocks; the `.blk3` reserves 3 byte blocks(a
 
 `.blkw`指示符用于预留字块；`.blk3`用于预留3字节块（只在支持24位寻址的汇编器中可用）；`.blk4`用于预留4字节块（只在支持32位寻址的汇编器中可用）。
 
+#### <a id="1.4.14"></a>1.4.14 `.ascii`, `.str`, and `.fcc` Directives | `.ascii`、`.str`和`.fcc`指示符
 
-        1.4.14  .ascii, .str, and .fcc Directives
+Format:
 
-        Format:
+格式：
 
-                .ascii   /string/               or
+```
+        .ascii   /string/               or      或
 
-                .ascii  ^/string/
+        .ascii  ^/string/
 
-                .fcc     /string/               or
+        .fcc     /string/               or      或
 
-                .fcc    ^/string/
+        .fcc    ^/string/
 
-                .str     /string/               or
+        .str     /string/               or      或
 
-                .str    ^/string/
+        .str    ^/string/
+```
 
+where:
 
-        where:  string  is a string of printable ascii characters.
+其中：
 
-                /  /    represent   the  delimiting  characters.   These
-                        delimiters   may   be   any   paired    printing
-                        characters,  as  long  as the characters are not
-                        contained within  the  string  itself.   If  the
-                        delimiting  characters  do not match, the .ascii
-                        directive will give the <q> error.
+```
+        string  is a string of printable ascii characters.
 
-        The  .ascii,  .fcc, and .str directives place one binary byte of
-        data for each character in the string into the object module.
+                是一个可打印的ASCII字符串。
 
+        /  /    represent the delimiting characters. These
+                delimiters may be any paired printing
+                characters, as long as the characters are not
+                contained within the string itself. If the
+                delimiting characters do not match, the .ascii
+                directive will give the <q> error.
 
-        1.4.15  .ascis and .strs Directives
+                表示界定字符。该界定符可以是任何可打印的字符对，
+                只要该字符未在字符串自身中出现即可。
+                如果界定符不匹配，.ascii指示符会给出<q>错误。
+```
 
-        Format:
+The `.ascii`, `.fcc`, and `.str` directives place one binary byte of data for each character in the string into the object module.
 
-                .ascis   /string/               or
+`.ascii`、`.str`和`.fcc`指示符将每个字符的二进制字节数据放置到目标模块中。
 
-                .ascis  ^/string/
+#### <a id="1.4.15"></a>1.4.15 `.ascis` and `.strs` Directives | `.ascis`和`.strs`指示符
 
-                .strs    /string/               or
+Format:
 
-                .strs   ^/string/
+格式：
 
+```
+        .ascis   /string/               or      或
 
-        where:  string  is a string of printable ascii characters.
+        .ascis  ^/string/
 
-                /  /    represent   the  delimiting  characters.   These
-                        delimiters   may   be   any   paired    printing
-                        characters,  as  long  as the characters are not
-                        contained within  the  string  itself.   If  the
-
+        .strs    /string/               or      或
 
-        THE ASSEMBLER                                          PAGE 1-26
-        GENERAL ASSEMBLER DIRECTIVES
+        .strs   ^/string/
+```
 
+where:
 
-                        delimiting  characters  do not match, the .ascis
-                        and .strs directives will give the <q> error.
+其中：
 
+```
+        string  is a string of printable ascii characters.
 
-           The .ascis and .strs directives place one binary byte of data
-        for each character in the string into the  object  module.   The
-        last character in the string will have the high order bit set.
+                是一个可打印的ASCII字符串。
 
+        /  /    represent the delimiting characters. These
+                delimiters may be any paired printing
+                characters, as long as the characters are not
+                contained within the string itself. If the
+                delimiting characters do not match, the .ascis
+                and .strs directives will give the <q> error.
 
-        1.4.16  .asciz and .strz Directives
+                表示界定字符。该界定符可以是任何可打印的字符对，
+                只要该字符未在字符串自身中出现即可。
+                如果界定符不匹配，.ascis和.strs指示符会给出<q>错误。
+```
 
-        Format:
+The `.ascis` and `.strs` directives place one binary byte of data for each character in the string into the object module. The last character in the string will have the high order bit set.
 
-                .asciz   /string/               or
+`.ascis`和`.strs`指示符将每个字符的二进制字节数据放置到目标模块中。串中的最后一个字符具有高位序。
 
-                .asciz  ^/string/
+#### <a id="1.4.16"></a>1.4.16 `.asciz` and `.strz` Directives | `.asciz`和`.strz`指示符
 
-                .strz    /string/               or
+Format:
 
-                .strz   ^/string/
+格式：
 
+```
+        .asciz   /string/               or      或
 
-        where:  string  is a string of printable ascii characters.
+        .asciz  ^/string/
 
-                /  /    represent   the  delimiting  characters.   These
-                        delimiters   may   be   any   paired    printing
-                        characters,  as  long  as the characters are not
-                        contained within  the  string  itself.   If  the
-                        delimiting  characters  do not match, the .asciz
-                        and .strz directive will give the <q> error.
+        .strz    /string/               or      或
 
+        .strz   ^/string/
+```
 
-           The .asciz and .strz directives place one binary byte of data
-        for each character in the string into the object  module.   Fol-
-        lowing  all  the  character data a zero byte is inserted to ter-
-        minate the character string.
+where:
 
+其中：
 
-
+```
+        string  is a string of printable ascii characters.
 
-        THE ASSEMBLER                                          PAGE 1-27
-        GENERAL ASSEMBLER DIRECTIVES
+                是一个可打印的ASCII字符串。
 
+        /  /    represent the delimiting characters. These
+                delimiters may be any paired printing
+                characters, as long as the characters are not
+                contained within the string itself. If the
+                delimiting characters do not match, the .asciz
+                and .strz directive will give the <q> error.
 
-        1.4.17  .assume Directive
+                表示界定字符。该界定符可以是任何可打印的字符对，
+                只要该字符未在字符串自身中出现即可。
+                如果界定符不匹配，.asciz和.strz指示符会给出<q>错误。
+```
 
-        Format:
+The `.asciz` and `.strz` directives place one binary byte of data for each character in the string into the object module. Following all the character data a zero byte is inserted to terminate the character string.
 
-                .assume exp
 
-        where:  exp     represents   an  absolute  expression.   If  the
-                        evaluation of the expression results  in  a  non
-                        zero value then an <e> error is reported and the
-                        text line is listed in the generated error.
+`.asciz`和`.strz`指示符将每个字符的二进制字节数据放置到目标模块中。所有字符数据之后会插入一个零，用于终止字符串。
 
+#### <a id="1.4.17"></a>1.4.17 `.assume` Directive | `.assume`指示符
 
-           The  .assume  directive  is useful to check assumptions about
-        assembler values.  (The .assume directive is identical in  func-
-        tion to the .error directive, just perhaps more descriptive.)
+Format:
 
+格式：
 
-        1.4.18  .radix Directive
+```
+        .assume exp
+```
 
-        Format:
+where:
 
-                .radix  character
+其中：
 
-        where:  character  represents  a single character specifying the
-                default radix to be used for  succeeding  numbers.   The
-                character may be any one of the following:
+```
+        exp     represents an absolute expression. If the
+                evaluation of the expression results in a non
+                zero value then an <e> error is reported and the
+                text line is listed in the generated error.
 
-                        B,b     Binary
+                表示一个绝对表达式。如果该表达式的求值结果是非零值，
+                则会报告<e>错误，并且该文本行会列在产生的错误中。
+```
 
-                        O,o     Octal
-                        Q,q
+The `.assume` directive is useful to check assumptions about assembler values. (The `.assume` directive is identical in function to the `.error` directive, just perhaps more descriptive.)
 
-                        D,d     Decimal
-                        'blank'
+`.assume`指示符用于检查对汇编器值做出的假设。（`.assume`指示符在功能上与`.error`指示符是一样的，不过更具描述性。）
 
-                        H,h     Hexidecimal
-                        X,x
 
+#### <a id="1.4.18"></a>1.4.18 `.radix` Directive | `.radix`指示符
 
-
+Format:
 
-        THE ASSEMBLER                                          PAGE 1-28
-        GENERAL ASSEMBLER DIRECTIVES
+格式：
 
+```
+        .radix  character
+```
 
-        1.4.19  .even Directive
+where:
 
-        Format:
+其中：
 
-                .even
+```
+        character  represents a single character specifying the
+        default radix to be used for succeeding numbers. The
+        character may be any one of the following:
 
-           The .even directive ensures that the current location counter
-        contains an even boundary value by adding 1 if the current loca-
-        tion is odd.
+        character 表示一个单独的字符，用于在后续的数字中指定默认的进制。
+        该字符可以是下列之一：
 
+                B,b     Binary          二进制
 
-        1.4.20  .odd Directive
+                O,o     Octal           八进制
+                Q,q
 
-        Format:
+                D,d     Decimal         十进制
+                'blank'                 “空”
 
-                .odd
+                H,h     Hexidecimal     十六进制
+                X,x
+```
 
-           The  .odd directive ensures that the current location counter
-        contains an odd boundary value by adding one if the current  lo-
-        cation is even.
+#### <a id="1.4.19"></a>1.4.19 `.even` Directive | `.even`指示符
 
+Format:
 
-        1.4.21  .bndry Directive
+格式：
 
-        Format:
+```
+        .even
+```
 
-                .bndry  n
+The `.even` directive ensures that the current location counter contains an even boundary value by adding 1 if the current location is odd.
 
-           If  the current location is not an integer multiple of n then
-        the location counter is increased to the next  integer  multiple
-        of n.
+`.even`指示符确保当前位置计数器包含偶数边界值，如果当前位置是奇数，为其加1。
 
-           As an example:
+#### <a id="1.4.20"></a>1.4.20 `.odd` Directive | `.odd`指示符
 
-                .bndry  4
+Format:
 
-        changes  the current location to be at a multiple of 4, a 4-byte
-        boundary.
+格式：
 
-           The boundary specifications are propagated to the linker as a
-        boundary modulus, ie the smallest common boundary for all  .odd,
-        .even, and .bndry directives contained within the area.  A boun-
-        dary value of 1 is equivalent to .odd and a boundary value of  2
-        is equivalent to .even.  Because areas are always assembled with
-        an initial address of 0, an even address, both  .odd  and  .even
-        are modulus 2 boundaries.
+```
+        .odd
+```
 
-           As  an  example, suppose there are two sections:  a CODE sec-
-        tion and a DATA section.  The program code is  written  so  that
-
+The `.odd` directive ensures that the current location counter contains an odd boundary value by adding one if the current location is even.
 
-        THE ASSEMBLER                                          PAGE 1-29
-        GENERAL ASSEMBLER DIRECTIVES
+`.odd`指示符确保当前位置计数器包含奇数边界值，如果当前位置是偶数，为其加1。
 
+#### <a id="1.4.21"></a>1.4.21 `.bndry` Directive | `.bndry`指示符
 
-        the  data  associated with this section of the program code fol-
-        lows immediately.
+Format:
 
-                        .area   CODE
-                        ; Subroutine 1 Code
-                        ; Uses data having a boundary of 6
+格式：
 
-                        .area   DATA
-                        ; Subroutine 1 Data
-                        .bndry  6
-                        .word   1, 2, 3
+```
+        .bndry  n
+```
 
-                        ...
+If the current location is not an integer multiple of `n` then the location counter is increased to the next integer multiple of `n`.
 
-                        .area   CODE
-                        ; Subroutine 2 Code
-                        ; Uses data having a boundary of 8
+如果当前位置不是`n`的整数倍，则增加位置计数器的值到下一个`n`的整数倍。
 
-                        .area   DATA
-                        ; Subroutine 2 Data
-                        .bndry  8
-                        .word   1, 2, 3, 4,
+As an example:
 
+例如：
 
-           Since  the CODE and DATA sections are assembled during a sin-
-        gle assembly (also applies to include files) the  the  assembler
-        compiles all CODE segments as a single area segment.  The assem-
-        bler also compiles all the DATA segments as a single  area  seg-
-        ment  which  has  two .bndry directives and will have a boundary
-        modulus of 24.  24 is the smallest boundary divisible by 6 and 8
-        with  no remainder.  When the assembled file is linked the loca-
-        tion of the data in the DATA area will be offset to  an  address
-        which has a boundary modulus of 24.
+```
+        .bndry  4
+```
 
-           When  multiple files containing the same area names (projects
-        with multiple independently compiled files or library files) are
-        linked  together  each  area segment will be offset to match the
-        segments boundary modulus.
+changes the current location to be at a multiple of `4`, a 4-byte boundary.
 
-           Boundary  specifications  will also be preserved when an area
-        base address is specified with the -b linker option  and/or  the
-        area is placed within a bank.
+将当前位置设置为`4`的整数倍，一个4字节边界。
 
+The boundary specifications are propagated to the linker as a boundary modulus, ie the smallest common boundary for all `.odd`, `.even`, and `.bndry` directives contained within the area. A boundary value of `1` is equivalent to `.odd` and a boundary value of `2` is equivalent to `.even`. Because areas are always assembled with an initial address of 0, an even address, both `.odd` and `.even` are modulus 2 boundaries.
 
-
+边界规范会被作为边界模传递到连接器，即一个区域中所有的`.odd`、`.even`和`.bndry`指示符的最小公共边界。边界值`1`等价于`.odd`，边界值`2`等价于`.even`。因为区域总是被假设为从地址0起始，偶数地址、`.odd`和`.even`都是模2边界。
 
-        THE ASSEMBLER                                          PAGE 1-30
-        GENERAL ASSEMBLER DIRECTIVES
+As an example, suppose there are two sections: a `CODE` section and a `DATA` section. The program code is written so that the data associated with this section of the program code follows immediately.
 
+例如，假设这里有两个节——一个`CODE`节和一个`DATA`节。像下面这样编写程序代码，则与程序代码相关的数据可以与之紧密相连。
 
-        1.4.22  .area Directive
+```
+        .area   CODE
 
-        Format:
+        ; Subroutine 1 Code
+        ; Uses data having a boundary of 6
 
-                .area   name    [(options)]
+        ; 例程1的代码
+        ; 使用边界为6的数据
 
-        where:  name    represents the symbolic name of the program sec-
-                        tion.   This  name  may  be  the  same  as   any
-                        user-defined  symbol  or  bank as the area names
-                        are independent  of  all  symbols,  labels,  and
-                        banks.
+        .area   DATA
 
-                options specify the type of program or data area:
-                        ABS     absolute (automatically invokes OVR)
-                        REL     relocatable
-                        OVR     overlay
-                        CON     concatenate
-                        NOPAG   non-paged area
-                        PAG     paged area
+        ; Subroutine 1 Data
+        ; 例程1的数据
 
-                options specify a code or data segment:
-                        CSEG    Code segment
-                        DSEG    Data segment
+        .bndry  6
+        .word   1, 2, 3
 
-                option  specifies the data area bank:
-                        BANK    Named collection of areas
+        ...
 
+        .area   CODE
 
-           The .area directive provides a means of defining and separat-
-        ing multiple programming and data sections.   The  name  is  the
-        area  label used by the assembler and the linker to collect code
-        from various separately assembled modules into one section.  The
-        name may be from 1 to 79 characters in length.
+        ; Subroutine 2 Code
+        ; Uses data having a boundary of 8
 
-           The options are specified within parenthesis and separated by
-        commas as shown in the following example:
+        ; 例程2的代码
+        ; 使用边界为8的数据
 
-                .area  TEST  (REL,CON)  ;This section is relocatable
-                                        ;and concatenated with other
-                                        ;sections of this program area.
+        .area   DATA
 
-                .area  DATA  (REL,OVR)  ;This section is relocatable
-                                        ;and overlays other sections
-                                        ;of this program area.
+        ; Subroutine 2 Data
+        ; 例程2的数据
 
-                .area  SYS   (ABS,OVR)  ;(CON not allowed with ABS)
-                                        ;This section is defined as
-                                        ;absolute. Absolute sections
-                                        ;are always overlayed with
-
+        .bndry  8
+        .word   1, 2, 3, 4,
+```
 
-        THE ASSEMBLER                                          PAGE 1-31
-        GENERAL ASSEMBLER DIRECTIVES
+Since the `CODE` and `DATA` sections are assembled during a single assembly (also applies to include files) the the assembler compiles all `CODE` segments as a single area segment. The assembler also compiles all the `DATA` segments as a single area segment which has two `.bndry` directives and will have a boundary modulus of `24`. `24` is the smallest boundary divisible by `6` and `8` with no remainder. When the assembled file is linked the location of the data in the `DATA` area will be offset to an address which has a boundary modulus of 24.
 
+由于`CODE`和`DATA`节是在第一遍（同时处理了包含文件）中进行汇编的，汇编器会将所有`CODE`段编译为一个单独的区域段。汇编器还会将所有的`DATA`段编译为一个单独的区域段，其中含有两个`.bndry`指示符，并且边界模是`24`。`24`是可以被边界值`6`和`8`除尽的最小值。当经过汇编的文件被连接时，`DATA`区域中数据的位置会被偏移到24的边界模上。
 
-                                        ;other sections of this program
-                                        ;area.
+When multiple files containing the same area names (projects with multiple independently compiled files or library files) are linked together each area segment will be offset to match the segments boundary modulus.
 
-                .area  PAGE  (PAG)      ;This is a paged section. The
-                                        ;section must be on a 256 byte
-                                        ;boundary and its length is
-                                        ;checked by the linker to be
-                                        ;no larger than 256 bytes.
-                                        ;This is useful for direct page
-                                        ;areas.
+当多个包含相同区域名字的文件（具有多个独立编译文件或二进制文件的项目）被连接到一起时，每个区域段都会被偏移，以匹配段边界模。
 
-           The  default  area type is REL|CON;  i.e.  a relocatable sec-
-        tion which is concatenated with other sections of code with  the
-        same area name.  The ABS option indicates an absolute area.  The
-        OVR and CON options indicate if program  sections  of  the  same
-        name  will overlay each other (start at the same location) or be
-        concatenated with each other (appended to each other).
+Boundary specifications will also be preserved when an area base address is specified with the `-b` linker option and/or the area is placed within a bank.
 
-           The  area can be specified as either a code segment, CSEG, or
-        a data segment, DSEG.  The CSEG and DSEG descriptors are  useful
-        when  the  microprocessor  code  and  data  unit allocations are
-        unequal:  e.g.  the executable code  uses  an  allocation  of  2
-        bytes for each instruction and is addressed at an increment of 1
-        for every instruction, and the data uses an allocation of 1 byte
-        for  each element and is addressed at an increment of 1 for each
-        data byte.  The allocation units are defined by the architecture
-        of the particular microprocessor.
+如果一个区域的基地址是通过`-b`连接器选项指定的，并且/或者被放置在一个阵列中，边界规范会被保留。
 
-           The  .area  directive also provides a means of specifying the
-        bank this area is associated with.  All areas associated with  a
-        particular  bank  are  combined  at  link  time  into a block of
-        code/data.
+#### <a id="1.4.22"></a>1.4.22 `.area` Directive | `.area`指示符
 
-           The  CSEG,  DSEG,  and  BANK options are specified within the
-        parenthesis as shown in the following examples:
+Format:
 
-                .area   C_SEG   (CSEG,BANK=C1)
-                                        ;This is a code section
-                                        ;and is included in bank C1
-                .area   D_SEG   (DSEG,BANK=D1)
-                                        ;This is a data section
-                                        ;and is included in bank D1.
+格式：
 
-           Multiple  invocations  of  the  .area directive with the same
-        name must specify the same options or leave  the  options  field
-        blank,  this  defaults  to  the previously specified options for
-        this program area.
+```
+        .area   name    [(options)]
+```
 
-
+where:
 
-        THE ASSEMBLER                                          PAGE 1-32
-        GENERAL ASSEMBLER DIRECTIVES
+其中：
 
+```
+        name    represents the symbolic name of the program sec-
+                tion. This name may be the same as any
+                user-defined symbol or bank as the area names
+                are independent of all symbols, labels, and
+                banks.
 
-        The   ASxxxx   assemblers   automatically  provide  two  program
-        sections:
+                表示程序节的符号化名字。
+                该名字可以与任何用户定义的符号或阵列的名字相同，
+                因为区域的名字独立于所有符号、标号和阵列。
 
+        options specify the type of program or data area:
 
-                '_CODE'         This  is  the  default  code/data  area.
-                                This   program   area   is    of    type
-                                (REL,CON,CSEG).
+                指定了程序或数据区域的类型：
 
-                '_DATA'         This  is the default optional data area.
-                                This   program   area   is    of    type
-                                (REL,CON,DSEG).
+                ABS     absolute (automatically invokes OVR)
+                        绝对的（自动调用OVR）
 
-        The .area names and options are never case sensitive.
+                REL     relocatable
+                        可重定位的
 
+                OVR     overlay
+                        覆盖的
 
-        1.4.23  .bank Directive
+                CON     concatenate
+                        连续的
 
-        Format:
+                NOPAG   non-paged area
+                        未分页数据
 
-                .bank   name    [(options)]
+                PAG     paged area
+                        分页数据
 
-        where:  name    represents  the  symbolic  name of the bank sec-
-                        tion.   This  name  may  be  the  same  as   any
-                        user-defined  symbol  or  area as the bank names
-                        are independent  of  all  symbols,  labels,  and
-                        areas.   The name may be from 1 to 79 characters
-                        in length.
+        options specify a code or data segment:
 
-                options specify the parameters of the bank:
-                        BASE    base address of bank
-                        SIZE    maximum size of bank
-                        FSFX    file suffix for this bank
-                        MAP     NOICE mapping
+                指定了代码或数据段：
 
+                CSEG    Code segment
+                        代码段
 
-           The  .bank  directive allows an arbitrary grouping of program
-        and/or data areas to be communicated to the  linker.   The  bank
-        parameters are all optional and are described as follows:
+                DSEG    Data segment
+                        数据段
 
-             1.  BASE, the  starting  address of the bank (default is 0)
-                 may be defined.  This address can be overridden by  us-
-                 ing  the linker -b option for the first area within the
-                 bank.  The bank address is always specified  in  'byte'
-                 addressing.  A first area which is not 'byte' addressed
-                 (e.g.  a processor addressed by a 'word' of 2  or  more
-                 bytes)  has  the  area  address  scaled to begin at the
-                 'byte' address.
+        option  specifies the data area bank:
 
-
+                指定数据区域阵列：
 
-        THE ASSEMBLER                                          PAGE 1-33
-        GENERAL ASSEMBLER DIRECTIVES
+                BANK    Named collection of areas
+                        区域的命名集合
+```
 
+The `.area` directive provides a means of defining and separating multiple programming and data sections. The `name` is the area label used by the assembler and the linker to collect code from various separately assembled modules into one section. The `name` may be from 1 to 79 characters in length.
 
-             2.  SIZE, the  maximum  length  of  the  bank  specified in
-                 bytes.  The size is always specified in terms of bytes.
+`.area`指示符提供了一种方法，用以定义和分隔多个程序和数据节。`name`是区域的标号，由汇编器和连接器使用，用于从多个分离的汇编模块中将代码收集到一个节中。`name`的长度可以从1到79.
 
-             3.  FSFX, the file suffix to be used by the linker for this
-                 bank.  The suffix may not contain embedded white space.
+The `options` are specified within parenthesis and separated by commas as shown in the following example:
 
-             4.  MAP,  NOICE   mapping   parameter   for  this  bank  of
-                 code/data.
+`options`在括号中指定，用逗号分隔，如下例所示：
 
+```
+        .area  TEST  (REL,CON)  ;This section is relocatable
+                                ;and concatenated with other
+                                ;sections of this program area.
 
-           The options are specified within parenthesis and separated by
-        commas as shown in the following example:
+                                ;该节是可重定位的，
+                                ;并会与该程序区域中的其他节连接到一起
 
-                .BANK  C1  (BASE=0x0100,SIZE=0x1000,FSFX=_C1)
-                                        ;This bank starts at 0x0100,
-                                        ;has a maximum size of 0x1000,
-                                        ;and is to be placed into
-                                        ;a file with a suffix of _C1
+        .area  DATA  (REL,OVR)  ;This section is relocatable
+                                ;and overlays other sections
+                                ;of this program area.
 
-           The parameters must be absolute (external symbols are not al-
-        lowed.)
+                                ;该节是可重定位的，
+                                ;并与该程序区域中的其他节重叠
 
+        .area  SYS   (ABS,OVR)  ;(CON not allowed with ABS)
+                                ;This section is defined as
+                                ;absolute. Absolute sections
+                                ;are always overlayed with
+                                ;other sections of this program
+                                ;area.
 
-        1.4.24  .org Directive
+                                ;(CON不能与ABS一起使用)
+                                ;该节被定义为绝对的。
+                                ;绝对节总是与该程序区域中的其他节重叠
 
-        Format:
+        .area  PAGE  (PAG)      ;This is a paged section. The
+                                ;section must be on a 256 byte
+                                ;boundary and its length is
+                                ;checked by the linker to be
+                                ;no larger than 256 bytes.
+                                ;This is useful for direct page
+                                ;areas.
 
-                .org    exp
+                                ;该节是分页节。
+                                ;该节必须在256字节边界上，并且
+                                ;连接器会检查其长度不超过256字节。
+                                ;该选项用于直接对区域进行分页。
+```
 
-        where:  exp     is  an absolute expression that becomes the cur-
-                        rent location counter.
+The default area type is `REL|CON`; i.e. a relocatable section which is concatenated with other sections of code with the same area name. The `ABS` option indicates an absolute area. The `OVR` and `CON` options indicate if program sections of the same name will overlay each other (start at the same location) or be concatenated with each other (appended to each other).
 
-        The  .org directive is valid only in an absolute program section
-        and will give a <q> error if used in a relocatable program area.
-        The  .org  directive specifies that the current location counter
-        is to become the specified absolute value.
+默认的区域类型是`REL|CON`，即可重定位节，并连接到同名区域的其他节后。`ABS`选项指定绝对区域。`OVR`和`CON`选项指定程序节是与其他节重叠（起始于相同位置）还是连接（追加）到其他节之后。
 
+The area can be specified as either a code segment, `CSEG`, or a data segment, `DSEG`. The `CSEG` and `DSEG` descriptors are useful when the microprocessor code and data unit allocations are unequal: e.g. the executable code uses an allocation of 2 bytes for each instruction and is addressed at an increment of 1 for every instruction, and the data uses an allocation of 1 byte for each element and is addressed at an increment of 1 for each data byte. The allocation units are defined by the architecture of the particular microprocessor.
 
-
+区域可以指定为代码段`CSEG`或数据段`DSEG`。当微处理器的代码和数据单元是单独分配的时，`CSEG`和`DSEG`非常有用。例如，可执行代码可以为每条指令分配2字节，地址按照1指令递增。而对于数据，每个元素使用1字节，地址也是按1字节递增。单元的分配由特定微处理器的架构定义。
 
-        THE ASSEMBLER                                          PAGE 1-34
-        GENERAL ASSEMBLER DIRECTIVES
+The `.area` directive also provides a means of specifying the bank this area is associated with. All areas associated with a particular bank are combined at link time into a block of code/data.
 
+`.area`指示符还提供了一种为区域指定关联的阵列的方法。与一个特定阵列关联的所有区域，在连接时都会被合并到一个代码/数据块中。
 
-        1.4.25  .globl Directive
+The `CSEG`, `DSEG`, and `BANK` options are specified within the parenthesis as shown in the following examples:
 
-        Format:
+`CSEG`、`DSEG`和`BANK`选项在括号中指定，如下例所示：
 
-                .globl  sym1,sym2,...,symn
+```
+        .area   C_SEG   (CSEG,BANK=C1)
+                                ;This is a code section
+                                ;and is included in bank C1
 
-        where:  sym1,           represent legal symbolic names.
-                sym2,...        When multiple symbols are specified,
-                symn            they are separated by commas.
+                                ;代码节，包括在阵列C1中
 
-           A  .globl directive may also have a label field and/or a com-
-        ment field.
+        .area   D_SEG   (DSEG,BANK=D1)
+                                ;This is a data section
+                                ;and is included in bank D1.
 
-           The  .globl directive is provided to export (and thus provide
-        linkage to) symbols not  otherwise  defined  as  global  symbols
-        within  a  module.   In  exporting  global symbols the directive
-        .globl J is similar to:
+                                ;数据节，包括在阵列D1中
+```
 
-              J == expression or J::
+Multiple invocations of the `.area` directive with the same name must specify the same options or leave the options field blank, this defaults to the previously specified options for this program area.
 
-           Because  object  modules  are linked by global symbols, these
-        symbols are vital to a program.  All internal symbols  appearing
-        within  a  given program must be defined at the end of pass 1 or
-        they will be considered undefined.  The assembly directive  (-g)
-        can  be  invoked to make all undefined symbols global at the end
-        of pass 1.
+对`.area`的多次调用如果使用了相同的名字，则也必须指定相同的选项；或者在选项字段留空，这样会默认使用上一次指定的值。
 
-           The  .globl directive and == construct can be overridden by a
-        following .local directive.
+The ASxxxx assemblers automatically provide two program sections:
 
+ASxxxx汇编器自动提供两个程序节：
 
-                                      NOTE
+```
+        '_CODE'         This is the default code/data area.
+                        This program area is of type
+                        (REL,CON,CSEG).
 
-             The  ASxxxx  assemblers  use the last occurring symbol
-             specification in the source file(s) as the type  shown
-             in the symbol table and output to the .rel file.
+                        默认的代码/数据区域。
+                        该程序区域的类型是 (REL,CON,CSEG)
 
+        '_DATA'         This is the default optional data area.
+                        This program area is of type
+                        (REL,CON,DSEG).
 
+                        默认的可选数据区域。
+                        该程序区域的类型是 (REL,CON,DSEG)
+```
 
+The `.area` names and options are never case sensitive.
 
-
+`.area`的名字和选项永远是大小写不敏感的。
 
-        THE ASSEMBLER                                          PAGE 1-35
-        GENERAL ASSEMBLER DIRECTIVES
+#### <a id="1.4.23"></a>1.4.23 `.bank` Directive | `.bank`指示符
 
+Format:
 
-        1.4.26  .local Directive
+格式：
 
-        Format:
+```
+        .bank   name    [(options)]
+```
 
-                .local  sym1,sym2,...,symn
+where:
 
-        where:  sym1,           represent legal symbolic names.
-                sym2,...        When multiple symbols are specified,
-                symn            they are separated by commas.
+其中：
 
-           A  .local directive may also have a label field and/or a com-
-        ment field.
+```
+        name    represents the symbolic name of the bank sec-
+                tion. This name may be the same as any
+                user-defined symbol or area as the bank names
+                are independent of all symbols, labels, and
+                areas. The name may be from 1 to 79 characters
+                in length.
 
-           The  .local  directive is provided to define symbols that are
-        local to the current assembly process.  Local  symbols  are  not
-        effected  by  the assembler option -a (make all symbols global).
-        In defining local symbols the directive .local J is similar to:
+                表示阵列的符号化名字。
+                该名字可以与任何用户定义的符号或区域的名字相同，
+                因为阵列的名字独立于所有符号、标号和区域。
+                名字的长度是从1到79个字符。
 
-              J =: expression
+        options specify the parameters of the bank:
 
-           The  .local directive and the =:  construct are useful in de-
-        fining symbols and constants within a header or definition  file
-        that contains many symbols specific to the current assembly pro-
-        cess that should not be exported into the .rel output  file.   A
-        typical  usage  is  in  the definition of SFRs (Special Function
-        Registers) for a microprocessor.
+                指定阵列的参数：
 
-           The .local directive and =:  construct can be overridden by a
-        following .globl directive.
+                BASE    base address of bank
 
+                        阵列的基地址
 
-                                      NOTE
+                SIZE    maximum size of bank
 
-             The  ASxxxx  assemblers  use the last occurring symbol
-             specification in the source file(s) as the type  shown
-             in the symbol table and output to the .rel file.
+                        阵列的最大大小
+                
+                FSFX    file suffix for this bank
 
+                        该阵列的文件后缀
 
+                MAP     NOICE mapping
 
+                        NoICE映射
+```
 
-
+The `.bank` directive allows an arbitrary grouping of program and/or data areas to be communicated to the linker. The bank parameters are all optional and are described as follows:
 
-        THE ASSEMBLER                                          PAGE 1-36
-        GENERAL ASSEMBLER DIRECTIVES
+`.bank`指示符允许和连接器通信，对程序和/或数据区域进行随意分组。阵列参数都是可选的，描述如下：
+
+1. `BASE`, the starting address of the bank (default is 0) may be defined. This address can be overridden by using the linker `-b` option for the first area within the bank. The bank address is always specified in 'byte' addressing. A first area which is not 'byte' addressed (e.g. a processor addressed by a 'word' of 2 or more bytes) has the area address scaled to begin at the 'byte' address.\
+\
+`BASE`用于定义阵列的起始地址（默认是0）。如果为阵列中第一个区域使用了`-b`连接器选项，则该地址将被覆盖。阵列地址总是指定为“字节”寻址。如果其中某个区域不是“字节”寻址的（例如某处理器通过有2个或更多个字节的“字”进行寻址），其区域地址会被换算为“字节”寻址。
+
+2. `SIZE`, the maximum length of the bank specified in bytes. The size is always specified in terms of bytes.\
+\
+`SIZE`指定了阵列的最大字节长度。这个大小总是按照字节指定。
+
+3. `FSFX`, the file suffix to be used by the linker for this bank. The suffix may not contain embedded white space.\
+\
+`FSFX`是连接器为该阵列使用的文件后缀。改后缀不能包含任何嵌入的空白字符。
+
+4. `MAP`, NOICE mapping parameter for this bank of code/data.\
+\
+`MAP`为该代码/数据阵列指定NoICE映射参数。
+
+The `options` are specified within parenthesis and separated by commas as shown in the following example:
+
+`options`在括号中指定，并用逗号进行分隔，如下例所示：
+
+```
+        .BANK  C1  (BASE=0x0100,SIZE=0x1000,FSFX=_C1)
+                                ;This bank starts at 0x0100,
+                                ;has a maximum size of 0x1000,
+                                ;and is to be placed into
+                                ;a file with a suffix of _C1
+
+                                ;该阵列起始于0x0100，
+                                ;最大大小0x1000，
+                                ;并会被放到后缀为_C1的文件中
+```
+
+The parameters must be absolute (external symbols are not allowed.)
+
+这些参数必须是绝对的（不允许外部符号）。
+
+#### <a id="1.4.24"></a>1.4.24 `.org` Directive | `.org`指示符
+
+Format:
+
+格式：
+
+```
+        .org    exp
+```
+
+where:
+
+其中：
+
+```
+        exp     is  an absolute expression that becomes the cur-
+                rent location counter.
+
+                是一个绝对表达式，将被作为当前位置计数器的值。
+```
+
+The `.org` directive is valid only in an absolute program section and will give a `<q>` error if used in a relocatable program area. The `.org` directive specifies that the current location counter is to become the specified absolute value.
+
+`.org`指示符只在绝对程序区域中有效，如果用在可重定位程序区域中，就会给出`<q>`错误。`.org`指示符将当前位置计数器指定为特定的绝对值。
+
+#### <a id="1.4.25"></a>1.4.25 `.globl` Directive | `.globl`指示符
+
+Format:
+
+格式：
+
+```
+        .globl  sym1,sym2,...,symn
+```
+
+where:
+
+其中：
+
+```
+        sym1,           represent legal symbolic names.
+        sym2,...        When multiple symbols are specified,
+        symn            they are separated by commas.
+
+                        表示合法的符号名字。
+                        如果指定了多个符号，使用逗号进行分隔。
+```
+
+A `.globl` directive may also have a label field and/or a comment field.
+
+`.globl`指示符也可以具有标号字段和/或注释字段。
+
+The `.globl` directive is provided to export (and thus provide linkage to) symbols not otherwise defined as global symbols within a module. In exporting global symbols the directive `.globl J` is similar to:
+
+```
+        J == expression or J::
+```
+
+`.globl`指示符为模块中没有另外定义为全局符号的符号提供了导出（因此也提供了对该符号的连接）。在导出全局符号方面，指示符`.globl J`类似于：
+
+```
+        J == expression    或     J::
+```
+
+Because object modules are linked by global symbols, these symbols are vital to a program. All internal symbols appearing within a given program must be defined at the end of pass 1 or they will be considered undefined. The assembly directive (`-g`) can be invoked to make all undefined symbols global at the end of pass 1.
+
+由于目标模块是通过全局符号连接的，所以这样的符号对于一个程序来说是至关重要的。一个程序中出现的所有内部符号，在第一遍结束时必须得到定义，否则就会被认为是未定义的。可以调用汇编提示符`-g`将所有未定义的符号在第一遍结束时变成全局符号。
+
+The `.globl` directive and `==` construct can be overridden by a following `.local` directive.
+
+`.globl`指示符和`==`结构可以被后面的`.local`指示符覆盖。
+
+
+NOTE | 注意
+
+The ASxxxx assemblers use the last occurring symbol specification in the source file(s) as the type shown in the symbol table and output to the `.rel` file.
+
+ASxxxx汇编器使用最后一次在源文件中出现的符号规范作为符号表中显示的类型并输出到`.rel`文件中。
+
+#### <a id="1.4.26"></a>1.4.26 `.local` Directive | `.local`指示符
+
+Format:
+
+格式：
+
+```
+        .local  sym1,sym2,...,symn
+```
+
+where:
+
+其中：
+
+```
+        sym1,           represent legal symbolic names.
+        sym2,...        When multiple symbols are specified,
+        symn            they are separated by commas.
+
+                        表示合法的符号名字。
+                        如果指定了多个符号，使用逗号进行分隔。
+```
+
+A `.local` directive may also have a label field and/or a comment field.
+
+`.local`指示符也可以具有标号字段和/或注释字段。
+
+The `.local` directive is provided to define symbols that are local to the current assembly process. Local symbols are not effected by the assembler option `-a` (make all symbols global). In defining local symbols the directive `.local J` is similar to:
+
+`.local`指示符用于定义局限于当前汇编过程中使用的符号。局部符号不会被汇编器选项`-a`（将所有符号定义为全局）影响。在定义局部符号方面，指示符`.local J`类似于：
+
+```
+      J =: expression
+```
+
+The `.local` directive and the `=:` construct are useful in defining symbols and constants within a header or definition file that contains many symbols specific to the current assembly process that should not be exported into the `.rel` output file. A typical usage is in the definition of SFRs (Special Function Registers) for a microprocessor.
+
+当在头文件或def文件中定义符号和常量时，`.local`指示符和`=:`结构非常有用，这样的文件通常包含大量用于当前汇编过程中的符号，而这些符号不应该导出到`.rel`输出文件中。一个典型的应用就是为微处理器定义SFR（特殊功能寄存器）。
+
+The `.local` directive and `=:` construct can be overridden by a following `.globl` directive.
+
+`.local`指示符和`=:`结构可以被后来的`.globl`指示符覆盖。
+
+NOTE | 注意
+
+The ASxxxx assemblers use the last occurring symbol specification in the source file(s) as the type shown in the symbol table and output to the `.rel` file.
+
+ASxxxx汇编器使用最后一次在源文件中出现的符号规范作为符号表中显示的类型并输出到`.rel`文件中。
 
 
         1.4.27  .equ, .gblequ, and .lclequ Directives
