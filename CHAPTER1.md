@@ -1923,139 +1923,174 @@ The ASxxxx assemblers use the last occurring symbol specification in the source 
 ASxxxx汇编器使用最后一次在源文件中出现的符号规范作为符号表中显示的类型并输出到`.rel`文件中。
 
 
-        1.4.27  .equ, .gblequ, and .lclequ Directives
+### <a id="1.4.27"></a>1.4.27 `.equ`, `.gblequ`, and `.lclequ` Directives | `.equ`、`.gblequ`和`.lclequ`指示符
 
-        Format:
+Format:
 
-                sym1    .equ    expr    ; equivalent to sym1  = expr
-                sym2    .gblequ expr    ; equivalent to sym2 == expr
-                sym3    .lclequ expr    ; equivalent to sym3 =: expr
+格式：
 
-                or
+```
+        sym1    .equ    expr    ; equivalent to sym1  = expr
 
-                .equ    sym1,   expr    ; equivalent to sym1  = expr
-                .gblequ sym2,   expr    ; equivalent to sym2 == expr
-                .lclequ sym3,   expr    ; equivalent to sym3 =: expr
+                                ; 等价于sym1  = expr
 
-           These  alternate  forms  of equivalence are provided for user
-        convenience.
+        sym2    .gblequ expr    ; equivalent to sym2 == expr
 
+                                ; 等价于sym2 == expr
 
-        1.4.28  .if, .else, and .endif Directives
+        sym3    .lclequ expr    ; equivalent to sym3 =: expr
 
-        Format:
+                                ; 等价于sym3 =: expr
 
-                .if     expr
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
+        or      或
 
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
+        .equ    sym1,   expr    ; equivalent to sym1  = expr
 
-           The  range of true condition will be processed if the expres-
-        sion 'expr' is not zero (i.e.  true) and the range of false con-
-        dition  will  be processed if the expression 'expr' is zero (i.e
-        false).  The range of true condition is optional as is the .else
-        directive  and  the range of false condition.  The following are
-        all valid .if/.else/.endif constructions:
+                                ; 等价于sym1  = expr
 
-                .if     A-4             ;evaluate A-4
-                .byte   1,2             ;insert bytes if A-4 is
-                .endif                  ;not zero
+        .gblequ sym2,   expr    ; equivalent to sym2 == expr
 
-                .if     K+3             ;evaluate K+3
-                .else
-
+                                ; 等价于sym2 == expr
 
-        THE ASSEMBLER                                          PAGE 1-37
-        GENERAL ASSEMBLER DIRECTIVES
+        .lclequ sym3,   expr    ; equivalent to sym3 =: expr
 
+                                ; 等价于sym3 =: expr
 
-                .byte   3,4             ;insert bytes if K+3
-                .endif                  ;is zero
+```
 
-                .if     J&3             ;evaluate J masked by 3
-                .byte   12              ;insert this byte if J&3
-                .else                   ;is not zero
-                .byte   13              ;insert this byte if J&3
-                .endif                  ;is zero
+These alternate forms of equivalence are provided for user convenience.
 
+这些等价的替补格式只是为了给用户提供方便。
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+### <a id="1.4.28"></a>1.4.28 `.if`, `.else`, and `.endif` Directives | `.if`、`.else`和`.endif`指示符
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+Format:
 
+格式：
 
-        1.4.29  .iff, .ift, and .iftf Directives
+```
+        .if     expr
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
 
-        Format:
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
 
-                .if     expr    ;'if' range Condition is
-                                ;TRUE when expr is not zero
-                 .ift                                   ;}
-                 .      ;} range of true condition      ;}
-                 .iff                                   ;} if
-                 .      ;} range of false condition     ;} block
-                 .iftf                                  ;}
-                 .      ;} unconditional range          ;}
-                .else           ;'else' range Condition is
-                                ;TRUE when expr is zero
-                 .ift                                   ;}
-                 .      ;} range of true condition      ;}
-                 .iff                                   ;} else
-                 .      ;} range of false condition     ;} block
-                 .iftf                                  ;}
-                 .      ;} unconditional range          ;}
-                .endif
+条件汇编指示符允许你再汇编过程中，根据对测试条件的求值结果包括或排除一块源代码。
 
-           The  subconditional  assembly directives may be placed within
-        conditional assembly blocks to indicate:
+The range of true condition will be processed if the expression '`expr`' is not zero (i.e. true) and the range of false condition will be processed if the expression '`expr`' is zero (i.e false). The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.if`/`.else`/`.endif` constructions:
 
-                1. The assembly of an alternate body of code when
-                   the condition of the block tests false.
+如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.if`/`.else`/`.endif`构造：
 
-                2. The assembly of non-contiguous body of code
-                   within the conditional assembly block,
-                   depending upon the result of the conditional
-
+```
+        .if     A-4             ;evaluate A-4
+        .byte   1,2             ;insert bytes if A-4 is
+        .endif                  ;not zero
 
-        THE ASSEMBLER                                          PAGE 1-38
-        GENERAL ASSEMBLER DIRECTIVES
+                                ;对A-4进行求值
+                                ;如果A-4非零，则插入两个字节
 
+        .if     K+3             ;evaluate K+3
+        .else
+        .byte   3,4             ;insert bytes if K+3
+        .endif                  ;is zero
 
-                   test in entering the block.
+                                ;对K+3进行求值
+                                ;如果K+3为零，则插入两个字节
 
-                3. The unconditional assembly of a body of code
-                   within a conditional assembly block.
+        .if     J&3             ;evaluate J masked by 3
+        .byte   12              ;insert this byte if J&3
+        .else                   ;is not zero
+        .byte   13              ;insert this byte if J&3
+        .endif                  ;is zero
 
+                                ;求J对于3的掩码
+                                ;如果J&3非零，插入字节12
+                                ;如果J&3为零，插入字节13
+```
 
-        The use of the .iff, .ift, and .iftf directives makes the use of
-        the .else directive redundant.
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
 
-           Note  that  the  implementation of the .else directive causes
-        the .if tested condition to be complemented.  The TRUE and FALSE
-        conditions are determined by the .if/.else conditional state.
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
 
-           All  .if/.else/.endif  directives  are  limited  to a maximum
-        nesting of 10 levels.
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
 
-           The  use  of the .iff, .ift, or .iftf directives outside of a
-        conditional block results in a <i> error code.
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+### <a id="1.4.29"></a>1.4.29 `.iff`, `.ift`, and `.iftf` Directives | `.iff`、`.ift`和`.iftf`指示符
 
+Format:
+
+格式：
+
+```
+        .if     expr    ;'if' range Condition is
+                        ;TRUE when expr is not zero
+
+                        ; 如果expr非零，则if范围的条件为真
+
+         .ift                                           ;}
+         .      ;} range of true condition  | 真范围     ;}
+         .iff                                           ;} if
+         .      ;} range of false condition | 假范围     ;} block
+         .iftf                                          ;}
+         .      ;} unconditional range      | 无条件范围 ;} if块
+
+        .else           ;'else' range Condition is
+                        ;TRUE when expr is zero
+
+                        ;如果expr为零，则else范围的条件为真
+
+         .ift                                           ;}
+         .      ;} range of true condition  | 真范围     ;}
+         .iff                                            ;} else
+         .      ;} range of false condition | 假范围     ;} block
+         .iftf                                          ;}
+         .      ;} unconditional range      | 无条件范围 ;} else块
+        .endif
+```
+
+The subconditional assembly directives may be placed within conditional assembly blocks to indicate:
+
+子条件汇编指示符可以放置在条件汇编块中，用于指出：
+
+1. The assembly of an alternate body of code when the condition of the block tests false.\
+\
+当这一块测试为假时，汇编另一个替补代码块。
+
+2. The assembly of non-contiguous body of code within the conditional assembly block, depending upon the result of the conditional test in entering the block.\
+\
+对一个条件汇编块中不相邻代码块的汇编，依赖于进入这个块似的条件测试结果。
+
+3. The unconditional assembly of a body of code within a conditional assembly block.\
+\
+条件汇编块中的无条件汇编代码块。
+
+The use of the `.iff`, `.ift`, and `.iftf` directives makes the use of the `.else` directive redundant.
+
+对`.iff`、`.ift`和`.iftf`指示符的使用，使得对`.else`指示符的使用成为冗余。
+
+Note that the implementation of the `.else` directive causes the `.if` tested condition to be complemented. The TRUE and FALSE conditions are determined by the `.if`/`.else` conditional state.
+
+注意`.else`指示符的实现导致对`.if`条件的测试结果求补。真假条件由`.if`/`.else`条件的状态决定。
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of the `.iff`, `.ift`, or `.iftf` directives outside of a conditional block results in a `<i>` error code.
+
+在条件块之外使用`.iff`、`.ift`或`.iftf`指示符会产生`<i>`错误码。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
+
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
         1.4.30  .ifxx Directives
 
