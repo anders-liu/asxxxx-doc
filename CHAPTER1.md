@@ -2092,191 +2092,216 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
 
 在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
-        1.4.30  .ifxx Directives
+### <a id="1.4.30"></a>1.4.30 `.ifxx` Directives | `.ifxx`指示符
 
+Additional conditional directives are available to test the value of an evaluated expression:
 
-           Additional  conditional  directives are available to test the
-        value of an evaluated expression:
+还有一些额外的条件指示符可以用于测试表达式的值：
 
-                .ifne   expr            ; true if expr != 0
-                .ifeq   expr            ; true if expr == 0
-                .ifgt   expr            ; true if expr >  0
-                .iflt   expr            ; true if expr <  0
-                .ifge   expr            ; true if expr >= 0
-                .ifle   expr            ; true if expr <= 0
+```
+        .ifne   expr    ; true if expr != 0  时，为真
+        .ifeq   expr    ; true if expr == 0  时，为真
+        .ifgt   expr    ; true if expr >  0  时，为真
+        .iflt   expr    ; true if expr <  0  时，为真
+        .ifge   expr    ; true if expr >= 0  时，为真
+        .ifle   expr    ; true if expr <= 0  时，为真
+```
 
-           Format:
+Format:
 
-                .ifxx   expr
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
+格式：
 
+```
+        .ifxx   expr
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
+
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
+
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
+
+The range of true condition will be processed if the expression '`expr`' is not zero (i.e. true) and the range of false condition will be processed if the expression '`expr`' is zero (i.e false). The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifxx`/`.else`/`.endif` constructions:
+
+如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifxx`/`.else`/`.endif`构造：
+
+```
+        .ifne   A-4             ;evaluate A-4
+        .byte   1,2             ;insert bytes if A-4 is
+        .endif                  ;not zero
+
+                                ;对A-4进行求值
+                                ;如果A-4非零，则插入两个字节
+
+        .ifeq   K+3             ;evaluate K+3
+        .byte   3,4             ;insert bytes if K+3
+        .endif                  ;is zero
+
+                                ;对K+3进行求值
+                                ;如果K+3为零，则插入两个字节
+
+        .ifne   J&3             ;evaluate J masked by 3
+        .byte   12              ;insert this byte if J&3
+        .else                   ;is not zero
+        .byte   13              ;insert this byte if J&3
+        .endif                  ;is zero
+
+                                ;求J对于3的掩码
+                                ;如果J&3非零，插入字节12
+                                ;如果J&3为零，插入字节13
+```
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
+
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
+
+### <a id="1.4.31"></a>1.4.31 `.ifdef` Directive | `.ifdef`指示符
+
+Format:
+
+格式：
+
+```
+        .ifdef  sym
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
+
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
+
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
+
+The range of true condition will be processed if the symbol '`sym`' has been defined with a `.define` directive or '`sym`' is a variable with an assigned value else the false range will be processed. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifdef`/`.else`/`.endif` constructions:
+
+如果已经用`.define`指示符定义过了符号`sym`，或者`sym`是一个赋过值的变量，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifdef`/`.else`/`.endif`构造：
+
+```
+        .ifdef  sym$1           ;lookup symbol sym$1
+        .byte   1,2             ;insert bytes if sym$1
+        .endif                  ;is defined or
+                                ;assigned a value
+
+                                ;寻找符号sym$1
+                                ;如果sym$1有定义或赋过值
+                                ;则插入字节1和2
+
+        .ifdef  sym$2           ;lookup symbol sym$2
+        .else
+        .byte   3,4             ;insert bytes if sym$1
+        .endif                  ;is not defined and
+                                ;not assigned a value
+
+                                ;寻找符号sym$2
+                                ;如果sym$2未定义或没有赋过值
+                                ;则插入字节3和4
+
+        .ifdef  sym$3           ;lookup symbol sym$3
+        .byte   12              ;insert this byte if sym$3
+        .else                   ;is defined/valued
+        .byte   13              ;insert this byte if sym$3
+        .endif                  ;is not defined/valued
+
+                                ;寻找符号sym$3
+                                ;如果sym$3有定义或赋过值
+                                ;则插入字节12
+                                ;如果sym$3未定义或没有赋过值
+                                ;则插入字节13
+```
+
+Note that the default assembler configuration of case sensitive means the testing for a defined symbol is also case sensitive.
+
+注意，汇编器的默认配置是区分大小写的，这意味着对符号定义的测试也是区分大小写的。
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
+
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
+
+### <a id="1.4.32"></a>1.4.32 `.ifndef` Directive | `.ifndef`指示符
+
+Format:
+
+格式：
+
+```
+        .ifndef sym
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
+
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the condition test.
+
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
+
+The range of true condition will be processed if the symbol '`sym`' is not defined by a `.define` directive and a variable '`sym`' has not been assigned a value else the range of false condition will be processed. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifndef`/`.else`/`.endif` constructions:
+
+如果没有用`.define`指示符定义过符号`sym`，并且没有为变量`sym`赋过值，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifndef`/`.else`/`.endif`构造：
+
+```
+        .ifndef sym$1           ;lookup symbol sym$1
+        .byte   1,2             ;insert bytes if sym$1 is
+        .endif                  ;not defined and
+                                ;not assigned a value
+
+                                ;寻找符号sym$1
+                                ;如果sym$1未定义且未赋过值
+                                ;则插入字节1和2
+
+        .ifndef sym$2           ;lookup symbol sym$2
+        .else
+        .byte   3,4             ;insert bytes if sym$1
+        .endif                  ;is defined or
+                                ;is assigned a value
+
+                                ;寻找符号sym$2
+                                ;如果sym$2有定义或赋过值
+                                ;则插入字节3和4
+
+        .ifndef sym$3           ;lookup symbol sym$3
+        .byte   12              ;insert this byte if sym$3
+        .else                   ;is not defined/valued
+        .byte   13              ;insert this byte if sym$3
+        .endif                  ;is defined/valued
+
+                                ;寻找符号sym$3
+                                ;如果sym$3未定义且未赋过值
+                                ;则插入字节12
+                                ;如果sym$3有定义或赋过值
+                                ;则插入字节13
+```
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
 
-
-        THE ASSEMBLER                                          PAGE 1-39
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
-
-           The  range of true condition will be processed if the expres-
-        sion 'expr' is not zero (i.e.  true) and the range of false con-
-        dition  will  be processed if the expression 'expr' is zero (i.e
-        false).  The range of true condition is optional as is the .else
-        directive  and  the range of false condition.  The following are
-        all valid .ifxx/.else/.endif constructions:
-
-                .ifne   A-4             ;evaluate A-4
-                .byte   1,2             ;insert bytes if A-4 is
-                .endif                  ;not zero
-
-                .ifeq   K+3             ;evaluate K+3
-                .byte   3,4             ;insert bytes if K+3
-                .endif                  ;is zero
-
-                .ifne   J&3             ;evaluate J masked by 3
-                .byte   12              ;insert this byte if J&3
-                .else                   ;is not zero
-                .byte   13              ;insert this byte if J&3
-                .endif                  ;is zero
-
-
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
-
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
-
-
-        1.4.31  .ifdef Directive
-
-        Format:
-
-                .ifdef  sym
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
-
-
-
-        THE ASSEMBLER                                          PAGE 1-40
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
-
-           The  range  of true condition will be processed if the symbol
-        'sym' has been defined with a .define directive or  'sym'  is  a
-        variable  with  an  assigned  value else the false range will be
-        processed.  The range of true condition is optional  as  is  the
-        .else directive and the range of false condition.  The following
-        are all valid .ifdef/.else/.endif constructions:
-
-                .ifdef  sym$1           ;lookup symbol sym$1
-                .byte   1,2             ;insert bytes if sym$1
-                .endif                  ;is defined or
-                                        ;assigned a value
-
-                .ifdef  sym$2           ;lookup symbol sym$2
-                .else
-                .byte   3,4             ;insert bytes if sym$1
-                .endif                  ;is not defined and
-                                        ;not assigned a value
-
-                .ifdef  sym$3           ;lookup symbol sym$3
-                .byte   12              ;insert this byte if sym$3
-                .else                   ;is defined/valued
-                .byte   13              ;insert this byte if sym$3
-                .endif                  ;is not defined/valued
-
-
-        Note  that the default assembler configuration of case sensitive
-        means the testing for a defined symbol is also case sensitive.
-
-           All  .if/.else/.endif  directives  are  limited  to a maximum
-        nesting of 10 levels.
-
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
-
-
-
-
-        THE ASSEMBLER                                          PAGE 1-41
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-        1.4.32  .ifndef Directive
-
-        Format:
-
-                .ifndef sym
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
-
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the condition test.
-
-           The  range  of true condition will be processed if the symbol
-        'sym' is not defined by a .define directive and a variable 'sym'
-        has  not been assigned a value else the range of false condition
-        will be processed.  The range of true condition is  optional  as
-        is  the  .else  directive and the range of false condition.  The
-        following are all valid .ifndef/.else/.endif constructions:
-
-                .ifndef sym$1           ;lookup symbol sym$1
-                .byte   1,2             ;insert bytes if sym$1 is
-                .endif                  ;not defined and
-                                        ;not assigned a value
-
-                .ifndef sym$2           ;lookup symbol sym$2
-                .else
-                .byte   3,4             ;insert bytes if sym$1
-                .endif                  ;is defined or
-                                        ;is assigned a value
-
-                .ifndef sym$3           ;lookup symbol sym$3
-                .byte   12              ;insert this byte if sym$3
-                .else                   ;is not defined/valued
-                .byte   13              ;insert this byte if sym$3
-                .endif                  ;is defined/valued
-
-
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
-
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
-
-
-        THE ASSEMBLER                                          PAGE 1-42
-        GENERAL ASSEMBLER DIRECTIVES
-
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
         1.4.33  .ifb Directive
 
