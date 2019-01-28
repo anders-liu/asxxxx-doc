@@ -21,7 +21,7 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
 
 - [CHAPTER 1 THE ASSEMBLER | 第一章 汇编器](CHAPTER1.md)
 
-  - 1.1 [THE ASXXXX ASSEMBLERS | ASXXXX汇编器](CHAPTER1.md#user-content-1.1)
+  - [1.1 THE ASXXXX ASSEMBLERS | ASXXXX汇编器](CHAPTER1.md#user-content-1.1)
 
     - [1.1.1 Assembly Pass 1 | 第一遍汇编](CHAPTER1.md#user-content-1.1.1)
     - [1.1.2 Assembly Pass 2 | 第二遍汇编](CHAPTER1.md#user-content-1.1.2)
@@ -45,34 +45,34 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
     - [1.3.6 Terms | 项](CHAPTER1.md#user-content-1.3.6)
     - [1.3.7 Expressions | 表达式](CHAPTER1.md#user-content-1.3.7)
 
-  - 1.4 GENERAL ASSEMBLER DIRECTIVES
+  - [1.4 GENERAL ASSEMBLER DIRECTIVES | 通用汇编器指示符](CHAPTER1.md#user-content-1.4)
 
-    - 1.4.1 `.module` Directive
-    - 1.4.2 `.title` Directive
-    - 1.4.3 `.sbttl` Directive
-    - 1.4.4 `.list` and `.nlist` Directives
-    - 1.4.5 `.page` Directive
-    - 1.4.6 `.msg` Directive
-    - 1.4.7 `.error` Directive
-    - 1.4.8 `.byte`, `.db`, and `.fcb` Directives
-    - 1.4.9 `.word`, `.dw`, and `.fdb` Directives
-    - 1.4.10 `.3byte` and `.triple` Directives
-    - 1.4.11 `.4byte` and `.quad` Directive
-    - 1.4.12 `.blkb`, `.ds`, `.rmb`, and `.rs` Directives
-    - 1.4.13 `.blkw`, `.blk3`, and `.blk4` Directives
-    - 1.4.14 `.ascii`, `.str`, and `.fcc` Directives
-    - 1.4.15 `.ascis` and `.strs` Directives
-    - 1.4.16 `.asciz` and `.strz` Directives
-    - 1.4.17 `.assume` Directive
-    - 1.4.18 `.radix` Directive
-    - 1.4.19 `.even` Directive
-    - 1.4.20 `.odd` Directive
-    - 1.4.21 `.bndry` Directive
-    - 1.4.22 `.area` Directive
-    - 1.4.23 `.bank` Directive
-    - 1.4.24 `.org` Directive
-    - 1.4.25 `.globl` Directive
-    - 1.4.26 `.local` Directive
+    - [1.4.1 `.module` Directive | `.module`指示符](CHAPTER1.md#user-content-1.4.1)
+    - [1.4.2 `.title` Directive | `.title`指示符](CHAPTER1.md#user-content-1.4.2)
+    - [1.4.3 `.sbttl` Directive | `.sbttl`指示符](CHAPTER1.md#user-content-1.4.3)
+    - [1.4.4 `.list` and `.nlist` Directives | `.list`和`.nlist`指示符](CHAPTER1.md#user-content-1.4.4)
+    - [1.4.5 `.page` Directive | `.page`指示符](CHAPTER1.md#user-content-1.4.5)
+    - [1.4.6 `.msg` Directive | `.msg`指示符](CHAPTER1.md#user-content-1.4.6)
+    - [1.4.7 `.error` Directive | `.error`指示符](CHAPTER1.md#user-content-1.4.7)
+    - [1.4.8 `.byte`, `.db`, and `.fcb` Directives | `.byte`、`.db`和`.fcb`指示符](CHAPTER1.md#user-content-1.4.8)
+    - [1.4.9 `.word`, `.dw`, and `.fdb` Directives | `.word`、`.dw`和`.fdb`指示符](CHAPTER1.md#user-content-1.4.9)
+    - [1.4.10 `.3byte` and `.triple` Directives | `.3byte`和`.triple`指示符](CHAPTER1.md#user-content-1.4.10)
+    - [1.4.11 `.4byte` and `.quad` Directive | `.4byte`和`.quad`指示符](CHAPTER1.md#user-content-1.4.11)
+    - [1.4.12 `.blkb`, `.ds`, `.rmb`, and `.rs` Directives | `.blkb`、`.ds`、`.rmb`和`.rs`指示符](CHAPTER1.md#user-content-1.4.12)
+    - [1.4.13 `.blkw`, `.blk3`, and `.blk4` Directives | `.blkw`、`.blk3`和`.blk4`指示符](CHAPTER1.md#user-content-1.4.13)
+    - [1.4.14 `.ascii`, `.str`, and `.fcc` Directives | `.ascii`、`.str`和`.fcc`指示符](CHAPTER1.md#user-content-1.4.14)
+    - [1.4.15 `.ascis` and `.strs` Directives | `.ascis`和`.strs`指示符](CHAPTER1.md#user-content-1.4.15)
+    - [1.4.16 `.asciz` and `.strz` Directives | `.asciz`和`.strz`指示符](CHAPTER1.md#user-content-1.4.16)
+    - [1.4.17 `.assume` Directive | `.assume`指示符](CHAPTER1.md#user-content-1.4.17)
+    - [1.4.18 `.radix` Directive | `.radix`指示符](CHAPTER1.md#user-content-1.4.18)
+    - [1.4.19 `.even` Directive | `.even`指示符](CHAPTER1.md#user-content-1.4.19)
+    - [1.4.20 `.odd` Directive | `.odd`指示符](CHAPTER1.md#user-content-1.4.20)
+    - [1.4.21 `.bndry` Directive | `.bndry`指示符](CHAPTER1.md#user-content-1.4.21)
+    - [1.4.22 `.area` Directive | `.area`指示符](CHAPTER1.md#user-content-1.4.22)
+    - [1.4.23 `.bank` Directive | `.bank`指示符](CHAPTER1.md#user-content-1.4.23)
+    - [1.4.24 `.org` Directive | `.org`指示符](CHAPTER1.md#user-content-1.4.24)
+    - [1.4.25 `.globl` Directive | `.globl`指示符](CHAPTER1.md#user-content-1.4.25)
+    - [1.4.26 `.local` Directive | `.local`指示符](CHAPTER1.md#user-content-1.4.26)
     - 1.4.27 `.equ,` `.gblequ,` and `.lclequ` Directives
     - 1.4.28 `.if,` `.else,` and `.endif` Directives
     - 1.4.29 `.iff,` `.ift,` and `.iftf` Directives
