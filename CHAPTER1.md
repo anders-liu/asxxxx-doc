@@ -2303,114 +2303,127 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
 
 在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
-        1.4.33  .ifb Directive
+### <a id="1.4.33"></a>1.4.33 `.ifb` Directive | `.ifb`指示符
 
-        Format:
+Format:
 
-                .ifb    sym
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
+格式：
 
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
+```
+        .ifb    sym
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
 
-           The  conditional  .ifb  is most useful when used in macro de-
-        finitions to determine if the argument is blank.  The  range  of
-        true  condition  will be processed if the symbol 'sym' is blank.
-        The range of true condition is optional as is the  .else  direc-
-        tive  and  the  range of false condition.  The following are all
-        valid .ifb/.else/.endif constructions:
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
 
-                .ifb    sym$1           ;argument is not blank
-                .byte   1,2             ;insert bytes if argument
-                .endif                  ;is blank
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
 
-                .ifb    sym$2           ;argument is not blank
-                .else
-                .byte   3,4             ;insert bytes if argument
-                .endif                  ;is not blank
+The conditional `.ifb` is most useful when used in macro definitions to determine if the argument is blank. The range of true condition will be processed if the symbol '`sym`' is blank. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifb`/`.else`/`.endif` constructions:
 
-                .ifb                    ;argument is blank
-                .byte   12              ;insert this byte if
-                .else                   ;argument is blank
-                .byte   13              ;insert this byte if
-                .endif                  ;argument not blank
+`.ifb`指示符用于在宏定义中检测一个参数是否为空。如果符号`sym`为空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifb`/`.else`/`.endif`构造：
 
+```
+        .ifb    sym$1           ;argument is not blank
+        .byte   1,2             ;insert bytes if argument
+        .endif                  ;is blank
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+                                ;检查参数是否为空
+                                ;为空的话则插入字节1和2
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+        .ifb    sym$2           ;argument is not blank
+        .else
+        .byte   3,4             ;insert bytes if argument
+        .endif                  ;is not blank
 
+                                ;检查参数是否为空
+                                ;不为空的话则插入字节3和4
 
-
+        .ifb                    ;argument is blank
+        .byte   12              ;insert this byte if
+        .else                   ;argument is blank
+        .byte   13              ;insert this byte if
+        .endif                  ;argument not blank
 
-        THE ASSEMBLER                                          PAGE 1-43
-        GENERAL ASSEMBLER DIRECTIVES
+                                ;检查参数是否为空
+                                ;为空的话则插入字节12
+                                ;不为空的话则插入字节13
+```
 
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.、
 
-        1.4.34  .ifnb Directive
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
 
-        Format:
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
 
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
+
+### <a id="1.4.34"></a>1.4.34 `.ifnb` Directive | `.ifnb`指示符
+
+Format:
+
+格式：
+
+```
                 .ifnb   sym
                 .                       ;}
                 .                       ;} range of true condition
-                .                       ;}
+                .                       ;} 真条件范围
                 .else
                 .                       ;}
                 .                       ;} range of false condition
-                .                       ;}
+                .                       ;} 假条件范围
                 .endif
+```
 
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
 
-           The  conditional  .ifnb is most useful when used in macro de-
-        finitions to determine if the argument is not blank.  The  range
-        of  true  condition will be processed if the symbol 'sym' is not
-        blank.  The range of true condition is optional as is the  .else
-        directive  and  the range of false condition.  The following are
-        all valid .ifnb/.else/.endif constructions:
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
 
-                .ifnb   sym$1           ;argument is not blank
-                .byte   1,2             ;insert bytes if argument
-                .endif                  ;is not blank
+The conditional `.ifnb` is most useful when used in macro definitions to determine if the argument is not blank. The range of true condition will be processed if the symbol '`sym`' is not blank. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifnb`/`.else`/`.endif` constructions:
 
-                .ifnb   sym$2           ;argument is not blank
-                .else
-                .byte   3,4             ;insert bytes if argument
-                .endif                  ;is blank
+`.ifb`指示符用于在宏定义中检测一个参数是否非空。如果符号`sym`非空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifnb`/`.else`/`.endif`构造：
 
-                .ifnb                   ;argument is blank
-                .byte   12              ;insert this byte if
-                .else                   ;argument is not blank
-                .byte   13              ;insert this byte if
-                .endif                  ;argument is blank
+```
+        .ifnb   sym$1           ;argument is not blank
+        .byte   1,2             ;insert bytes if argument
+        .endif                  ;is not blank
 
+                                ;检查参数是否非空
+                                ;非空的话则插入字节1和2
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+        .ifnb   sym$2           ;argument is not blank
+        .else
+        .byte   3,4             ;insert bytes if argument
+        .endif                  ;is blank
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+                                ;检查参数是否非空
+                                ;为空的话则插入字节3和4
 
+        .ifnb                   ;argument is blank
+        .byte   12              ;insert this byte if
+        .else                   ;argument is not blank
+        .byte   13              ;insert this byte if
+        .endif                  ;argument is blank
 
-
+                                ;检查参数是否为空
+                                ;非空的话则插入字节12
+                                ;为空的话则插入字节13
+```
 
-        THE ASSEMBLER                                          PAGE 1-44
-        GENERAL ASSEMBLER DIRECTIVES
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
+
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
 
         1.4.35  .ifidn Directive
