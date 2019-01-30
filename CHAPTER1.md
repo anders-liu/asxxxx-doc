@@ -1986,7 +1986,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The range of true condition will be processed if the expression '`expr`' is not zero (i.e. true) and the range of false condition will be processed if the expression '`expr`' is zero (i.e false). The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.if`/`.else`/`.endif` constructions:
 
-如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.if`/`.else`/`.endif`构造：
+如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.if`/`.else`/`.endif`构造：
 
 ```
         .if     A-4             ;evaluate A-4
@@ -2129,7 +2129,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The range of true condition will be processed if the expression '`expr`' is not zero (i.e. true) and the range of false condition will be processed if the expression '`expr`' is zero (i.e false). The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifxx`/`.else`/`.endif` constructions:
 
-如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifxx`/`.else`/`.endif`构造：
+如果表达式`expr`不为零（即真），真条件范围会被处理。如果表达式`expr`为零（即假），假条件范围会被处理。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifxx`/`.else`/`.endif`构造：
 
 ```
         .ifne   A-4             ;evaluate A-4
@@ -2189,7 +2189,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The range of true condition will be processed if the symbol '`sym`' has been defined with a `.define` directive or '`sym`' is a variable with an assigned value else the false range will be processed. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifdef`/`.else`/`.endif` constructions:
 
-如果已经用`.define`指示符定义过了符号`sym`，或者`sym`是一个赋过值的变量，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifdef`/`.else`/`.endif`构造：
+如果已经用`.define`指示符定义过了符号`sym`，或者`sym`是一个赋过值的变量，将会处理真条件范围，否则处理假条件范围。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifdef`/`.else`/`.endif`构造：
 
 ```
         .ifdef  sym$1           ;lookup symbol sym$1
@@ -2260,7 +2260,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The range of true condition will be processed if the symbol '`sym`' is not defined by a `.define` directive and a variable '`sym`' has not been assigned a value else the range of false condition will be processed. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifndef`/`.else`/`.endif` constructions:
 
-如果没有用`.define`指示符定义过符号`sym`，并且没有为变量`sym`赋过值，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifndef`/`.else`/`.endif`构造：
+如果没有用`.define`指示符定义过符号`sym`，并且没有为变量`sym`赋过值，将会处理真条件范围，否则处理假条件范围。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifndef`/`.else`/`.endif`构造：
 
 ```
         .ifndef sym$1           ;lookup symbol sym$1
@@ -2327,7 +2327,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The conditional `.ifb` is most useful when used in macro definitions to determine if the argument is blank. The range of true condition will be processed if the symbol '`sym`' is blank. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifb`/`.else`/`.endif` constructions:
 
-`.ifb`指示符用于在宏定义中检测一个参数是否为空。如果符号`sym`为空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifb`/`.else`/`.endif`构造：
+`.ifb`指示符用于在宏定义中检测一个参数是否为空。如果符号`sym`为空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifb`/`.else`/`.endif`构造：
 
 ```
         .ifb    sym$1           ;argument is not blank
@@ -2388,7 +2388,7 @@ The conditional assembly directives allow you to include or exclude blocks of so
 
 The conditional `.ifnb` is most useful when used in macro definitions to determine if the argument is not blank. The range of true condition will be processed if the symbol '`sym`' is not blank. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifnb`/`.else`/`.endif` constructions:
 
-`.ifb`指示符用于在宏定义中检测一个参数是否非空。如果符号`sym`非空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围时可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifnb`/`.else`/`.endif`构造：
+`.ifb`指示符用于在宏定义中检测一个参数是否非空。如果符号`sym`非空，将会处理真条件范围，否则处理假条件范围。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifnb`/`.else`/`.endif`构造：
 
 ```
         .ifnb   sym$1           ;argument is not blank
@@ -2425,126 +2425,127 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
 
 在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
+### <a id="1.4.35"></a>1.4.35 `.ifidn` Directive | `.ifidn`指示符
 
-        1.4.35  .ifidn Directive
+Format:
 
-        Format:
+格式：
 
-                .ifidn  sym$1,sym$2
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
+```
+        .ifidn  sym$1,sym$2
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
 
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
 
-           The  conditional .ifidn is most useful when used in macro de-
-        finitions to determine if  the  arguments  are  identical.   The
-        range  of true condition will be processed if the symbol 'sym$1'
-        is idendical to 'sym$2' (i.e.  the character strings  for  sym$1
-        and  sym$2  are  the  same  consistent with the case sensitivity
-        flag).  When this if statement occurs inside a  macro  where  an
-        argument  substitution  may  be blank then an argument should be
-        delimited with the form /symbol/ for each symbol.  The range  of
-        true  condition  is  optional  as is the .else directive and the
-        range  of  false  condition.   The  following  are   all   valid
-        .ifidn/.else/.endif constructions:
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
 
-                .ifidn  sym$1,sym$1     ;arguments are the same
-                .byte   1,2             ;insert bytes if arguments
-                .endif                  ;are the sane
+The conditional `.ifidn` is most useful when used in macro definitions to determine if the arguments are identical. The range of true condition will be processed if the symbol '`sym$1`' is idendical to '`sym$2`' (i.e. the character strings for `sym$1` and `sym$2` are the same consistent with the case sensitivity flag). When this `if` statement occurs inside a macro where an argument substitution may be blank then an argument should be delimited with the form `/symbol/` for each symbol. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifidn`/`.else`/`.endif` constructions:
 
-                .ifidn  sym$1,sym$2     ;arguments are not the same
-                .else
-                .byte   3,4             ;insert bytes if arguments
-                .endif                  ;are not the same
+`.ifidn`指示符用于在宏定义中检测一个两个参数是否相等。如果符号`sym$1`和`sym$1`相等（即考虑是否区分大小写的标志下，`sym$1`和`sym$2`的字符串具有相同的构造），将会处理真条件范围，否则处理假条件范围。当宏中出现这个`if`语句时，参数可能会被空白替换，因此参数参数中的每一个符号都应该用`/symbol/`的形式界定起来。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifidn`/`.else`/`.endif`构造：
 
-                .ifidn  sym$3,sym$3     ;arguments are the same
-                .byte   12              ;insert this byte if
-                .else                   ;arguments are the same
-                .byte   13              ;insert this byte if
-                .endif                  ;arguments are not the same
+```
+        .ifidn  sym$1,sym$1     ;arguments are the same
+        .byte   1,2             ;insert bytes if arguments
+        .endif                  ;are the sane
 
+                                ;检查参数是否相等
+                                ;相等的话则插入字节1和2
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+        .ifidn  sym$1,sym$2     ;arguments are not the same
+        .else
+        .byte   3,4             ;insert bytes if arguments
+        .endif                  ;are not the same
 
+                                ;检查参数是否相等
+                                ;不相等的话则插入字节3和4
+
+        .ifidn  sym$3,sym$3     ;arguments are the same
+        .byte   12              ;insert this byte if
+        .else                   ;arguments are the same
+        .byte   13              ;insert this byte if
+        .endif                  ;arguments are not the same
+
+                                ;检查参数是否相等
+                                ;相等的话则插入字节12
+                                ;不相等的话则插入字节13
+```
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
 
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
 
-        THE ASSEMBLER                                          PAGE 1-45
-        GENERAL ASSEMBLER DIRECTIVES
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
+### <a id="1.4.36"></a>1.4.36 `.ifdif` Directive | `.ifdif`指示符
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+Format:
 
+格式：
 
-        1.4.36  .ifdif Directive
+```
+        .ifdif  sym$1,sym$2
+        .                       ;}
+        .                       ;} range of true condition
+        .                       ;} 真条件范围
+        .else
+        .                       ;}
+        .                       ;} range of false condition
+        .                       ;} 假条件范围
+        .endif
+```
 
-        Format:
+The conditional assembly directives allow you to include or exclude blocks of source code during the assembly process, based on the evaluation of the test condition.
 
-                .ifdif  sym$1,sym$2
-                .                       ;}
-                .                       ;} range of true condition
-                .                       ;}
-                .else
-                .                       ;}
-                .                       ;} range of false condition
-                .                       ;}
-                .endif
+在汇编过程中，条件汇编指示符允许你根据测试条件的求值结果包含或排除源代码块。
 
-           The  conditional  assembly directives allow you to include or
-        exclude blocks of source code during the assembly process, based
-        on the evaluation of the test condition.
+The conditional `.ifdif` is most useful when used in macro definitions to determine if the arguments are different. The range of true condition will be processed if the symbol '`sym$1`' is different from '`sym$2`' (i.e. the character strings for `sym$1` and `sym$2` are the not the same consistent with the case sensitivity flag). When this `if` statement occurs inside a macro where an argument substitution may be blank then an argument should be delimited with the form `/symbol/` for each symbol. The range of true condition is optional as is the `.else` directive and the range of false condition. The following are all valid `.ifdif`/`.else`/`.endif` constructions:
 
-           The  conditional .ifdif is most useful when used in macro de-
-        finitions to determine if  the  arguments  are  different.   The
-        range  of true condition will be processed if the symbol 'sym$1'
-        is different from 'sym$2' (i.e.  the character strings for sym$1
-        and  sym$2  are the not the same consistent with the case sensi-
-        tivity flag).  When this if  statement  occurs  inside  a  macro
-        where  an  argument  substitution  may be blank then an argument
-        should be delimited with the form /symbol/ for each symbol.  The
-        range  of  true  condition is optional as is the .else directive
-        and the range of false condition.  The following are  all  valid
-        .ifdif/.else/.endif constructions:
+`.ifdif`指示符用于在宏定义中检测一个两个参数是否不相等。如果符号`sym$1`和`sym$1`不相等（即考虑是否区分大小写的标志下，`sym$1`和`sym$2`的字符串具有不相同的构造），将会处理真条件范围，否则处理假条件范围。当宏中出现这个`if`语句时，参数可能会被空白替换，因此参数参数中的每一个符号都应该用`/symbol/`的形式界定起来。在这里真条件范围是可选的，因为出现了`.else`指示符和假条件范围。下面的例子都是合法的`.ifdif`/`.else`/`.endif`构造：
 
-                .ifdif  sym$1,sym$2     ;arguments are different
-                .byte   1,2             ;insert bytes if arguments
-                .endif                  ;are different
+```
+        .ifdif  sym$1,sym$2     ;arguments are different
+        .byte   1,2             ;insert bytes if arguments
+        .endif                  ;are different
 
-                .ifdif  sym$1,sym$1     ;arguments are identical
-                .else
-                .byte   3,4             ;insert bytes if arguments
-                .endif                  ;are different
+                                ;检查参数是否不相等
+                                ;不相等的话则插入字节1和2
 
-                .ifdif  sym$1,sym$3     ;arguments are different
-                .byte   12              ;insert this byte if
-                .else                   ;arguments are different
-                .byte   13              ;insert this byte if
-                .endif                  ;arguments are identical
-
+        .ifdif  sym$1,sym$1     ;arguments are identical
+        .else
+        .byte   3,4             ;insert bytes if arguments
+        .endif                  ;are different
 
-        THE ASSEMBLER                                          PAGE 1-46
-        GENERAL ASSEMBLER DIRECTIVES
+                                ;检查参数是否不相等
+                                ;相等的话则插入字节3和4
 
+        .ifdif  sym$1,sym$3     ;arguments are different
+        .byte   12              ;insert this byte if
+        .else                   ;arguments are different
+        .byte   13              ;insert this byte if
+        .endif                  ;arguments are identical
 
+                                ;检查参数是否不相等
+                                ;不相等的话则插入字节12
+                                ;相等的话则插入字节13
+```
 
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
 
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
         1.4.37  Alternate .if Directive Forms
 
