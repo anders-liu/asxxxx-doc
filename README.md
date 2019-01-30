@@ -73,16 +73,16 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
     - [1.4.24 `.org` Directive | `.org`指示符](CHAPTER1.md#user-content-1.4.24)
     - [1.4.25 `.globl` Directive | `.globl`指示符](CHAPTER1.md#user-content-1.4.25)
     - [1.4.26 `.local` Directive | `.local`指示符](CHAPTER1.md#user-content-1.4.26)
-    - 1.4.27 `.equ,` `.gblequ,` and `.lclequ` Directives
-    - 1.4.28 `.if,` `.else,` and `.endif` Directives
-    - 1.4.29 `.iff,` `.ift,` and `.iftf` Directives
-    - 1.4.30 `.ifxx` Directives
-    - 1.4.31 `.ifdef` Directive
-    - 1.4.32 `.ifndef` Directive
-    - 1.4.33 `.ifb` Directive
-    - 1.4.34 `.ifnb` Directive
-    - 1.4.35 `.ifidn` Directive
-    - 1.4.36 `.ifdif` Directive
+    - [1.4.27 `.equ`, `.gblequ`, and `.lclequ` Directives | `.equ`、`.gblequ`和`.lclequ`指示符](CHAPTER1.md#user-content-1.4.27)
+    - [1.4.28 `.if`, `.else`, and `.endif` Directives | `.if`、`.else`和`.endif`指示符](CHAPTER1.md#user-content-1.4.28)
+    - [1.4.29 `.iff`, `.ift`, and `.iftf` Directives | `.iff`、`.ift`和`.iftf`指示符](CHAPTER1.md#user-content-1.4.29)
+    - [1.4.30 `.ifxx` Directives | `.ifxx`指示符](CHAPTER1.md#user-content-1.4.30)
+    - [1.4.31 `.ifdef` Directive | `.ifdef`指示符](CHAPTER1.md#user-content-1.4.31)
+    - [1.4.32 `.ifndef` Directive | `.ifndef`指示符](CHAPTER1.md#user-content-1.4.32)
+    - [1.4.33 `.ifb` Directive | `.ifb`指示符](CHAPTER1.md#user-content-1.4.33)
+    - [1.4.34 `.ifnb` Directive | `.ifnb`指示符](CHAPTER1.md#user-content-1.4.34)
+    - [1.4.35 `.ifidn` Directive | `.ifidn`指示符](CHAPTER1.md#user-content-1.4.35)
+    - [1.4.36 `.ifdif` Directive | `.ifdif`指示符](CHAPTER1.md#user-content-1.4.36)
     - 1.4.37 Alternate `.if` Directive Forms
     - 1.4.38 Immediate Conditional Assembly Directives
     - 1.4.39 `.include` Directive
