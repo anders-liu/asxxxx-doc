@@ -2831,51 +2831,59 @@ Graphical Illustration of Include File Locations for the following command line 
 ```
 
 
-        1.4.40  .define and .undefine Directives
+### <a id="1.4.40"></a>1.4.40 `.define` and `.undefine` Directives | `.define`和`.undefine`指示符
 
-        Format:
+Format:
 
-                .define        keyword  /string/        or
+格式：
 
-                .define        keyword ^/string/
+```
+        .define        keyword  /string/        or    或
 
-                .undefine      keyword
+        .define        keyword ^/string/
 
+        .undefine      keyword
+```
 
-        where:  keyword is  the  substitutable  string  which must start
-                        with a letter and may contain any combination of
-                        digits and letters.
+where:
 
-        where:  string  represents  a string that is substituted for the
-                        keyword.  The string may contain any sequence of
-                        characters including white space.
+其中：
 
-                /  /    represent   the  delimiting  characters.   These
-                        delimiters   may   be   any   paired    printing
-                        characters,  as  long  as the characters are not
-                        contained within  the  string  itself.   If  the
-                        delimiting  characters do not match, the .define
-                        directive will give the <q> error.
+```
+        keyword is the substitutable string which must start
+                with a letter and may contain any combination of
+                digits and letters.
 
-           The  .define  directive specifies a user defined string which
-        is substituted for the keyword.  The substitution string may it-
-        self  contain other keywords that are substitutable.  The assem-
-        bler resumes the parse of the line at the point the keyword  was
-        found.  Care must be excersized to avoid any circular references
-        within .define directives, otherwise the assembler may  enter  a
-        'recursion runaway' resulting in an <s> error.
+                时待替换的字符串，必须以字母开头，
+                可以包含字母和数字的组合
 
-           The  .undefine  directive removes the keyword as a substitut-
-        able string.  No error is returned if the keyword  was  not  de-
-        fined.
+        string  represents a string that is substituted for the
+                keyword. The string may contain any sequence of
+                characters including white space.
 
+                表示替换keyword的字符串。
+                该字符串可以包含任何字符序列，包括空白字符。
 
+        /  /    represent the delimiting characters. These
+                delimiters may be any paired printing
+                characters, as long as the characters are not
+                contained within the string itself. If the
+                delimiting characters do not match, the .define
+                directive will give the <q> error.
+
+                表示界定字符。界定符可以是任何可打印字符对，
+                只要没有包含在字符串自身中即可。
+                如果界定字符不匹配，.define指示符会给出<q>错误。
+```
+
+The `.define` directive specifies a user defined string which is substituted for the `keyword`. The substitution string may itself contain other keywords that are substitutable. The assembler resumes the parse of the line at the point the keyword was found. Care must be excersized to avoid any circular references within `.define` directives, otherwise the assembler may enter a 'recursion runaway' resulting in an `<s>` error.
+
+`.define`指示符为`keyword`制定了替换字符串。替换字符串自身可能包含其他可以替换的关键字。汇编器找到关键字的定义后会恢复对这一行的分析。必须特别小心，要避免在`.define`指示符中出现循环引用，否则编译器会陷入“递归失控”状态，并产生`<s>`错误。
+
+The `.undefine` directive removes the `keyword` as a substitutable string. No error is returned if the `keyword` was not defined.
+
+`.undefine`指示符移除对`keyword`的字符串替换。如果`keyword`未定义，不会返回错误。
 
-
-        THE ASSEMBLER                                          PAGE 1-53
-        GENERAL ASSEMBLER DIRECTIVES
-
-
         1.4.41  .setdp Directive
 
         Format:
