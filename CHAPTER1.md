@@ -273,6 +273,7 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
 
 表1到6介绍了各种ASxxxx标号和字段分隔符、赋值操作符、操作数分隔符、汇编、一元、二元和进制运算符。
 
+```
         Table 1         Label Terminators and Assignment Operators
            表 1         标号终结符和赋值运算符
         ----------------------------------------------------------------
@@ -301,7 +302,9 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                                         将符号定义为局部符号。
 
         ----------------------------------------------------------------
+```
 
+```
         Table 2         Field Terminators and Operand Separators
            表 2         字段终结符和操作数分隔符
         ----------------------------------------------------------------
@@ -319,7 +322,9 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                     分号                 注释字段指示符。
 
         ----------------------------------------------------------------
+```
 
+```
         Table 3         Assembler Operators
            表 3         汇编器运算符
         ----------------------------------------------------------------
@@ -337,7 +342,9 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                     右括号               表达式分界符。
 
         ----------------------------------------------------------------
+```
 
+```
         Table 4         Unary Operators
            表 4         一元运算符
         ----------------------------------------------------------------
@@ -378,7 +385,9 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                                                 或八进制字节值
 
         ----------------------------------------------------------------
+```
 
+```
         Table 5         Binary Operators
            表 5         二元运算符
         ----------------------------------------------------------------
@@ -423,7 +432,9 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                     上箭头或声调符号              异或运算
 
         ----------------------------------------------------------------
+```
 
+```
         Table 6         Temporary Radix Operators
            表 6         临时进制运算符
         ----------------------------------------------------------------
@@ -456,6 +467,7 @@ Tables 1 through 6 describe the various ASxxxx label and field terminators, assi
                 则前导0是必须的，否则汇编器将会将其视为一个标号的字母序列。
 
         ----------------------------------------------------------------
+```
 
 #### <a id="1.3.2"></a>1.3.2 User-Defined Symbols | 用户定义的符号
 
