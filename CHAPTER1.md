@@ -2537,7 +2537,7 @@ The conditional `.ifdif` is most useful when used in macro definitions to determ
                                 ;检查参数是否不相等
                                 ;不相等的话则插入字节12
                                 ;相等的话则插入字节13
-```
+```
 
 All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
 
@@ -2547,181 +2547,202 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
 
 在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
 
-        1.4.37  Alternate .if Directive Forms
+### <a id="1.4.37"></a>1.4.37 Alternate `.if` Directive Forms | 其他`.if`指示符格式
 
+Format:
 
-           Format:
+格式：
 
-                .if     cnd(,)  arg1(, arg2)
+```
+        .if     cnd(,)  arg1(, arg2)
+```
 
-           where  the  cnd (followed by an optional comma) may be any of
-        the following:
+where the `cnd` (followed by an optional comma) may be any of the following:
 
-                -------------------------------------------------------
-                 condition              Assemble
-                (complement)    Args    Block if:
-                -------------------------------------------------------
-                eq   ( ne )     expr    equal to zero
-                                        (not equal to zero)
+其中`cnd`（后跟可选的逗号）可以下列任何一种：
 
-                gt   ( le )     expr    greater than zero
-                                        (less than or equal to zero)
+```
+        -------------------------------------------------------
+         condition              Assemble
+        (complement)    Args    Block if:
+        -------------------------------------------------------
+           条件                 编译该代码块，
+        （逆条件）       参数    如果：
+        -------------------------------------------------------
+        eq   ( ne )     expr    equal to zero
+                                (not equal to zero)
 
-                lt   ( ge )     expr    less than zero
-                                        (greater than or equal to zero)
+                                等于零 （不等于零）
 
-                def  ( ndef )   symbol  .define'd or user set
-                                        (not .define'd or user set)
+        gt   ( le )     expr    greater than zero
+                                (less than or equal to zero)
 
-                b    ( nb )     macro   argument present
-                                symbol  (argument not present)
+                                大于零 （小于或等于零）
 
-                idn  ( dif )    macro   arguments identical
-                                symbol  (arguments not identical)
+        lt   ( ge )     expr    less than zero
+                                (greater than or equal to zero)
 
-                f    ( t )      -----   only within a .if/.else/.endif
-                                        conditional block
+                                小于零 （大于或等于零）
 
-                tf              -----   only within a .if/.else/.endif
-                                        conditional block
+        def  ( ndef )   symbol  .define'd or user set
+                                (not .define'd or user set)
 
+                                有定义 （没有定义）
 
+        b    ( nb )     macro   argument present
+                        symbol  (argument not present)
+
+                                参数出现了 （参数没出现）
+
+        idn  ( dif )    macro   arguments identical
+                        symbol  (arguments not identical)
+
+                                参数相等 （参数不等）
+
+        f    ( t )      -----   only within a .if/.else/.endif
+                                conditional block
+
+                                只用于.if/.else/.endif条件块里
+
+        tf              -----   only within a .if/.else/.endif
+                                conditional block
+
+                                只用于.if/.else/.endif条件块里
+```
+
+All `.if`/`.else`/`.endif` directives are limited to a maximum nesting of 10 levels.
+
+全部`.if`/`.else`/`.endif`指示符最多嵌套10层。
+
+The use of a `.else` directive outside a `.if`/`.endif` block will generate an `<i>` error. Assemblies having unequal `.if` and `.endif` counts will cause an `<i>` error.
+
+在`.if`/`.endif`块之外使用`.else`指示符会产生`<i>`错误。汇编程序具有不等量的`.if`和`.endif`会导致`<i>`错误。
+
+### <a id="1.4.38"></a>1.4.38 Immediate Conditional Assembly Directives | 立即条件汇编指示符
+
+The immediate conditional assembly directives allow a single line of code to be assembled without using a `.if`/`.else`/`.endif` construct. All of the previously described conditionals have immediate equivalents.
+
+立即条件汇编指示符允许单独一行代码被汇编，而无需使用`.if`/`.else`/`.endif`构造。前面介绍的所有条件都有等价的立即形式。
+
+Format:
+
+格式：
+
+```
+        .iif            arg(,)          line_to_assemble
+        .iifeq          arg(,)          line_to_assemble
+        .iifne          arg(,)          line_to_assemble
+        .iifgt          arg(,)          line_to_assemble
+        .iifle          arg(,)          line_to_assemble
+        .iifge          arg(,)          line_to_assemble
+        .iiflt          arg(,)          line_to_assemble
+        .iifdef         arg(,)          line_to_assemble
+        .iifndef        arg(,)          line_to_assemble
+
+        .iifb        (,)arg(,)          line_to_assemble
+        .iifnb       (,)arg(,)          line_to_assemble
+        .iifidn      (,)arg1,arg2(,)    line_to_assemble
+        .iifdif      (,)arg1,arg2(,)    line_to_assemble
+
+        .iiff                           line_to_assemble
+        .iift                           line_to_assemble
+        .iiftf                          line_to_assemble
+```
+
+Alternate Format:
+
+其他格式：
+
+```
+        .iif            arg(,)          line_to_assemble
+        .iif    eq      arg(,)          line_to_assemble
+        .iif    ne      arg(,)          line_to_assemble
+        .iif    gt      arg(,)          line_to_assemble
+        .iif    le      arg(,)          line_to_assemble
+        .iif    ge      arg(,)          line_to_assemble
+        .iif    lt      arg(,)          line_to_assemble
+        .iif    def     arg(,)          line_to_assemble
+        .iif    ndef    arg(,)          line_to_assemble
 
+        .iif    b    (,)arg(,)          line_to_assemble
+        .iif    nb   (,)arg(,)          line_to_assemble
+        .iif    idn  (,)arg1,arg2(,)    line_to_assemble
+        .iif    dif  (,)arg1,arg2(,)    line_to_assemble
 
-        THE ASSEMBLER                                          PAGE 1-47
-        GENERAL ASSEMBLER DIRECTIVES
+        .iiff                           line_to_assemble
+        .iift                           line_to_assemble
+        .iiftf                          line_to_assemble
+```
 
+The `(,)` indicates an optional comma.
 
-        All .if/.else/.endif directives are limited to a maximum nesting
-        of 10 levels.
+`(,)`表示一个可选的逗号。
 
-           The  use of a .else directive outside a .if/.endif block will
-        generate an <i> error.  Assemblies having unequal .if and .endif
-        counts will cause an <i> error.
+The `.iif` types `b`, `n`, `idn`, and `dif` require the commas if the argument(s) may be blank. These commas may be removed if the arguments are delimited with the form `^/symbol/` for each symbol.
 
+在`.iif`类型`b`、`n`、`idn`和`dif`中，如果参数可能为空，则要求必须有逗号。如果参数中的每个符号都用`^/synbol/`的形式界定了，则可以移除逗号。
 
-        1.4.38  Immediate Conditional Assembly Directives
+The immediate conditional directives donot change the `.if`/`.else`/`.endif` nesting level.
 
+立即条件指示符不改变`.if`/`.else`/`.endif`的嵌套层级。
 
-           The  immediate conditional assembly directives allow a single
-        line of code to be assembled without  using  a  .if/.else/.endif
-        construct.   All  of  the previously described conditionals have
-        immediate equivalents.
+### <a id="1.4.39"></a>1.4.39 `.include` Directive | `.include`指示符
 
-           Format:
+Format:
 
-                .iif            arg(,)          line_to_assemble
-                .iifeq          arg(,)          line_to_assemble
-                .iifne          arg(,)          line_to_assemble
-                .iifgt          arg(,)          line_to_assemble
-                .iifle          arg(,)          line_to_assemble
-                .iifge          arg(,)          line_to_assemble
-                .iiflt          arg(,)          line_to_assemble
-                .iifdef         arg(,)          line_to_assemble
-                .iifndef        arg(,)          line_to_assemble
+格式：
 
-                .iifb        (,)arg(,)          line_to_assemble
-                .iifnb       (,)arg(,)          line_to_assemble
-                .iifidn      (,)arg1,arg2(,)    line_to_assemble
-                .iifdif      (,)arg1,arg2(,)    line_to_assemble
+```
+        .include         /string/               or   或
 
-                .iiff                           line_to_assemble
-                .iift                           line_to_assemble
-                .iiftf                          line_to_assemble
+        .include        ^/string/
+```
 
+where:
 
-        Alternate Format:
+其中：
 
-                .iif            arg(,)          line_to_assemble
-                .iif    eq      arg(,)          line_to_assemble
-                .iif    ne      arg(,)          line_to_assemble
-                .iif    gt      arg(,)          line_to_assemble
-                .iif    le      arg(,)          line_to_assemble
-                .iif    ge      arg(,)          line_to_assemble
-                .iif    lt      arg(,)          line_to_assemble
-                .iif    def     arg(,)          line_to_assemble
-                .iif    ndef    arg(,)          line_to_assemble
+```
+        string  represents  a string that is the file specifica-
+                tion of an ASxxxx source file.
+
+                表示一个指定了ASxxxx源文件的字符串。
+
+        /  /    represent the delimiting characters. These
+                delimiters may be any paired printing
+                characters, as long as the characters are not
+                contained within the string itself. If the
+                delimiting characters do not match, the .include
+                directive will give the <q> error.
+
+                表示界定字符。该界定符可以是任何的可打印字符对，
+                只要没有包含在字符串自身中即可。
+                如果界定字符不匹配，.include指示符会给出<q>错误。
+```
+
+The `.include` directive is used to insert a source file within the source file currently being assembled. When this directive is encountered, an implicit `.page` directive is issued. When the end of the specified source file is reached, an implicit `.page` directive is issued and input continues from the previous source file. The maximum nesting level of source files specified by a `.include` directive is five.
+
+`.include`指示符用于向当前正在编译的源文件中插入另一个源文件。当遇到该指示符，会发出一个隐含的`.page`指示符。当遇到指定的源文件结尾时，有会发出另一个隐含的`.page指示符，然后从前一个源文件继续。`.include`指示符能指定的源文件嵌套层级最大为五。
+
+The total number of separately specified `.include` files is unlimited as each `.include` file is opened and then closed during each pass made by the assembler.
+
+独立指定的`.include`文件总数时没有限制的，因为汇编器在每一遍汇编中，会打开`.include`指定文件，处理完立即关闭。
+
+The default directory path, if none is specified, for any `.include` file is the directory path of the current file. For example: if the current source file, `D:\proj\file1.asm`, includes a file specified as `"include1"` then the `file D:\proj\include1.asm` is opened.
 
+`.include`文件的默认目录，如果为指定的话，就是当前文件的目录。例如，如果当前源文件为`D:\proj\file1.asm`，包含文件为`"include1"`，则文件`file D:\proj\include1.asm`会被打开。
 
-        THE ASSEMBLER                                          PAGE 1-48
-        GENERAL ASSEMBLER DIRECTIVES
+### <a id="1.4.39.1"></a>1.4.39.1 Including Files In Windows/DOS | Windows/DOS上的包含文件
 
+Graphical Illustration of Include File Locations for the following command line entry:
 
+这是对下面的命令行关于包含文件位置的图形化演示：
 
-                .iif    b    (,)arg(,)          line_to_assemble
-                .iif    nb   (,)arg(,)          line_to_assemble
-                .iif    idn  (,)arg1,arg2(,)    line_to_assemble
-                .iif    dif  (,)arg1,arg2(,)    line_to_assemble
+```
+        __> bin\ascheck -l -o -s  obj\prjct.rel   src\prjct\prjct.asm
+```
 
-                .iiff                           line_to_assemble
-                .iift                           line_to_assemble
-                .iiftf                          line_to_assemble
-
-
-        The (,) indicates an optional comma.
-
-           The  .iif  types b, n, idn, and dif require the commas if the
-        argument(s) may be blank.  These commas may be  removed  if  the
-        arguments are delimited with the form ^/symbol/ for each symbol.
-
-           The   immediate   conditional  directives  donot  change  the
-        .if/.else/.endif nesting level.
-
-
-        1.4.39  .include Directive
-
-        Format:
-
-                .include         /string/               or
-
-                .include        ^/string/
-
-
-        where:  string  represents  a string that is the file specifica-
-                        tion of an ASxxxx source file.
-
-                /  /    represent   the  delimiting  characters.   These
-                        delimiters   may   be   any   paired    printing
-                        characters,  as  long  as the characters are not
-                        contained within  the  string  itself.   If  the
-                        delimiting characters do not match, the .include
-                        directive will give the <q> error.
-
-           The .include directive is used to insert a source file within
-        the source file currently being assembled.  When this  directive
-        is encountered, an implicit .page directive is issued.  When the
-        end of the specified source file is reached, an  implicit  .page
-        directive is issued and input continues from the previous source
-        file.  The maximum nesting level of source files specified by  a
-        .include directive is five.
-
-
-
-        THE ASSEMBLER                                          PAGE 1-49
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-           The  total  number  of separately specified .include files is
-        unlimited as each .include file is opened and then closed during
-        each pass made by the assembler.
-
-           The  default  directory  path,  if none is specified, for any
-        .include file is the directory path of the  current  file.   For
-        example:   if  the  current  source file, D:\proj\file1.asm, in-
-        cludes  a  file  specified   as   "include1"   then   the   file
-        D:\proj\include1.asm is opened.
-
-
-        THE ASSEMBLER                                                                                          PAGE 1-50
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-        1.4.39.1  Including Files In Windows/DOS  -
-            Graphical Illustration of Include File Locations
-            for the following command line entry:
-
-                __> bin\ascheck -l -o -s  obj\prjct.rel   src\prjct\prjct.asm
-
+```
                                   /-----------------------------------------------------------------------\
                                   |                                           (rooted)                    |
                       _____       |           _____                                                       |
@@ -2758,19 +2779,19 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
                                  |_____|
                                     |
                                     \___ inc3.asm
+```
 
-
+### <a id="1.4.39.2"></a>1.4.39.2 Including Files in Linux | Linux上的包含文件
 
-        THE ASSEMBLER                                                                                          PAGE 1-51
-        GENERAL ASSEMBLER DIRECTIVES
+Graphical Illustration of Include File Locations for the following command line entry:
 
+这是对下面的命令行关于包含文件位置的图形化演示：
 
-        1.4.39.2  Including Files in Linux  -
-            Graphical Illustration of Include File Locations
-            for the following command line entry:
+```
+        __$ bin/ascheck -l -o -s  obj/prjct.rel   src/prjct/prjct.asm
+```
 
-                __$ bin/ascheck -l -o -s  obj/prjct.rel   src/prjct/prjct.asm
-
+```
                                   /-----------------------------------------------------------------------\
                                   |                                           (rooted)                    |
                       _____       |           _____                                                       |
@@ -2807,11 +2828,7 @@ The use of a `.else` directive outside a `.if`/`.endif` block will generate an `
                                  |_____|
                                     |
                                     \___ inc3.asm
-
-
-
-        THE ASSEMBLER                                          PAGE 1-52
-        GENERAL ASSEMBLER DIRECTIVES
+```
 
 
         1.4.40  .define and .undefine Directives
