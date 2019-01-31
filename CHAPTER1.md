@@ -5,17 +5,17 @@ The ASxxxx assemblers are a series of microprocessor assemblers written in the C
 
 ASxxxx汇编器（集合）是一系列用C语言编写的微处理器汇编器。每种汇编器都有一个特定于设备的节，其中包含了：
 
-1. device description, byte order, and file extension information
+1. device description, byte order, and file extension information\
+\
+设备描述、字节顺序和文件扩展名信息
 
-    设备描述、字节顺序和文件扩展名信息
+2. a table of the assembler general directives, special device directives, assembler mnemonics and associated operation codes\
+\
+由汇编通用指示符、特殊设备指示符、汇编助记符和相关操作码构成的表格
 
-2. a table of the assembler general directives, special device directives, assembler mnemonics and associated operation codes
-
-    由汇编通用指示符、特殊设备指示符、汇编助记符和相关操作码构成的表格
-
-3. machine specific code for processing the device mnemonics, addressing modes, and special directives
-
-    特定于机器的代码，用于处理设备助记符、地址模式和特殊指示符
+3. machine specific code for processing the device mnemonics, addressing modes, and special directives\
+\
+特定于机器的代码，用于处理设备助记符、地址模式和特殊指示符
 
 The device specific information is detailed in the appendices.
 
@@ -29,29 +29,29 @@ The assemblers provide the following features:
 
 这些汇编器提供了下列特性：
 
-1. Command string control of assembly functions
+1. Command string control of assembly functions\
+\
+汇编功能的命令字符串控制
 
-    汇编功能的命令字符串控制
+2. Alphabetized, formatted symbol table listing\
+\
+按字母排序的、格式化过的符号表列表
 
-2. Alphabetized, formatted symbol table listing
-
-    按字母排序的、格式化过的符号表列表
-
-3. Relocatable object modules
-
-    可重定位的目标模块
+3. Relocatable object modules\
+\
+可重定位的目标模块
 
-4. Global symbols for linking object modules
+4. Global symbols for linking object modules\
+\
+用于连接目标模块的全局符号
 
-    用于连接目标模块的全局符号
+5. Conditional assembly directives\
+\
+条件汇编指示符
 
-5. Conditional assembly directives
-
-    条件汇编指示符
-
-6. Program sectioning directives
-
-    程序节指示符
+6. Program sectioning directives\
+\
+程序节指示符
 
 ASxxxx assembles one or more source files into a single relocatable ascii object file. The output of the ASxxxx assemblers consists of an ascii relocatable object file(\*.rel), an assembly listing file(\*.lst), and a symbol file(\*.sym) each controlled by an assembler option. If both the object and listing files are
  specified then a listing to relocated listing hint file  (*.hlr) is created as a helper for the linker to properly create the relocated listing file.
@@ -253,21 +253,21 @@ The following characters are legal in ASxxxx source programs:
 
 下面的字符在ASxxxx源程序中是合法的：
 
-1. The letters `A` through `Z`. Both upper- and lower-case letters are acceptable. The assemblers, by default, are case sensitive, i.e. `ABCD` and `abcd` are not the same symbols. (The assemblers can be made case insensitive by using the `-z` command line option.)
+1. The letters `A` through `Z`. Both upper- and lower-case letters are acceptable. The assemblers, by default, are case sensitive, i.e. `ABCD` and `abcd` are not the same symbols. (The assemblers can be made case insensitive by using the `-z` command line option.)\
+\
+字母`A`到`Z`。大小写字母均可接受。汇编器默认是大小写敏感的，即`ABCD`和`abcd`是不同的符号。（汇编器也可以通过`-z`命令行选项编程大小写不敏感的。）
 
-    字母`A`到`Z`。大小写字母均可接受。汇编器默认是大小写敏感的，即`ABCD`和`abcd`是不同的符号。（汇编器也可以通过`-z`命令行选项编程大小写不敏感的。）
+2. The digits `0` through `9`\
+\
+数字`0`到`9`
 
-2. The digits `0` through `9`
+3. The characters `.` (period), `$` (dollar sign), and `_` (un- derscore).\
+\
+字符`.`（点）、`$`（美元符）和`_`（下划线）。
 
-    数字`0`到`9`
-
-3. The characters `.` (period), `$` (dollar sign), and `_` (un- derscore).
-
-    字符`.`（点）、`$`（美元符）和`_`（下划线）。
-
-4. The special characters listed in Tables 1 through 6.
-
-    表1到6种列出的特殊字符。
+4. The special characters listed in Tables 1 through 6.\
+\
+表1到6种列出的特殊字符。
 
 Tables 1 through 6 describe the various ASxxxx label and field terminators, assignment operators, operand separators, assembly, unary, binary, and radix operators.
 
@@ -479,21 +479,21 @@ The following rules govern the creation of user-defined symbols:
 
 创建用户定义的符号时，有下列规则：
 
-1. Symbols can be composed of alphanumeric characters, dollar signs (`$`), periods (`.`), and underscores (`_`) only.
+1. Symbols can be composed of alphanumeric characters, dollar signs (`$`), periods (`.`), and underscores (`_`) only.\
+\
+符号只能由字母数字、美元符（`$`）、句点（`.`）和下划线（`_`）组成。
 
-    符号只能由字母数字、美元符（`$`）、句点（`.`）和下划线（`_`）组成。
+2. The first character of a symbol must not be a number (except in the case of reusable symbols).\
+\
+符号的第一个字符不能是数字（可重用符号除外）。
 
-2. The first character of a symbol must not be a number (except in the case of reusable symbols).
+3. The first 79 characters of a symbol must be unique. A symbol can be written with more than 79 legal characters, but the 80th and subsequent characters are ignored.\
+\
+一个符号的前79个字符必须唯一。一个符号可以写进多于79个合法字符，但第80个及以后的字符将被忽略。
 
-    符号的第一个字符不能是数字（可重用符号除外）。
-
-3. The first 79 characters of a symbol must be unique. A symbol can be written with more than 79 legal characters, but the 80th and subsequent characters are ignored.
-
-    一个符号的前79个字符必须唯一。一个符号可以写进多于79个合法字符，但第80个及以后的字符将被忽略。
-
-4. Spaces and Tabs must not be embedded within a symbol.
-
-    符号中不能嵌入空格和制表符。
+4. Spaces and Tabs must not be embedded within a symbol.\
+\
+符号中不能嵌入空格和制表符。
 
 #### <a id="1.3.3"></a>1.3.3 Reusable Symbols | 可重用符号
 
@@ -682,37 +682,37 @@ A term is a component of an expression and may be one of the following:
 
 项是表达式中的一种组成部分，可以是下列之一：
 
-1. A number.
+1. A number.\
+\
+数字。
 
-    数字。
+2. A symbol:\
+\
+符号：
 
-2. A symbol:
+    1. A period (`.`) specified in an expression causes the current location counter to be used.\
+\
+在表达式中是定的句点（`.`）导致使用了当前位置计数器。
 
-    符号：
+    2. A User-defined symbol.\
+\
+用户定义的符号。
 
-    1. A period (`.`) specified in an expression causes the current location counter to be used.
+    3. An undefined symbol is assigned a value of zero and inserted in the User-Defined symbol table as an undefined symbol.\
+\
+未定义的符号被赋以零值并作为未定义符号插入用户符号表中。
 
-        在表达式中是定的句点（`.`）导致使用了当前位置计数器。
+3. A single quote followed by a single ascii character, or a double quote followed by two ascii characters.\
+\
+单引号后跟一个ASCII字符，或双引号后跟两个ASCII字符。
 
-    2. A User-defined symbol.
+4. An expression enclosed in parenthesis. Any expression so enclosed is evaluated and reduced to a single term before the remainder of the expression in which it appears is evaluated. Parenthesis, for example, may be used to alter the left-to-right evaluation of expressions, (as in `A*B+C` versus `A*(B+C)`), or to apply a unary operator to an entire expression (as in `-(A+B)`).\
+\
+包围在括号中的表达式。在对其出现的表达式的其余部分进行求值时，括号包围的表达式会被求值并简化为一个单独项。括号可以用于改变自左至右的求值顺序（如`A*B+C`相对于`A*(B+C)`），或对整个表达式应用一元运算符（如`-(A+B)`）。
 
-        用户定义的符号。
-
-    3. An undefined symbol is assigned a value of zero and inserted in the User-Defined symbol table as an undefined symbol.
-
-        未定义的符号被赋以零值并作为未定义符号插入用户符号表中。
-
-3. A single quote followed by a single ascii character, or a double quote followed by two ascii characters.
-
-    单引号后跟一个ASCII字符，或双引号后跟两个ASCII字符。
-
-4. An expression enclosed in parenthesis. Any expression so enclosed is evaluated and reduced to a single term before the remainder of the expression in which it appears is evaluated. Parenthesis, for example, may be used to alter the left-to-right evaluation of expressions, (as in `A*B+C` versus `A*(B+C)`), or to apply a unary operator to an entire expression (as in `-(A+B)`).
-
-    包围在括号中的表达式。在对其出现的表达式的其余部分进行求值时，括号包围的表达式会被求值并简化为一个单独项。括号可以用于改变自左至右的求值顺序（如`A*B+C`相对于`A*(B+C)`），或对整个表达式应用一元运算符（如`-(A+B)`）。
-
-5. A unary operator followed by a symbol or number.
-
-    一元运算符后跟符号或数字。
+5. A unary operator followed by a symbol or number.\
+\
+一元运算符后跟符号或数字。
 
 ### <a id="1.3.7"></a>1.3.7 Expressions | 表达式
 
@@ -771,17 +771,17 @@ Expressions, when evaluated by ASxxxx, are one of three types: relocatable, abso
 
 ASxxxx中的表达式有三种类型——可重定位的、绝对定位的和外部的。下面的区别非常重要：
 
-1. An expression is relocatable if its value is fixed relative to the base address of the program area in which it appears; it will have an offset value added at link time. Terms that contain labels defined in relocatable program areas will have a relocatable value; similarly, a period (`.`) in a relocatable program area, representing the value of the current program location counter, will also have a relocatable value.
+1. An expression is relocatable if its value is fixed relative to the base address of the program area in which it appears; it will have an offset value added at link time. Terms that contain labels defined in relocatable program areas will have a relocatable value; similarly, a period (`.`) in a relocatable program area, representing the value of the current program location counter, will also have a relocatable value.\
+\
+如果一个表达式的值与其出现的程序区域的基地址是固定相对的，则该表达式是可重定位的；在连接时将会为其加一个偏移量。包含标号的项，如果该标号定义在可重定位的程序区域，则该项具有可重定位值；类似的，可重定位程序区域中的句点（`.`）表示了当前程序位置计数器的值，也具有可重定位值。
 
-    如果一个表达式的值与其出现的程序区域的基地址是固定相对的，则该表达式是可重定位的；在连接时将会为其加一个偏移量。包含标号的项，如果该标号定义在可重定位的程序区域，则该项具有可重定位值；类似的，可重定位程序区域中的句点（`.`）表示了当前程序位置计数器的值，也具有可重定位值。
+2. An expression is absolute if its value is fixed. An expression whose terms are numbers and ascii characters will reduce to an absolute value. A relocatable expression or term minus a relocatable term, where both elements being evaluated belong to the same program area, is an absolute expression. This is because every term in a program area has the same relocation bias. When one term is subtracted from the other the relocation bias is zero.\
+\
+如果一个表达式的值是固定的，则该表达式是绝对的。如果表达式中的项是数字或ASCII字符，则它会被化简为绝对值。一个可重定位表达式或项，减去另一个可重定位项，如果两个元素经过求值都属于同一个程序区域，则它是一个绝对表达式。这是因为一个程序区域里的每个项都具有相同的重定位偏移。当一个项减去另一个时，最终的重定位偏移为零。
 
-2. An expression is absolute if its value is fixed. An expression whose terms are numbers and ascii characters will reduce to an absolute value. A relocatable expression or term minus a relocatable term, where both elements being evaluated belong to the same program area, is an absolute expression. This is because every term in a program area has the same relocation bias. When one term is subtracted from the other the relocation bias is zero.
-
-    如果一个表达式的值是固定的，则该表达式是绝对的。如果表达式中的项是数字或ASCII字符，则它会被化简为绝对值。一个可重定位表达式或项，减去另一个可重定位项，如果两个元素经过求值都属于同一个程序区域，则它是一个绝对表达式。这是因为一个程序区域里的每个项都具有相同的重定位偏移。当一个项减去另一个时，最终的重定位偏移为零。
-
-3. An expression is external (or global) if it contains a single global reference (plus or minus an absolute expression value) that is not defined within the current program. Thus, an external expression is only partially defined following assembly and must be resolved at link time.
-
-    如果一个表达式包含了一个未在当前程序中定义的全局引用（加上或减去一个绝对表达式值），则该表达式时外部的（或全局的）。因此，外部表达式在汇编过程中只是部分定义的，必须在连接时进行解决。
+3. An expression is external (or global) if it contains a single global reference (plus or minus an absolute expression value) that is not defined within the current program. Thus, an external expression is only partially defined following assembly and must be resolved at link time.\
+\
+如果一个表达式包含了一个未在当前程序中定义的全局引用（加上或减去一个绝对表达式值），则该表达式时外部的（或全局的）。因此，外部表达式在汇编过程中只是部分定义的，必须在连接时进行解决。
 
 #### <a id="1.4"></a>1.4 GENERAL ASSEMBLER DIRECTIVES | 通用汇编器指示符
 
