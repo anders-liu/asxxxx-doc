@@ -2896,115 +2896,111 @@ The `.undefine` directive removes the `keyword` as a substitutable string. No er
 
 `.undefine`指示符移除对`keyword`的字符串替换。如果`keyword`未定义，不会返回错误。
 
-        1.4.41  .setdp Directive
+### <a id="1.4.41"></a>1.4.41 `.setdp` Directive | `.setdp`指示符
 
-        Format:
+Format:
 
-                .setdp [base [,area]]
+格式：
 
-        The set direct page directive has a common format in all the as-
-        semblers supporting a paged mode.  The .setdp directive is  used
-        to  inform  the  assembler of the current direct page region and
-        the offset address within the selected area.  The normal invoca-
-        tion methods are:
+```
+        .setdp [base [,area]]
+```
 
-                .area   DIRECT  (PAG)
-                .setdp
+The set direct page directive has a common format in all the assemblers supporting a paged mode. The `.setdp` directive is used to inform the assembler of the current direct page region and the offset address within the selected area. The normal invocation methods are:
 
-                or
+在所有支持分页模式的汇编器中，设置直接分页指示符有通用的格式。`.setdp`指示符用于告知汇编器当前的直接分页区域极其在选中区域中的偏移地址。通常的调用方式为：
 
-                .setdp  0,DIRECT
+```
+        .area   DIRECT  (PAG)
+        .setdp
 
-        for  all  the  68xx microprocessors (the 6804 has only the paged
-        ram area).  The commands specify that the direct page is in area
-        DIRECT and its offset address is 0 (the only valid value for all
-        but the 6809 microprocessor).  Be sure to place the DIRECT  area
-        at address 0 during linking.  When the base address and area are
-        not specified, then zero and the current area are the  defaults.
-        If  a  .setdp directive is not issued the assembler defaults the
-        direct page to the area "_CODE" at offset 0.
+        or      或
 
-           The  assembler  verifies  that  any  local variable used in a
-        direct variable reference is located in this area.  Local  vari-
-        able  and  constant value direct access addresses are checked to
-        be within the address range from 0 to 255.
+        .setdp  0,DIRECT
+```
 
-           External direct references are assumed by the assembler to be
-        in the correct area and have valid  offsets.   The  linker  will
-        check all direct page relocations to verify that they are within
-        the correct area.
+for all the 68xx microprocessors (the 6804 has only the paged ram area). The commands specify that the direct page is in area `DIRECT` and its offset address is `0` (the only valid value for all but the 6809 microprocessor). Be sure to place the `DIRECT` area at address `0` during linking. When the base address and area are not specified, then zero and the current area are the defaults. If a `.setdp` directive is not issued the assembler defaults the direct page to the area "`_CODE`" at offset `0`.
 
-           The  6809  microprocessor  allows the selection of the direct
-        page to be on any 256 byte boundary by loading  the  appropriate
-        value  into the dp register.  Typically one would like to select
-        the page boundary at link time, one method follows:
+此法适用于所有68xx微处理器（6804只有分页的ram区域）。该命令指定直接分页位于`DIRECT`区域，且其偏移地址为`0`（处6809微处理器之外唯一的有效值）。在连接时，要确保将`DIRECT`区域放置在地址`0`。如果没有指定基地址和区域，则默认值为0以及当前区域。如果没有使用`.setdp`指示符，则汇编器默认直接分页位于偏移量`0`处的`_CODE`区域。
+
+The assembler verifies that any local variable used in a direct variable reference is located in this area. Local variable and constant value direct access addresses are checked to be within the address range from 0 to 255.
+
+汇编器会验证直接变量引用中使用的局部变量都位于这一区域。局部变量和常量值直接访问地址也会被检查，确保位于0到255的地址范围。
+
+External direct references are assumed by the assembler to be in the correct area and have valid offsets. The linker will check all direct page relocations to verify that they are within the correct area.
+
+汇编器会假设外部直接引用位于正确的区域并且具有有效的偏移量。连接器会检查所有的直接分页重定位，验证它们位于正确的区域。
+
+The 6809 microprocessor allows the selection of the direct page to be on any 256 byte boundary by loading the appropriate value into the `dp` register. Typically one would like to select the page boundary at link time, one method follows:
+
+6809微处理器允许通过向`dp`寄存器加载适当的值，来选择位于任何256字节边界的直接分页。通常可以在连接时选择页边界，方法如下：
 
+```
+        .area   DIRECT  (PAG)   ; define the direct page
+        .setdp
+                                ; 定义直接分页
+        .
+        .
+        .
+        .area   PROGRAM
+        .
+        ldd     #DIRECT         ; load the direct page register
+        tfr     a,dp            ; for access to the direct page
 
-        THE ASSEMBLER                                          PAGE 1-54
-        GENERAL ASSEMBLER DIRECTIVES
+                                ; 记载直接分页寄存器
+                                ; 用于访问直接分页
+```
 
+At link time specify the base and global equates to locate the direct page:
 
-                .area   DIRECT  (PAG)   ; define the direct page
-                .setdp
-                .
-                .
-                .
-                .area   PROGRAM
-                .
-                ldd     #DIRECT         ; load the direct page register
-                tfr     a,dp            ; for access to the direct page
+在连接时指定基地址和全局等式，以定位直接分页：
 
-        At  link  time specify the base and global equates to locate the
-        direct page:
+```
+        -b DIRECT = 0x1000
+        -g DIRECT = 0x1000
+```
 
-                -b DIRECT = 0x1000
-                -g DIRECT = 0x1000
+Both the area address and offset value must be specified (area and variable names are independent). The linker will verify that the relocated direct page accesses are within the direct page.
 
-        Both  the  area address and offset value must be specified (area
-        and variable names are independent).   The  linker  will  verify
-        that  the  relocated  direct page accesses are within the direct
-        page.
+区域地址和偏移值都必须指定（区域和变量名是相互独立的）。连接器会验证对重定位的直接分页的访问是位于直接分页中的）。
 
-        The  preceeding  sequence  could  be repeated for multiple paged
-        areas, however an alternate method is to define a non-paged area
-        and use the .setdp directive to specify the offset value:
+The preceeding sequence could be repeated for multiple paged areas, however an alternate method is to define a non-paged area and use the `.setdp` directive to specify the offset value:
 
-                .area   DIRECT          ; define non-paged area
-                .
-                .
-                .
-                .area   PROGRAM
-                .
-                .setdp  0,DIRECT        ; direct page area
-                ldd     #DIRECT         ; load the direct page register
-                tfr     a,dp            ; for access to the direct page
-                .
-                .
-                .setdp  0x100,DIRECT    ; direct page area
-                ldd     #DIRECT+0x100   ; load the direct page register
-                tfr     a,dp            ; for access to the direct page
+前的的过程可以重复应用于多个分页的区域，不过另一种可选的方法是，定义一个非分页区域，然后使用`.setdp`指示符指定偏移值：
 
-        The  linker  will  verify that subsequent direct page references
-        are in the specified area and offset address range.  It  is  the
-        programmers responsibility to load the dp register with the cor-
-        rect page segment  corresponding  to  the  .setdp  base  address
-        specified.
+```
+        .area   DIRECT          ; define non-paged area
+                                ; 定义非分页区域
+        .
+        .
+        .
+        .area   PROGRAM
+        .
+        .setdp  0,DIRECT        ; direct page area
+        ldd     #DIRECT         ; load the direct page register
+        tfr     a,dp            ; for access to the direct page
 
-           For  those  cases  where a single piece of code must access a
-        defined data structure within a direct page and there  are  many
-        pages,  define  a  dumby  direct page linked at address 0.  This
-
+                                ; 直接分页区域
+                                ; 加载直接分页寄存器
+                                ; 用于访问直接分页
+        .
+        .
+        .setdp  0x100,DIRECT    ; direct page area
+        ldd     #DIRECT+0x100   ; load the direct page register
+        tfr     a,dp            ; for access to the direct page
 
-        THE ASSEMBLER                                          PAGE 1-55
-        GENERAL ASSEMBLER DIRECTIVES
+                                ; 直接分页区域
+                                ; 加载直接分页寄存器
+                                ; 用于访问直接分页
+```
 
+The linker will verify that subsequent direct page references are in the specified area and offset address range. It is the programmers responsibility to load the `dp` register with the correct page segment corresponding to the `.setdp` base address specified.
 
-        dumby page is used only to define  the  variable  labels.   Then
-        load  the dp register with the real base address but donot use a
-        .setdp directive.  This method is equivalent to indexed address-
-        ing,  where the dp register is the index register and the direct
-        addressing is the offset.
+连接器会验证后续的直接分页引用位于指定的区域和编译地址范围中。而将与`.setdp`指定的基地址相对应的正确的分页段加载到`dp`寄存器，则是程序员的职责。
 
+For those cases where a single piece of code must access a defined data structure within a direct page and there are many pages, define a dumby direct page linked at address 0. This dumby page is used only to define the variable labels. Then load the `dp` register with the real base address but donot use a `.setdp` directive. This method is equivalent to indexed addressing, where the `dp` register is the index register and the direct addressing is the offset.
+
+当一段代码需要访问直接分页中定义的一个数据结构，并且有很多页时，可以定义一个哑元直接分页，连接到地址0。该哑元页只用于定义变量标号。然后将真实基地址加载到`dp`寄存器，但不使用`.setdp`指示符。这个方法等价于索引寻址，其中`dp`寄存器是索引寄存器，而直接地址是偏移量。
 
         1.4.42  .16bit, .24bit, and .32bit Directives
 
