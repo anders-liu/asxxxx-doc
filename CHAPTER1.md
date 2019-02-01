@@ -2966,7 +2966,7 @@ Both the area address and offset value must be specified (area and variable name
 
 The preceeding sequence could be repeated for multiple paged areas, however an alternate method is to define a non-paged area and use the `.setdp` directive to specify the offset value:
 
-前的的过程可以重复应用于多个分页的区域，不过另一种可选的方法是，定义一个非分页区域，然后使用`.setdp`指示符指定偏移值：
+前面的过程可以重复应用于多个分页的区域，不过另一种可选的方法是，定义一个非分页区域，然后使用`.setdp`指示符指定偏移值：
 
 ```
         .area   DIRECT          ; define non-paged area
@@ -3002,103 +3002,125 @@ For those cases where a single piece of code must access a defined data structur
 
 当一段代码需要访问直接分页中定义的一个数据结构，并且有很多页时，可以定义一个哑元直接分页，连接到地址0。该哑元页只用于定义变量标号。然后将真实基地址加载到`dp`寄存器，但不使用`.setdp`指示符。这个方法等价于索引寻址，其中`dp`寄存器是索引寄存器，而直接地址是偏移量。
 
-        1.4.42  .16bit, .24bit, and .32bit Directives
+### <a id="1.4.42"></a>1.4.42 `.16bit`, `.24bit`, and `.32bit` Directives | `.16bit`、`.24bit`和`.32bit`指示符
 
-        Format:
+Format:
 
-                .16bit          ;specify 16-bit addressing
-                .24bit          ;specify 24-bit addressing
-                .32bit          ;specify 32-bit addressing
+格式：
 
+```
+        .16bit          ;specify 16-bit addressing
+                        ;指定16位地址
 
-           The  .16bit, .24bit, and .32bit directives are special direc-
-        tives for assembler configuration when default  values  are  not
-        used.
+        .24bit          ;specify 24-bit addressing
+                        ;指定24位地址
 
+        .32bit          ;specify 32-bit addressing
+                        ;指定32位地址
+```
 
-        1.4.43  .msb Directive
+The `.16bit`, `.24bit`, and `.32bit` directives are special directives for assembler configuration when default values are not used.
 
-        Format:
+`.16bit`、`.24bit`和`.32bit`指示符是当没有使用默认值时位汇编器提供配置值的特殊指示符。
 
-                .msb    n
+### <a id="1.4.43"></a>1.4.43 `.msb` Directive | `.msb`指示符
 
+Format:
 
-           The  .msb  directive is only available in selected assemblers
-        which support 24 or 32-bit addressing.
+格式：
 
-           The  assembler operator '>' selects the upper byte (MSB) when
-        included in an assembler  instruction.   The  default  assembler
-        mode  is  to  select bits <15:8> as the MSB.  The .msb directive
-        allows the programmer to specify a particular byte as the  'MSB'
-        when the address space is larger than 16-bits.
+```
+        .msb    n
+```
 
-           The assembler directive   .msb n  configures the assembler to
-        select a particular byte as MSB.  Given a 32-bit address of MNmn
-        (M(3)  is  <31:24>, N(2) is <23:16>, m(1) is <15:8>, and n(0) is
-        <7:0>) the following examples show how to  select  a  particular
-        address byte:
+The `.msb` directive is only available in selected assemblers which support 24 or 32-bit addressing.
 
-                .msb 1          ;select byte 1 of address
-                                ;<M(3):N(2):m(1):n(0)>
-                LD A,>MNmn      ;byte m <15:8> ==>> A
-                ...
+`.msb`指示符只能用于支持24位或32位寻址的汇编器。
 
-                .msb 2          ;select byte 2 of address
+The assembler operator '`>`' selects the upper byte (MSB) when included in an assembler instruction. The default assembler mode is to select bits `<15:8>` as the MSB. The `.msb` directive allows the programmer to specify a particular byte as the 'MSB' when the address space is larger than 16-bits.
+
+汇编操作符`>`用于选中一条汇编指令中包含的（数据）的高字节（MSB）。在汇编器的默认模式下会将`<15:8>`位选中为MSB。`.msb`指示符允许汇编器再地址空间大于16位的时候，选中特定的字节作为MSB。
+
+The assembler directive `.msb n` configures the assembler to select a particular byte as MSB. Given a 32-bit address of `MNmn` (`M(3)` is `<31:24>`, `N(2)` is `<23:16>`, `m(1)` is `<15:8>`, and `n(0)` is `<7:0>`) the following examples show how to select a particular address byte:
+
+汇编器指示符`.msb n`配置汇编器使其选择特定字节作为MSB。给定一个32位地址`MNmn`（`M(3)`为`<31:24>`，`N(2)`为`<23:16>`，`m(1)`为`<15:8>`，`n(0)`为`<7:0>`），下面的例子展示了如何选择特定的地址字节：
+
+```
+        .msb 1          ;select byte 1 of address
+                        ;<M(3):N(2):m(1):n(0)>
+        LD A,>MNmn      ;byte m <15:8> ==>> A
+        ...
+                        ;选择字节1，
+                        ;字节 m <15:8> ==>> A
+
+        .msb 2          ;select byte 2 of address
+                        ;<M(3):N(2):m(1):n(0)>
+        LD A,>MNmn      ;byte N <23:16> ==>> A
+        ...
+                        ;选择字节2，
+                        ;字节 N <23:16> ==>> A
+
+        .msb 3          ;select byte 3 of address
+                        ;<M(3):N(2):m(1):n(0)>
+        LD A,>MNmn      ;byte M <31:24> ==>> A
+        ...
+                        ;选择字节3，
+                        ;字节 M <31:24> ==>> A
+```
+
+### <a id="1.4.44"></a>1.4.44 `.lohi` and `.hilo` Directives | `.lohi`和`.hilo`指示符
+
+Format:
+
+格式：
+
+```
+        .lohi           ;specify LSB first output
+                        ;指定LSB先行输出
+
+        .hilo           ;specify MSB first output
+                        ;指定MSB先行输出
+```
+
+The `.lohi` and `.hilo` directives are special directives for assembler output configuration. These directives are currently only enabled in assembler 'ascheck'.
+
+`.lohi`和`.hilo`指示符用于指定汇编器的输出。这两个指示符目前只在汇编器ascheck中可用。
+
+An `<m>` error will be generated if the `.lohi` and `.hilo` directives are both used within the same assembly source file.
+
+挡在同一个汇编源文件中同时使用了`.lohi`和`.hilo`指示符，会产生`<m>`错误。
+
+### <a id="1.4.45"></a>1.4.45 `.end` Directive | `.end`指示符
+
+Format:
+
+格式：
+
+```
+        .end
+
+        .end    exp
+```
+
+where:
+
+其中：
+
+```
+        exp     represents any expression, including constants,
+                symbols, or labels.
+
+                表示任意表达式，包括常量、符号或标号。
+```
+
+The `.end` directive is used to specify a code entry point to be included in the linker output file. Review the I86 and S record formats described in the linker section for details.
+
+`.end`指示符用于指定包含在连接器输出文件中的代码入口点。细节参见连接器章节中对I86和S记录格式的介绍。
+
+The `.end` directive without an expression is ignored.
+
+不带表达式的`.end`指示符会被忽略。
 
-
-        THE ASSEMBLER                                          PAGE 1-56
-        GENERAL ASSEMBLER DIRECTIVES
-
-
-                                ;<M(3):N(2):m(1):n(0)>
-                LD A,>MNmn      ;byte N <23:16> ==>> A
-                ...
-
-                .msb 3          ;select byte 3 of address
-                                ;<M(3):N(2):m(1):n(0)>
-                LD A,>MNmn      ;byte M <31:24> ==>> A
-                ...
-
-
-        1.4.44  .lohi and .hilo Directives
-
-        Format:
-
-                .lohi           ;specify LSB first output
-                .hilo           ;specify MSB first output
-
-
-           The .lohi and .hilo directives are special directives for as-
-        sembler output configuration.  These  directives  are  currently
-        only enabled in assembler 'ascheck'.
-
-           An  <m> error will be generated if the .lohi and .hilo direc-
-        tives are both used within the same assembly source file.
-
-
-        1.4.45  .end Directive
-
-        Format:
-
-                .end
-
-                .end    exp
-
-        where:  exp     represents  any expression, including constants,
-                        symbols, or labels.
-
-
-           The  .end  directive is used to specify a code entry point to
-        be included in the linker output file.  Review  the  I86  and  S
-        record formats described in the linker section for details.
-
-           The .end directive without an expression is ignored.
-
-
-        THE ASSEMBLER                                          PAGE 1-57
-        GENERAL ASSEMBLER DIRECTIVES
-
-
         1.5  INVOKING ASXXXX
 
 
