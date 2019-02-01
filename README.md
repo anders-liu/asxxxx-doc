@@ -83,17 +83,17 @@ ASxxxx 官方网站：http://shop-pdp.net/ashtml/asxxxx.htm
     - [1.4.34 `.ifnb` Directive | `.ifnb`指示符](CHAPTER1.md#user-content-1.4.34)
     - [1.4.35 `.ifidn` Directive | `.ifidn`指示符](CHAPTER1.md#user-content-1.4.35)
     - [1.4.36 `.ifdif` Directive | `.ifdif`指示符](CHAPTER1.md#user-content-1.4.36)
-    - 1.4.37 Alternate `.if` Directive Forms
-    - 1.4.38 Immediate Conditional Assembly Directives
-    - 1.4.39 `.include` Directive
-        - 1.4.39.1 Including Files In Windows/DOS
-        - 1.4.39.2 Including Files in Linux
-    - 1.4.40 `.define` and `.undefine` Directives
-    - 1.4.41 `.setdp` Directive
-    - 1.4.42 `.16bit`, `.24bit`, and `.32bit` Directives
-    - 1.4.43 `.msb` Directive
-    - 1.4.44 `.lohi` and `.hilo` Directives
-    - 1.4.45 `.end` Directive
+    - [1.4.37 Alternate `.if` Directive Forms | 其他`.if`指示符格式](CHAPTER1.md#user-content-1.4.37)
+    - [1.4.38 Immediate Conditional Assembly Directives | 立即条件汇编指示符](CHAPTER1.md#user-content-1.4.38)
+    - [1.4.39 `.include` Directive | `.include`指示符](CHAPTER1.md#user-content-1.4.39)
+        - [1.4.39.1 Including Files In Windows/DOS | Windows/DOS上的包含文件](CHAPTER1.md#user-content-1.4.39.1)
+        - [1.4.39.2 Including Files in Linux | Linux上的包含文件](CHAPTER1.md#user-content-1.4.39.2)
+    - [1.4.40 `.define` and `.undefine` Directives | `.define`和`.undefine`指示符](CHAPTER1.md#user-content-1.4.40)
+    - [1.4.41 `.setdp` Directive | `.setdp`指示符](CHAPTER1.md#user-content-1.4.41)
+    - [1.4.42 `.16bit`, `.24bit`, and `.32bit` Directives | `.16bit`、`.24bit`和`.32bit`指示符](CHAPTER1.md#user-content-1.4.42)
+    - [1.4.43 `.msb` Directive | `.msb`指示符](CHAPTER1.md#user-content-1.4.43)
+    - [1.4.44 `.lohi` and `.hilo` Directives | `.lohi`和`.hilo`指示符](CHAPTER1.md#user-content-1.4.44)
+    - [1.4.45 `.end` Directive | `.end`指示符](CHAPTER1.md#user-content-1.4.45)
 
   - 1.5 INVOKING ASXXXX
   - 1.6 ERRORS
